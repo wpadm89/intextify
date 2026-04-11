@@ -1,0 +1,11 @@
+(Enter a URL on each new line below. The scraper will visit each link to try and parse construction material rates)
+(Only link to pages specifically related to construction materials: Steel, Cement, Sand, Crush, Bricks)
+https://www.zarea.pk/cement
+https://www.zarea.pk/steel
+https://bajriwaly.com/product-category/bajri/ (crush)
+https://bajriwaly.com/product-category/bricks/ (bricks)
+https://bajriwaly.com/product-category/cement/ (cement)
+https://bajriwaly.com/product-category/sariya/ (steel)
+https://www.pbs.gov.pk/price-statistics/   (Construction items prices in Rural and Urban areas as well as City wise rates in downloadable excel files)
+https://ittehad.com.pk/ (steel)
+

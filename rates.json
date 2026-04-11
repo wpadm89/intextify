@@ -1,0 +1,12 @@
+{
+  "lastUpdated": "2026-04-03",
+  "baseRates": {
+    "bricks": 24,
+    "cement": 1450,
+    "sand": 55,
+    "crush": 105,
+    "steel": 282,
+    "labor": 420
+  },
+  "overrides": {}
+}

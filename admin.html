@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intextify | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: var(--bg-primary); }
+        .admin-panel { background: var(--bg-secondary); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); width: 100%; max-width: 500px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .admin-header { text-align: center; margin-bottom: 2rem; }
+        .admin-header h1 { color: #00E5FF; }
+        .form-group { margin-bottom: 1rem; }
+        .action-btn { width: 100%; margin-top: 1rem; }
+        #rates-editor { display: none; }
+    </style>
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="nttKcMMSvpiE9XgFKECdY4J80taaKOKwkm0oxHekwjQ" />
+    <!-- Google Analytics Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTMXVQ4QKE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XTMXVQ4QKE');
+    </script>
+</head>
+<body>
+
+<div class="admin-panel" id="auth-section">
+    <div class="admin-header">
+        <h1>Admin Access</h1>
+        <p class="subtitle" style="color:var(--text-secondary)">Enter master key to access live rates overrides</p>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-pass" placeholder="Enter password">
+    </div>
+    <button class="action-btn primary-btn" id="btn-login">Login</button>
+</div>
+
+<div class="admin-panel" id="rates-editor">
+    <div class="admin-header">
+        <h1>Live Rates Override</h1>
+        <p class="subtitle" style="color:var(--text-secondary)">Manually fix rates if the scraper fails.</p>
+    </div>
+    
+    <div id="overrides-container">
+        <!-- JS Injected -->
+    </div>
+
+    <button class="action-btn primary-btn" id="btn-save-overrides">Save Overrides</button>
+    <p id="status-msg" style="text-align:center; margin-top:1rem; color:#10b981; display:none;"></p>
+</div>
+
+<script>
+    const passwordInput = document.getElementById('admin-pass');
+    let currentPassword = '';
+    
+    document.getElementById('btn-login').addEventListener('click', async () => {
+        currentPassword = passwordInput.value;
+        if (!currentPassword) return;
+
+        // Fetch current overrides to populate inputs
+        try {
+            const res = await fetch('/api/rates');
+            const data = await res.json();
+            
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('rates-editor').style.display = 'block';
+
+            const container = document.getElementById('overrides-container');
+            const materials = ['bricks', 'cement', 'sand', 'crush', 'steel', 'labor'];
+            
+            materials.forEach(mat => {
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                
+                const baseVal = data.baseRates[mat] || 0;
+                const overrideVal = data.overrides[mat] !== undefined ? data.overrides[mat] : '';
+                
+                group.innerHTML = `
+                    <label style="text-transform: capitalize;">${mat} (Base: ${baseVal})</label>
+                    <input type="number" data-mat="${mat}" placeholder="Leave blank to use base rate" value="${overrideVal}">
+                `;
+                container.appendChild(group);
+            });
+        } catch(e) {
+            alert('Could not fetch rates. Is server running?');
+        }
+    });
+
+    document.getElementById('btn-save-overrides').addEventListener('click', async () => {
+        const inputs = document.querySelectorAll('#overrides-container input');
+        const overrides = {};
+        
+        inputs.forEach(inp => {
+            const val = inp.value;
+            if (val && !isNaN(val)) {
+                overrides[inp.getAttribute('data-mat')] = parseFloat(val);
+            }
+        });
+
+        try {
+            const res = await fetch('/api/rates/override', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: currentPassword, overrides })
+            });
+
+            const result = await res.json();
+            if (res.ok) {
+                const msg = document.getElementById('status-msg');
+                msg.innerText = result.message;
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000);
+            } else {
+                alert(result.error);
+            }
+        } catch(e) {
+            alert('Failed to save.');
+        }
+    });
+</script>
+</body>
+</html>

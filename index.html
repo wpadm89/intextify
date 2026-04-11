@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intextify | Advanced Construction & BOQ Estimator</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Calculate precise construction costs, track material requirements, and generate instant project reports with the highly-accurate Intextify BOQ Estimator.">
+    <meta name="keywords" content="BOQ estimator, construction cost calculator, building materials, concrete calculator, civil engineering, Intextify">
+    <meta name="author" content="Intextify">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Intextify - Advanced Construction BOQ Estimator">
+    <meta property="og:description" content="Calculate precise construction costs and generate instant project reports with the Intextify BOQ Construction Suite.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="nttKcMMSvpiE9XgFKECdY4J80taaKOKwkm0oxHekwjQ" />
+    
+    <!-- Analytics & Monetization Placeholders -->
+    <!-- Google Analytics Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTMXVQ4QKE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XTMXVQ4QKE');
+    </script>
+    
+    <!-- Google AdSense Auto Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Dashboard Sidebar / Top Config Panel -->
+        <aside class="sidebar left-sidebar" id="nav-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36" aria-label="Intextify Logo" role="img">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00E5FF" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="4" width="12" height="32" rx="4" fill="url(#logoGrad)"></rect>
+                        <rect x="20" y="16" width="12" height="20" rx="4" fill="url(#logoGrad)" opacity="0.8"></rect>
+                        <circle cx="26" cy="8" r="4" fill="#00E5FF"></circle>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>Intextify</h1>
+                        <span class="logo-subtitle">Construction Suite</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="estimator-view">BOQ Estimator</button>
+                <button class="nav-item" data-view="concrete-view">Concrete Calculator</button>
+                <button class="nav-item" data-view="steel-view">Steel Tool (Coming Soon)</button>
+                <button class="nav-item" data-view="plastering-view">Plastering (Coming Soon)</button>
+                <button class="nav-item" data-view="flooring-view">Flooring (Coming Soon)</button>
+                <button class="nav-item" data-view="paint-view">Paint Work (Coming Soon)</button>
+            </nav>
+
+            <div class="sidebar-section settings-section" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <div class="toggle-group">
+                    <label>Dark Theme</label>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-group">
+                    <label id="unit-toggle-label">Units: Imperial (ft)</label>
+                    <label class="switch">
+                        <input type="checkbox" id="unit-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Legal / Compliance Footer -->
+            <div class="legal-footer">
+                <div class="legal-links">
+                    <a href="privacy.html" target="_blank">Privacy</a>
+                    <span class="separator">&bull;</span>
+                    <a href="terms.html" target="_blank">Terms</a>
+                    <span class="separator">&bull;</span>
+                    <a href="contact.html" target="_blank">Contact</a>
+                </div>
+                <div class="copyright">&copy; 2026 Intextify. All rights reserved.</div>
+            </div>
+            
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- BOQ Estimator View -->
+            <section class="view-section active" id="estimator-view">
+                
+                <div class="dashboard-grid">
+                    
+                    <!-- Overview & Total Card -->
+                    <div class="dash-widget overview-widget">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3 class="widget-title" style="margin-bottom: 0;">Estimated Total Construction Cost</h3>
+                            <span id="rates-last-updated" style="font-size: 0.8rem; color: var(--text-secondary); background: var(--bg-primary); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);">Rates Last Updated: Fetching...</span>
+                        </div>
+                        <div class="total-cost-container">
+                            <div class="total-value" id="overall-total">Rs. 0</div>
+                        </div>
+                    </div>
+
+                    <!-- Pie Chart Layout -->
+                    <div class="dash-widget chart-widget">
+                        <h3 class="widget-title">Cost Distribution by Material</h3>
+                        <div class="chart-container">
+                            <canvas id="costPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Layout -->
+                    <div class="dash-widget timeline-widget">
+                        <h3 class="widget-title">6 Months Construction Timeline (Estimated)</h3>
+                        <div class="chart-container">
+                            <canvas id="timelineBarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Material Specific Info Cards -->
+                    <div class="dash-widget materials-widget">
+                        <h3 class="widget-title">Quantity & Cost Breakdown</h3>
+                        <div id="boq-dashboard-cards" class="cards-grid">
+                            <!-- Cards injected via JS -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Concrete Calculator View -->
+            <section class="view-section" id="concrete-view">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Concrete Calculator</h2>
+                        <p class="subtitle">Calculate materials required for concrete slabs, beams, or columns.</p>
+                    </div>
+                    
+                    <div class="concrete-grid">
+                        <div class="concrete-results">
+                            <h3>Requirements Overview</h3>
+                            
+                            <div class="metric-card mt-4">
+                                <span>Wet Volume (<span class="lbl-vol">cft</span>)</span>
+                                <strong id="res-wet-vol">0</strong>
+                            </div>
+                            <div class="metric-card">
+                                <span>Dry Volume (<span class="lbl-vol">cft</span>) <small>(Wet × 1.54)</small></span>
+                                <strong id="res-dry-vol">0</strong>
+                            </div>
+                            
+                            <div class="materials-list mt-4">
+                                <div class="mat-item">
+                                    <div class="mat-details">
+                                        <h4>Cement</h4>
+                                        <span id="res-cement-cft">0 <span class="lbl-vol">cft</span></span>
+                                    </div>
+                                    <strong class="mat-final highlight" id="res-cement-bags">0 Bags</strong>
+                                </div>
+                                
+                                <div class="mat-item">
+                                    <div class="mat-details">
+                                        <h4>Sand</h4>
+                                    </div>
+                                    <strong class="mat-final" id="res-sand">0 <span class="lbl-vol">cft</span></strong>
+                                </div>
+
+                                <div class="mat-item">
+                                    <div class="mat-details">
+                                        <h4>Crush / Gravel</h4>
+                                    </div>
+                                    <strong class="mat-final" id="res-crush">0 <span class="lbl-vol">cft</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="view-section" id="steel-view">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Steel Calculator</h2>
+                        <p class="subtitle">Coming soon!</p>
+                    </div>
+                </div>
+            </section>
+            <section class="view-section" id="plastering-view">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Plastering Requirements</h2>
+                        <p class="subtitle">Coming soon!</p>
+                    </div>
+                </div>
+            </section>
+            <section class="view-section" id="flooring-view">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Flooring Calculator</h2>
+                        <p class="subtitle">Coming soon!</p>
+                    </div>
+                </div>
+            </section>
+            <section class="view-section" id="paint-view">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Paint Work Estimator</h2>
+                        <p class="subtitle">Coming soon!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Right Sidebar / Configuration Options -->
+        <aside class="sidebar config-sidebar" id="config-sidebar">
+            <div class="sidebar-header">
+                <h2>Configuration</h2>
+            </div>
+            
+            <div class="sidebar-section" id="plot-config-section">
+                <h3>Project Information</h3>
+                <div class="form-group">
+                    <label for="projectLocation">Project Location</label>
+                    <select id="projectLocation">
+                        <option value="lahore" selected>Lahore</option>
+                        <option value="gujranwala">Gujranwala</option>
+                        <option value="talagang">Talagang</option>
+                        <option value="islamabad">Islamabad</option>
+                        <option value="karachi">Karachi</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-top: 1rem;">Project Dimensions</h3>
+                <div class="form-group">
+                    <label for="plotSize">Standard Plot Size</label>
+                    <select id="plotSize">
+                        <option value="custom">Custom (Manual Entry)</option>
+                        <option value="5_marla" selected>5 Marla</option>
+                        <option value="10_marla">10 Marla</option>
+                        <option value="1_kanal">1 Kanal</option>
+                    </select>
+                </div>
+                
+                <div class="input-row">
+                    <div class="form-group half">
+                        <label for="plotLength">Length (<span class="lbl-len">ft</span>)</label>
+                        <input type="number" id="plotLength" value="50">
+                    </div>
+                    <div class="form-group half">
+                        <label for="plotWidth">Width (<span class="lbl-len">ft</span>)</label>
+                        <input type="number" id="plotWidth" value="25">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roofHeight">Roof Height / Floor (<span class="lbl-len">ft</span>)</label>
+                    <input type="number" id="roofHeight" value="11" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label for="coveredAreaDisplay">Computed Covered Area</label>
+                    <input type="text" id="coveredAreaDisplay" value="1250 sqft" readonly class="readonly-input">
+                </div>
+            </div>
+
+            <div class="sidebar-section" id="rates-config-section">
+                <h3>Material Rates (Local)</h3>
+                <div id="material-rates-container">
+                    <!-- Rate inputs injected via JS -->
+                </div>
+            </div>
+
+            <div class="sidebar-section hidden" id="concrete-config-section">
+                <h3>Mix Dimensions</h3>
+                <div class="input-row">
+                    <div class="form-group half">
+                        <label for="concLength">Length (<span class="lbl-len">ft</span>)</label>
+                        <input type="number" id="concLength" value="10">
+                    </div>
+                    <div class="form-group half">
+                        <label for="concWidth">Width (<span class="lbl-len">ft</span>)</label>
+                        <input type="number" id="concWidth" value="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="concDepth">Thickness / Depth (<span class="lbl-thick">inches</span>)</label>
+                    <input type="number" id="concDepth" value="6">
+                </div>
+                
+                <h3 style="margin-top: 1.5rem">Concrete Mix</h3>
+                <div class="form-group">
+                    <label for="concRatio">Select Ratio (C:S:C)</label>
+                    <select id="concRatio">
+                        <option value="1:2:4">1:2:4 (M15 - slabs)</option>
+                        <option value="1:1.5:3">1:1.5:3 (M20 - load)</option>
+                        <option value="1:3:6">1:3:6 (M10 - pcc)</option>
+                        <option value="1:4:8">1:4:8 (M7.5 - lean)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="action-btn" id="btn-export">Export to PDF</button>
+                <button class="action-btn primary-btn" id="btn-save">Save Estimate</button>
+            </div>
+        </aside>
+        
+        <!-- Cookie Consent Banner for AdSense Compliance -->
+        <div id="cookie-banner" class="cookie-banner hidden">
+            <div class="cookie-content">
+                <p>We use cookies and tracker technologies to analyze traffic and personalize ads.<br>By continuing, you consent to our <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
+                <button id="accept-cookies" class="action-btn primary-btn btn-small">Accept</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
