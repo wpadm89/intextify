@@ -50,8 +50,8 @@
       }
     </script>
 </head>
-<body class="max-w-[100vw] overflow-x-hidden">
-    <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row">
+<body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
+    <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row flex-1">
         <!-- Dashboard Sidebar / Top Config Panel -->
         <aside class="sidebar left-sidebar order-1 lg:order-1" id="nav-sidebar">
             <div class="sidebar-header">
@@ -74,7 +74,20 @@
                 </div>
             </div>
 
-            <nav class="sidebar-nav flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <!-- Mobile Dropdown Navigation -->
+            <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
+                <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold">
+                    <option value="estimator-view">BOQ Estimator</option>
+                    <option value="concrete-view">Concrete Calculator</option>
+                    <option value="steel-view" disabled>Steel Tool (Coming Soon)</option>
+                    <option value="plastering-view" disabled>Plastering (Coming Soon)</option>
+                    <option value="flooring-view" disabled>Flooring (Coming Soon)</option>
+                    <option value="paint-view" disabled>Paint Work (Coming Soon)</option>
+                </select>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="sidebar-nav hidden lg:flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <button class="nav-item active shrink-0" data-view="estimator-view">BOQ Estimator</button>
                 <button class="nav-item shrink-0" data-view="concrete-view">Concrete Calculator</button>
                 <button class="nav-item shrink-0" data-view="steel-view">Steel Tool (Coming Soon)</button>
@@ -100,22 +113,12 @@
                 </div>
             </div>
 
-            <!-- Legal / Compliance Footer -->
-            <div class="legal-footer">
-                <div class="legal-links">
-                    <a href="privacy.html" target="_blank">Privacy</a>
-                    <span class="separator">&bull;</span>
-                    <a href="terms.html" target="_blank">Terms</a>
-                    <span class="separator">&bull;</span>
-                    <a href="contact.html" target="_blank">Contact</a>
-                </div>
-                <div class="copyright">&copy; 2026 Intextify. All rights reserved.</div>
-            </div>
+            <!-- Legal Footer Moved to Bottom -->
             
         </aside>
 
         <!-- Main Content Area -->
-        <main class="content-area order-3 lg:order-2 [&_.dash-widget]:mx-4 lg:[&_.dash-widget]:mx-0 [&_.panel]:mx-4 lg:[&_.panel]:mx-0">
+        <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden [&_.dash-widget]:w-[calc(100%-2rem)] lg:[&_.dash-widget]:w-full [&_.dash-widget]:max-w-md lg:[&_.dash-widget]:max-w-none [&_.dash-widget]:mx-auto lg:[&_.dash-widget]:mx-0 [&_.dash-widget]:overflow-hidden [&_.panel]:w-[calc(100%-2rem)] lg:[&_.panel]:w-full [&_.panel]:max-w-md lg:[&_.panel]:max-w-none [&_.panel]:mx-auto lg:[&_.panel]:mx-0 [&_.panel]:overflow-hidden">
             <!-- BOQ Estimator View -->
             <section class="view-section active" id="estimator-view">
                 
@@ -241,6 +244,12 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Moved Action Buttons -->
+            <div class="sidebar-footer flex flex-col sm:flex-row w-full max-w-2xl mx-auto px-4 lg:px-0 gap-4 mb-8 mt-auto">
+                <button class="action-btn w-full rounded-lg" id="btn-export" style="margin-top: 0;">Export to PDF</button>
+                <button class="action-btn primary-btn w-full rounded-lg" id="btn-save" style="margin-top: 0;">Save Estimate</button>
+            </div>
         </main>
         
         <!-- Right Sidebar / Configuration Options -->
@@ -329,10 +338,7 @@
                 </div>
             </div>
 
-            <div class="sidebar-footer">
-                <button class="action-btn" id="btn-export">Export to PDF</button>
-                <button class="action-btn primary-btn" id="btn-save">Save Estimate</button>
-            </div>
+            <!-- Action buttons moved to content area -->
         </aside>
         
         <!-- Cookie Consent Banner for AdSense Compliance -->
@@ -344,6 +350,18 @@
         </div>
     </div>
     
+    <!-- Global Legal Footer -->
+    <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
+        <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
+            <a href="privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
+            <span class="separator">&bull;</span>
+            <a href="terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
+            <span class="separator">&bull;</span>
+            <a href="contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
+        </div>
+        <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
