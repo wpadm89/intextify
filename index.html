@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Intextify | Advanced Construction & BOQ Estimator</title>
     
     <!-- SEO & Metadata -->
@@ -38,13 +38,24 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        corePlugins: { preflight: false },
+        theme: {
+          screens: {
+            'lg': '1000px',
+          }
+        }
+      }
+    </script>
 </head>
-<body>
-    <div class="dashboard-layout">
+<body class="max-w-[100vw] overflow-x-hidden">
+    <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row">
         <!-- Dashboard Sidebar / Top Config Panel -->
-        <aside class="sidebar left-sidebar" id="nav-sidebar">
+        <aside class="sidebar left-sidebar order-1 lg:order-1" id="nav-sidebar">
             <div class="sidebar-header">
-                <div class="logo">
+                <div class="logo flex flex-col lg:flex-row items-center text-center lg:text-left">
                     <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36" aria-label="Intextify Logo" role="img">
                         <defs>
                             <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -56,20 +67,20 @@
                         <rect x="20" y="16" width="12" height="20" rx="4" fill="url(#logoGrad)" opacity="0.8"></rect>
                         <circle cx="26" cy="8" r="4" fill="#00E5FF"></circle>
                     </svg>
-                    <div class="logo-text">
+                    <div class="logo-text mt-2 lg:mt-0">
                         <h1>Intextify</h1>
                         <span class="logo-subtitle">Construction Suite</span>
                     </div>
                 </div>
             </div>
 
-            <nav class="sidebar-nav">
-                <button class="nav-item active" data-view="estimator-view">BOQ Estimator</button>
-                <button class="nav-item" data-view="concrete-view">Concrete Calculator</button>
-                <button class="nav-item" data-view="steel-view">Steel Tool (Coming Soon)</button>
-                <button class="nav-item" data-view="plastering-view">Plastering (Coming Soon)</button>
-                <button class="nav-item" data-view="flooring-view">Flooring (Coming Soon)</button>
-                <button class="nav-item" data-view="paint-view">Paint Work (Coming Soon)</button>
+            <nav class="sidebar-nav flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <button class="nav-item active shrink-0" data-view="estimator-view">BOQ Estimator</button>
+                <button class="nav-item shrink-0" data-view="concrete-view">Concrete Calculator</button>
+                <button class="nav-item shrink-0" data-view="steel-view">Steel Tool (Coming Soon)</button>
+                <button class="nav-item shrink-0" data-view="plastering-view">Plastering (Coming Soon)</button>
+                <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button>
+                <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button>
             </nav>
 
             <div class="sidebar-section settings-section" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
@@ -104,7 +115,7 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="content-area">
+        <main class="content-area order-3 lg:order-2 [&_.dash-widget]:mx-4 lg:[&_.dash-widget]:mx-0 [&_.panel]:mx-4 lg:[&_.panel]:mx-0">
             <!-- BOQ Estimator View -->
             <section class="view-section active" id="estimator-view">
                 
@@ -233,7 +244,7 @@
         </main>
         
         <!-- Right Sidebar / Configuration Options -->
-        <aside class="sidebar config-sidebar" id="config-sidebar">
+        <aside class="sidebar config-sidebar order-2 lg:order-3 [&_input]:min-h-[44px] [&_select]:min-h-[44px] [&_.sidebar-section]:mx-4 lg:[&_.sidebar-section]:mx-0" id="config-sidebar">
             <div class="sidebar-header">
                 <h2>Configuration</h2>
             </div>
