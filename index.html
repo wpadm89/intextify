@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Intextify | Advanced Construction & BOQ Estimator</title>
+    <title>Intextify | Smart BOQ Estimator & Construction Calculator</title>
     
     <!-- SEO & Metadata -->
-    <meta name="description" content="Calculate precise construction costs, track material requirements, and generate instant project reports with the highly-accurate Intextify BOQ Estimator.">
-    <meta name="keywords" content="BOQ estimator, construction cost calculator, building materials, concrete calculator, civil engineering, Intextify">
+    <meta name="description" content="Calculate accurate Bill of Quantities (BOQ), material estimates, and construction costs instantly. Built for civil engineers and contractors.">
+    <meta name="keywords" content="BOQ estimator, construction cost calculator Pakistan, civil engineering tools, material estimate, concrete calculator, Gujranwala construction, Talagang builders">
     <meta name="author" content="Intextify">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="Intextify - Advanced Construction BOQ Estimator">
-    <meta property="og:description" content="Calculate precise construction costs and generate instant project reports with the Intextify BOQ Construction Suite.">
+    <meta property="og:title" content="Intextify | Smart BOQ Estimator & Construction Calculator">
+    <meta property="og:description" content="Calculate accurate Bill of Quantities (BOQ), material estimates, and construction costs instantly. Built for civil engineers and contractors.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.intextify.com/">
+    <meta property="og:image" content="https://www.intextify.com/placeholder-banner.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Intextify",
+      "url": "https://www.intextify.com/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "description": "Calculate accurate Bill of Quantities (BOQ), material estimates, and construction costs instantly. Built for civil engineers and contractors."
+    }
+    </script>
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="nttKcMMSvpiE9XgFKECdY4J80taaKOKwkm0oxHekwjQ" />
@@ -127,7 +142,7 @@
                     <!-- Overview & Total Card -->
                     <div class="dash-widget overview-widget">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h3 class="widget-title" style="margin-bottom: 0;">Estimated Total Construction Cost</h3>
+                            <h2 class="widget-title" style="margin-bottom: 0;">Estimated Total Construction Cost</h2>
                             <span id="rates-last-updated" style="font-size: 0.8rem; color: var(--text-secondary); background: var(--bg-primary); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);">Rates Last Updated: Fetching...</span>
                         </div>
                         <div class="total-cost-container">
@@ -137,7 +152,7 @@
 
                     <!-- Pie Chart Layout -->
                     <div class="dash-widget chart-widget">
-                        <h3 class="widget-title">Cost Distribution by Material</h3>
+                        <h2 class="widget-title">Cost Distribution by Material</h2>
                         <div class="chart-container">
                             <canvas id="costPieChart"></canvas>
                         </div>
@@ -145,7 +160,7 @@
 
                     <!-- Timeline Layout -->
                     <div class="dash-widget timeline-widget">
-                        <h3 class="widget-title">6 Months Construction Timeline (Estimated)</h3>
+                        <h2 class="widget-title">6 Months Construction Timeline (Estimated)</h2>
                         <div class="chart-container">
                             <canvas id="timelineBarChart"></canvas>
                         </div>
@@ -153,7 +168,7 @@
 
                     <!-- Material Specific Info Cards -->
                     <div class="dash-widget materials-widget">
-                        <h3 class="widget-title">Quantity & Cost Breakdown</h3>
+                        <h2 class="widget-title">Quantity & Cost Breakdown</h2>
                         <div id="boq-dashboard-cards" class="cards-grid">
                             <!-- Cards injected via JS -->
                         </div>
