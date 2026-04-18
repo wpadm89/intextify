@@ -7,7 +7,7 @@ module.exports = async function handler(req, res) {
 
     const { password, overrides } = req.body;
     
-    if (password !== 'admin123') {
+    if (password !== 'adnan123') {
         return res.status(401).json({ error: 'Unauthorized.' });
     }
 
