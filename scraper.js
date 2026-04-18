@@ -4,25 +4,6 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 const LINKS_FILE = path.join(__dirname, 'Links.txt');
-const RATES_FILE = path.join(__dirname, 'rates.json');
-
-// Helper to write to JSON
-const saveRates = (rates) => {
-    try {
-        let existing = {};
-        if (fs.existsSync(RATES_FILE)) {
-            existing = JSON.parse(fs.readFileSync(RATES_FILE, 'utf8'));
-        }
-        
-        existing.lastUpdated = new Date().toISOString().split('T')[0];
-        existing.baseRates = { ...existing.baseRates, ...rates };
-        
-        fs.writeFileSync(RATES_FILE, JSON.stringify(existing, null, 2));
-        console.log("Rates successfully scrubbed and updated.");
-    } catch (err) {
-        console.error("Error saving rates:", err.message);
-    }
-};
 
 const readLinks = () => {
     try {
@@ -44,15 +25,12 @@ const scrubRates = async () => {
     
     if (urls.length === 0) {
         console.log("No valid URLs found in Links.txt. Skipping scrub.");
-        return;
+        return null;
     }
 
     let newlyScrapedRates = {};
     
     // Simple heuristic parser for construction materials
-    // Note: Since each website renders differently, we use a regex or string search heuristic 
-    // to find generic keywords. For a production app, custom parsing rules per domain are optimal.
-    
     const materialKeywords = {
         'bricks': [/brick/i, /awal/i, /awwal/i],
         'cement': [/cement/i, /dg/i, /maple/i, /fauji/i, /bestway/i],
@@ -73,23 +51,31 @@ const scrubRates = async () => {
             const $ = cheerio.load(data);
             const bodyText = $('body').text().replace(/\s+/g, ' ');
 
-            // This is a naive logic mapping that looks for price patterns nearby keywords.
-            // Works as a stub for the "Start building your database of rates" intent.
             for (const [matId, regexes] of Object.entries(materialKeywords)) {
                 if (!newlyScrapedRates[matId]) {
-                    if (regexes.some(rx => rx.test(bodyText))) {
-                        // Example: look for "Rs. 123" or "Rs 123"
-                        const priceMatches = bodyText.match(/Rs\.?\s*(\d{1,4}(?:,\d{3})*(?:\.\d+)?)/gi);
-                        if (priceMatches && priceMatches.length > 0) {
-                            // Extract numbers, pick a reasonable one (e.g. median or first)
-                            const prices = priceMatches.map(p => parseFloat(p.replace(/Rs\.?\s*/i, '').replace(/,/g, '')));
-                            // Just pick the first valid price as a stub heuristic
-                            const validPrice = prices.find(p => p > 10 && p < 100000);
-                            if (validPrice) {
-                                newlyScrapedRates[matId] = validPrice;
-                                console.log(`[Scrape Success] Found ${matId} rate: ${validPrice} from ${url}`);
+                    for (const rx of regexes) {
+                        const keywordRegex = new RegExp(rx, 'gi');
+                        let match;
+                        while ((match = keywordRegex.exec(bodyText)) !== null) {
+                            // Extract a window of text around the matched keyword (80 chars back and forward)
+                            const start = Math.max(0, match.index - 80);
+                            const end = Math.min(bodyText.length, match.index + rx.source.length + 80);
+                            const snippet = bodyText.substring(start, end);
+                            
+                            // Check if a price exists near the keyword
+                            const priceMatches = snippet.match(/Rs\.?\s*(\d{1,4}(?:,\d{3})*(?:\.\d+)?)/gi);
+                            
+                            if (priceMatches && priceMatches.length > 0) {
+                                const prices = priceMatches.map(p => parseFloat(p.replace(/Rs\.?\s*/i, '').replace(/,/g, '')));
+                                const validPrice = prices.find(p => p > 10 && p < 100000);
+                                if (validPrice) {
+                                    newlyScrapedRates[matId] = validPrice;
+                                    console.log(`[Scrape Success] Found ${matId} rate: ${validPrice} from ${url}`);
+                                    break; 
+                                }
                             }
                         }
+                        if (newlyScrapedRates[matId]) break;
                     }
                 }
             }
@@ -98,11 +84,12 @@ const scrubRates = async () => {
         }
     }
 
-    // If we scraped anything, update the file
     if (Object.keys(newlyScrapedRates).length > 0) {
-        saveRates(newlyScrapedRates);
+        console.log("Scrape completed successfully.");
+        return newlyScrapedRates;
     } else {
         console.log("Could not extract any clear rates from the provided Links.txt sources today.");
+        return null;
     }
 };
 
