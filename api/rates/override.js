@@ -1,33 +1,24 @@
-const { kv } = require('@vercel/kv');
+import { kv } from '@vercel/kv';
 
-module.exports = async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method Not Allowed' });
-    }
-
+export default async function handler(req, res) {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+    
     const { password, overrides } = req.body;
     
+    // Updated Password as requested by user
     if (password !== 'adnan123') {
-        return res.status(401).json({ error: 'Unauthorized.' });
+        return res.status(401).json({ error: 'Unauthorized. Incorrect master key.' });
     }
 
     try {
-        let existing = await kv.get('intextify_rates');
+        let existingData = await kv.get('intextify_rates') || { overrides: {} };
         
-        if (!existing) {
-            existing = { 
-                baseRates: {}, 
-                overrides: {},
-                cityMultipliers: { lahore: 1.0, gujranwala: 0.98, talagang: 1.05, islamabad: 1.03, karachi: 1.08 }
-            };
-        }
-
         // Merge new overrides
-        existing.overrides = { ...existing.overrides, ...overrides };
+        existingData.overrides = { ...existingData.overrides, ...overrides };
         
-        await kv.set('intextify_rates', existing);
-        return res.status(200).json({ success: true, message: 'Overrides saved successfully.' });
+        await kv.set('intextify_rates', existingData);
+        res.status(200).json({ success: true, message: 'Overrides saved successfully to Cloud.' });
     } catch (err) {
-        return res.status(500).json({ error: 'Failed to save overrides.' });
+        res.status(500).json({ error: err.message || 'Failed to save to Vercel KV.' });
     }
-};
+}

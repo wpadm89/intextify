@@ -1,7 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const cheerio = require('cheerio');
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const LINKS_FILE = path.join(__dirname, 'Links.txt');
 
@@ -93,4 +97,4 @@ const scrubRates = async () => {
     }
 };
 
-module.exports = { scrubRates };
+export { scrubRates };

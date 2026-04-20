@@ -1,6 +1,7 @@
 {
   "name": "intextify-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Intextify Construction BOQ Estimator Fullstack",
   "main": "server.js",
   "scripts": {

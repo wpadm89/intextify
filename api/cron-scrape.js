@@ -1,7 +1,7 @@
-const { kv } = require('@vercel/kv');
-const { scrubRates } = require('../../scraper.js');
+import { kv } from '@vercel/kv';
+import { scrubRates } from '../scraper.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
