@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         // If database is empty, seed the initial structure
         if (!data) {
             data = {
-                lastUpdated: new Date().toISOString().split('T')[0],
+                lastUpdated: new Date().toISOString(),
                 baseRates: { bricks: 24, cement: 1450, sand: 55, crush: 105, steel: 282, labor: 420 },
                 cityMultipliers: { lahore: 1.0, gujranwala: 0.98, talagang: 1.05, islamabad: 1.03, karachi: 1.08 },
                 overrides: {}

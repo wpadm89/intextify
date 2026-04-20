@@ -25,7 +25,7 @@ export default async function handler(req, res) {
                 };
             }
 
-            existing.lastUpdated = new Date().toISOString().split('T')[0];
+            existing.lastUpdated = new Date().toISOString();
             existing.baseRates = { ...existing.baseRates, ...newlyScrapedRates };
             
             await kv.set('intextify_rates', existing);

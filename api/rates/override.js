@@ -15,6 +15,7 @@ export default async function handler(req, res) {
         
         // Merge new overrides
         existingData.overrides = { ...existingData.overrides, ...overrides };
+        existingData.lastUpdated = new Date().toISOString();
         
         await kv.set('intextify_rates', existingData);
         res.status(200).json({ success: true, message: 'Overrides saved successfully to Cloud.' });
