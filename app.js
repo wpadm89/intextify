@@ -335,19 +335,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dateObj = new Date(data.lastUpdated);
                     const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                     const formattedTime = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    ratesLastUpdatedEl.innerText = `Rates Updated: ${formattedDate} [${formattedTime}]`;
+                    ratesLastUpdatedEl.innerText = `Last Updated : ${formattedDate} [${formattedTime}]`;
                 } else {
-                    ratesLastUpdatedEl.innerText = `Rates Updated: Today`;
+                    ratesLastUpdatedEl.innerText = `Last Updated : Today`;
                 }
                 
                 // Merge overrides on top of base rates
                 serverBaseRates = { ...data.baseRates, ...data.overrides };
                 applyFreightModifiers();
             } else {
-                ratesLastUpdatedEl.innerText = 'Rates Updated: Offline (Local)';
+                ratesLastUpdatedEl.innerText = 'Last Updated : Offline (Local)';
             }
         } catch (err) {
-            ratesLastUpdatedEl.innerText = 'Rates Updated: Offline (Local)';
+            ratesLastUpdatedEl.innerText = 'Last Updated : Offline (Local)';
             console.log('Backend not reachable, using static fallbacks.');
             // Initialize with fallbacks
             APP_STATE.boqData.forEach(mat => { serverBaseRates[mat.id] = mat.defaultRate; });
