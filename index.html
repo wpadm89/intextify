@@ -53,18 +53,6 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- TODO Phase 2: Replace Tailwind CDN with a proper Vite + Tailwind CLI production build to eliminate the 400KB+ unoptimized bundle. -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        corePlugins: { preflight: false },
-        theme: {
-          screens: {
-            'lg': '1000px',
-          }
-        }
-      }
-    </script>
 </head>
 <body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
     <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row flex-1">
@@ -381,6 +369,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="/app.js"></script>
 </body>
 </html>
