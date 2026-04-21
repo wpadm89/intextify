@@ -13,6 +13,10 @@ export default async function handler(req, res) {
     }
 
     try {
+        // TODO Phase 2: Add retry logic (max 3 attempts with 
+        // exponential backoff) for failed URL fetches.
+        // TODO Phase 2: Add fallback to last known good rates 
+        // if all sources fail.
         const newlyScrapedRates = await scrubRates();
 
         if (newlyScrapedRates && Object.keys(newlyScrapedRates).length > 0) {

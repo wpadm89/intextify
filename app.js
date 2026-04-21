@@ -324,12 +324,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const fetchLiveRates = async () => {
-        try {
-            const res = await fetch('/api/rates');
-            if (res.ok) {
-                const data = await res.json();
-                
+    const fetchLiveRates = () => {
+        overallTotalEl.innerHTML = '<span class="animate-pulse text-gray-400">Fetching live rates...</span>';
+
+        fetch('/api/rates')
+            .then(res => {
+                if (!res.ok) throw new Error('Server error: ' + res.status);
+                return res.json();
+            })
+            .then(data => {
                 // Set default if not provided
                 if (data.lastUpdated) {
                     const dateObj = new Date(data.lastUpdated);
@@ -343,16 +346,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Merge overrides on top of base rates
                 serverBaseRates = { ...data.baseRates, ...data.overrides };
                 applyFreightModifiers();
-            } else {
+            })
+            .catch(() => {
                 ratesLastUpdatedEl.innerText = 'Last Updated : Offline (Local)';
-            }
-        } catch (err) {
-            ratesLastUpdatedEl.innerText = 'Last Updated : Offline (Local)';
-            console.log('Backend not reachable, using static fallbacks.');
-            // Initialize with fallbacks
-            APP_STATE.boqData.forEach(mat => { serverBaseRates[mat.id] = mat.defaultRate; });
-            applyFreightModifiers();
-        }
+                console.log('Backend not reachable, using static fallbacks.');
+                
+                // Initialize with fallbacks
+                APP_STATE.boqData.forEach(mat => { serverBaseRates[mat.id] = mat.defaultRate; });
+                applyFreightModifiers();
+                
+                overallTotalEl.textContent = 'Rs. (offline estimate)';
+            });
     };
 
     projectLocationSelect.addEventListener('change', (e) => {

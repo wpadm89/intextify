@@ -53,6 +53,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- TODO Phase 2: Replace Tailwind CDN with a proper Vite + Tailwind CLI production build to eliminate the 400KB+ unoptimized bundle. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -94,10 +95,10 @@
                 <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold">
                     <option value="estimator-view">BOQ Estimator</option>
                     <option value="concrete-view">Concrete Calculator</option>
-                    <option value="steel-view" disabled>Steel Tool (Coming Soon)</option>
-                    <option value="plastering-view" disabled>Plastering (Coming Soon)</option>
-                    <option value="flooring-view" disabled>Flooring (Coming Soon)</option>
-                    <option value="paint-view" disabled>Paint Work (Coming Soon)</option>
+                    <!-- <option value="steel-view" disabled>Steel Tool (Coming Soon)</option> -->
+                    <!-- <option value="plastering-view" disabled>Plastering (Coming Soon)</option> -->
+                    <!-- <option value="flooring-view" disabled>Flooring (Coming Soon)</option> -->
+                    <!-- <option value="paint-view" disabled>Paint Work (Coming Soon)</option> -->
                 </select>
             </div>
 
@@ -105,10 +106,10 @@
             <nav class="sidebar-nav hidden lg:!flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <button class="nav-item active shrink-0" data-view="estimator-view">BOQ Estimator</button>
                 <button class="nav-item shrink-0" data-view="concrete-view">Concrete Calculator</button>
-                <button class="nav-item shrink-0" data-view="steel-view">Steel Tool (Coming Soon)</button>
-                <button class="nav-item shrink-0" data-view="plastering-view">Plastering (Coming Soon)</button>
-                <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button>
-                <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button>
+                <!-- COMING SOON: <button class="nav-item shrink-0" data-view="steel-view">Steel Tool (Coming Soon)</button> -->
+                <!-- COMING SOON: <button class="nav-item shrink-0" data-view="plastering-view">Plastering (Coming Soon)</button> -->
+                <!-- COMING SOON: <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button> -->
+                <!-- COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button> -->
             </nav>
 
             <div class="sidebar-section settings-section" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
@@ -268,7 +269,7 @@
         </main>
         
         <!-- Right Sidebar / Configuration Options -->
-        <aside class="sidebar config-sidebar order-2 lg:order-3 [&_input]:min-h-[44px] [&_select]:min-h-[44px] [&_.sidebar-section]:mx-4 lg:[&_.sidebar-section]:mx-0" id="config-sidebar">
+        <aside class="sidebar config-sidebar lg:sticky lg:top-0 lg:self-start lg:max-h-screen lg:overflow-y-auto order-2 lg:order-3 [&_input]:min-h-[44px] [&_select]:min-h-[44px] [&_.sidebar-section]:mx-4 lg:[&_.sidebar-section]:mx-0" id="config-sidebar">
             <div class="sidebar-header">
                 <h2>Configuration</h2>
             </div>
