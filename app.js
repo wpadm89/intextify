@@ -248,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderRatesSidebar();
         renderEstimator();
         calculateConcrete();
+        if (typeof calculateSteel === 'function') calculateSteel();
         saveState();
     });
 
@@ -321,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderRatesSidebar();
             renderEstimator();
             calculateConcrete();
+            if (typeof calculateSteel === 'function') calculateSteel();
         }
     };
 
@@ -609,6 +611,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     [cLength, cWidth, cDepth, cRatio].forEach(inp => inp.addEventListener('input', calculateConcrete));
 
+    // --- Steel Calculator Logic ---
+    const calculateSteel = () => {
+        const diaSel = document.getElementById('steelDiameter');
+        const lenInp = document.getElementById('steelLength');
+        if (!diaSel || !lenInp) return;
+        
+        let diameter = parseFloat(diaSel.value) || 0;
+        let length = parseFloat(lenInp.value) || 0;
+        
+        let weightKg = (Math.pow(diameter, 2) / 533) * length;
+        
+        // Find current steel rate from global state
+        let steelMat = APP_STATE.boqData.find(m => m.id === 'steel');
+        let currentRate = steelMat ? steelMat.currentRate : (serverBaseRates['steel'] || 282);
+
+        let totalCost = weightKg * currentRate;
+
+        // DOM Update
+        const weightEl = document.getElementById('res-steel-weight');
+        const rateEl = document.getElementById('res-steel-rate');
+        const costEl = document.getElementById('res-steel-cost');
+        
+        if (weightEl) weightEl.innerText = weightKg.toFixed(2);
+        if (rateEl) rateEl.innerText = formatCurrency(currentRate);
+        if (costEl) costEl.innerText = formatCurrency(totalCost);
+    };
+
+    const sDia = document.getElementById('steelDiameter');
+    const sLen = document.getElementById('steelLength');
+    if (sDia) sDia.addEventListener('input', calculateSteel);
+    if (sLen) sLen.addEventListener('input', calculateSteel);
+
     // Initialize
     loadState();
     initCharts();
@@ -616,6 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRatesSidebar();
     renderEstimator();
     calculateConcrete();
+    if (typeof calculateSteel === 'function') calculateSteel();
 
     // --- Compliance & Cookies ---
     const cookieBanner = document.getElementById('cookie-banner');

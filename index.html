@@ -83,7 +83,7 @@
                 <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold">
                     <option value="estimator-view">BOQ Estimator</option>
                     <option value="concrete-view">Concrete Calculator</option>
-                    <!-- <option value="steel-view" disabled>Steel Tool (Coming Soon)</option> -->
+                    <option value="steel-view">Steel Calculator</option>
                     <!-- <option value="plastering-view" disabled>Plastering (Coming Soon)</option> -->
                     <!-- <option value="flooring-view" disabled>Flooring (Coming Soon)</option> -->
                     <!-- <option value="paint-view" disabled>Paint Work (Coming Soon)</option> -->
@@ -94,7 +94,7 @@
             <nav class="sidebar-nav hidden lg:!flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <button class="nav-item active shrink-0" data-view="estimator-view">BOQ Estimator</button>
                 <button class="nav-item shrink-0" data-view="concrete-view">Concrete Calculator</button>
-                <!-- COMING SOON: <button class="nav-item shrink-0" data-view="steel-view">Steel Tool (Coming Soon)</button> -->
+                <button class="nav-item shrink-0" data-view="steel-view">Steel Calculator</button>
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="plastering-view">Plastering (Coming Soon)</button> -->
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button> -->
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button> -->
@@ -220,7 +220,42 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Steel Calculator</h2>
-                        <p class="subtitle">Coming soon!</p>
+                        <p class="subtitle">Calculate weight and cost of steel bars.</p>
+                    </div>
+                    
+                    <div class="concrete-grid">
+                        <div class="form-group">
+                            <label for="steelDiameter">Bar Diameter</label>
+                            <select id="steelDiameter">
+                                <option value="8">8mm</option>
+                                <option value="10" selected>10mm (3 sootar)</option>
+                                <option value="12">12mm (4 sootar)</option>
+                                <option value="16">16mm (5 sootar)</option>
+                                <option value="20">20mm</option>
+                                <option value="25">25mm</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="steelLength">Total Length of Bars (<span class="lbl-len">ft</span>)</label>
+                            <input type="number" id="steelLength" placeholder="e.g., 500" value="500">
+                        </div>
+                        
+                        <div class="concrete-results mt-4">
+                            <h3>Calculation Results</h3>
+                            
+                            <div class="metric-card mt-4">
+                                <span>Total Weight (kg)</span>
+                                <strong id="res-steel-weight">0</strong>
+                            </div>
+                            <div class="metric-card">
+                                <span>Current Steel Rate (Rs/kg)</span>
+                                <strong id="res-steel-rate">0</strong>
+                            </div>
+                            <div class="metric-card">
+                                <span>Estimated Cost</span>
+                                <strong id="res-steel-cost" class="mat-final highlight">Rs. 0</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
