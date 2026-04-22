@@ -244,6 +244,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     unitToggle.addEventListener('change', (e) => {
         APP_STATE.metric = e.target.checked;
+        
+        // Convert Steel length input
+        const sLen = document.getElementById('steelLength');
+        if (sLen && sLen.value !== '') {
+            let currentValue = parseFloat(sLen.value);
+            if (!isNaN(currentValue)) {
+                let newValue = APP_STATE.metric ? (currentValue * 0.3048) : (currentValue / 0.3048);
+                sLen.value = newValue.toFixed(2);
+            }
+        }
+
         enforceMetricMath();
         renderRatesSidebar();
         renderEstimator();
@@ -620,7 +631,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let diameter = parseFloat(diaSel.value) || 0;
         let length = parseFloat(lenInp.value) || 0;
         
-        let weightKg = (Math.pow(diameter, 2) / 533) * length;
+        let weightKg;
+        if (APP_STATE.metric) {
+            weightKg = (Math.pow(diameter, 2) / 162.28) * length;
+        } else {
+            weightKg = (Math.pow(diameter, 2) / 533) * length;
+        }
         
         // Find current steel rate from global state
         let steelMat = APP_STATE.boqData.find(m => m.id === 'steel');
