@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intextify | Smart BOQ Estimator & Construction Calculator</title>
     
     <!-- SEO & Metadata -->
@@ -80,7 +80,7 @@
 
             <!-- Mobile Dropdown Navigation -->
             <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
-                <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold">
+                <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
                     <option value="estimator-view">BOQ Estimator</option>
                     <option value="concrete-view">Concrete Calculator</option>
                     <option value="steel-view">Steel Calculator</option>
@@ -100,18 +100,18 @@
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button> -->
             </nav>
 
-            <div class="sidebar-section settings-section" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <div class="sidebar-section settings-section mt-auto pt-4 border-t border-[var(--border-color)]">
                 <div class="toggle-group">
                     <label>Dark Theme</label>
                     <label class="switch">
-                        <input type="checkbox" id="theme-toggle" checked>
+                        <input type="checkbox" id="theme-toggle" checked aria-label="Toggle dark theme">
                         <span class="slider round"></span>
                     </label>
                 </div>
                 <div class="toggle-group">
                     <label id="unit-toggle-label">Units: Imperial (ft)</label>
                     <label class="switch">
-                        <input type="checkbox" id="unit-toggle">
+                        <input type="checkbox" id="unit-toggle" aria-label="Toggle units">
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -130,9 +130,9 @@
                     
                     <!-- Overview & Total Card -->
                     <div class="dash-widget overview-widget">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h2 class="widget-title" style="margin-bottom: 0;">Estimated Total Construction Cost</h2>
-                            <span id="rates-last-updated" style="font-size: 0.8rem; color: var(--text-secondary); background: var(--bg-primary); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);">Last Updated : Fetching...</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="widget-title mb-0">Estimated Total Construction Cost</h2>
+                            <span id="rates-last-updated" class="text-[0.8rem] text-[var(--text-secondary)] bg-[var(--bg-primary)] px-2 py-1 rounded-[4px] border border-[var(--border-color)]">Last Updated : Fetching...</span>
                         </div>
                         <div class="total-cost-container">
                             <div class="total-value" id="overall-total">Rs. 0</div>
@@ -286,8 +286,8 @@
 
             <!-- Moved Action Buttons -->
             <div class="sidebar-footer flex flex-col sm:flex-row w-full max-w-2xl mx-auto px-4 lg:px-0 gap-4 mb-8 mt-auto">
-                <button class="action-btn w-full rounded-lg" id="btn-export" style="margin-top: 0;">Export to PDF</button>
-                <button class="action-btn primary-btn w-full rounded-lg" id="btn-save" style="margin-top: 0;">Save Estimate</button>
+                <button class="action-btn w-full rounded-lg mt-0" id="btn-export">Export to PDF</button>
+                <button class="action-btn primary-btn w-full rounded-lg mt-0" id="btn-save">Save Estimate</button>
             </div>
         </main>
         
@@ -310,7 +310,7 @@
                     </select>
                 </div>
 
-                <h3 style="margin-top: 1rem;">Project Dimensions</h3>
+                <h3 class="mt-4">Project Dimensions</h3>
                 <div class="form-group">
                     <label for="plotSize">Standard Plot Size</label>
                     <select id="plotSize">
@@ -365,7 +365,7 @@
                     <input type="number" id="concDepth" value="6">
                 </div>
                 
-                <h3 style="margin-top: 1.5rem">Concrete Mix</h3>
+                <h3 class="mt-6">Concrete Mix</h3>
                 <div class="form-group">
                     <label for="concRatio">Select Ratio (C:S:C)</label>
                     <select id="concRatio">
