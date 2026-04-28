@@ -180,37 +180,42 @@
                             <h3>Requirements Overview</h3>
                             
                             <div class="metric-card mt-4">
-                                <span>Wet Volume (<span class="lbl-vol">cft</span>)</span>
+                                <span>Wet Volume (poured)</span>
                                 <strong id="res-wet-vol">0</strong>
                             </div>
                             <div class="metric-card">
-                                <span>Dry Volume (<span class="lbl-vol">cft</span>) <small>(Wet × 1.54)</small></span>
+                                <span>Dry Volume (Wet × 1.54)</span>
                                 <strong id="res-dry-vol">0</strong>
                             </div>
                             
-                            <div class="materials-list mt-4">
-                                <div class="mat-item">
-                                    <div class="mat-details">
-                                        <h4>Cement</h4>
-                                        <span id="res-cement-cft">0 <span class="lbl-vol">cft</span></span>
-                                    </div>
-                                    <strong class="mat-final highlight" id="res-cement-bags">0 Bags</strong>
-                                </div>
-                                
-                                <div class="mat-item">
-                                    <div class="mat-details">
-                                        <h4>Sand</h4>
-                                    </div>
-                                    <strong class="mat-final" id="res-sand">0 <span class="lbl-vol">cft</span></strong>
-                                </div>
-
-                                <div class="mat-item">
-                                    <div class="mat-details">
-                                        <h4>Crush / Gravel</h4>
-                                    </div>
-                                    <strong class="mat-final" id="res-crush">0 <span class="lbl-vol">cft</span></strong>
-                                </div>
-                            </div>
+                            <table class="w-full text-sm mt-4">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-color)]">
+                                        <th class="text-left py-2">Material</th>
+                                        <th class="text-right py-2">Quantity</th>
+                                        <th class="text-right py-2">Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cement</td>
+                                        <td id="res-cement-bags" class="text-right text-[var(--accent)] font-bold"></td>
+                                        <td id="res-cement-kg" class="text-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sand</td>
+                                        <td id="res-sand-cft" class="text-right"></td>
+                                        <td id="res-sand-tons" class="text-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aggregate</td>
+                                        <td id="res-agg-cft" class="text-right"></td>
+                                        <td id="res-agg-tons" class="text-right"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <canvas id="concreteChart" class="mt-6 max-h-64"></canvas>
                         </div>
                     </div>
                 </div>
@@ -350,7 +355,18 @@
 
             <div class="sidebar-section hidden" id="concrete-config-section">
                 <h3>Mix Dimensions</h3>
-                <div class="input-row">
+                <div class="form-group">
+                    <label for="concShape">Structure Type</label>
+                    <select id="concShape">
+                        <option value="slab">Slab / Wall / Beam</option>
+                        <option value="column">Column / Round Footing</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="conc-diameter-group">
+                    <label for="concDiameter">Diameter (<span class="lbl-len">ft</span>)</label>
+                    <input type="number" id="concDiameter" value="1" step="0.1">
+                </div>
+                <div class="input-row conc-slab-inputs">
                     <div class="form-group half">
                         <label for="concLength">Length (<span class="lbl-len">ft</span>)</label>
                         <input type="number" id="concLength" value="10">
@@ -364,15 +380,19 @@
                     <label for="concDepth">Thickness / Depth (<span class="lbl-thick">inches</span>)</label>
                     <input type="number" id="concDepth" value="6">
                 </div>
+                <div class="form-group">
+                    <label for="concQty">Quantity (No. of units)</label>
+                    <input type="number" id="concQty" value="1" min="1">
+                </div>
                 
                 <h3 class="mt-6">Concrete Mix</h3>
                 <div class="form-group">
                     <label for="concRatio">Select Ratio (C:S:C)</label>
                     <select id="concRatio">
+                        <option value="1:3:6">1:3:6 (M10 - PCC lean)</option>
                         <option value="1:2:4">1:2:4 (M15 - slabs)</option>
-                        <option value="1:1.5:3">1:1.5:3 (M20 - load)</option>
-                        <option value="1:3:6">1:3:6 (M10 - pcc)</option>
-                        <option value="1:4:8">1:4:8 (M7.5 - lean)</option>
+                        <option value="1:1.5:3">1:1.5:3 (M20 - load bearing)</option>
+                        <option value="1:1:2">1:1:2 (M25 - heavy structural)</option>
                     </select>
                 </div>
             </div>
@@ -389,6 +409,72 @@
         </div>
     </div>
     
+    <!-- Concrete Calculator SEO & FAQ -->
+    <section class="w-full max-w-5xl mx-auto mt-12 p-6 bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl shadow-sm text-[var(--text-primary)]">
+        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">What is PCC (Plain Cement Concrete)?</h2>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">PCC stands for Plain Cement Concrete. It is a mixture of cement, sand, and aggregate without any steel reinforcement. It is primarily used for providing a firm, level base for footings and floors.</p>
+        
+        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">What is RCC (Reinforced Cement Concrete)?</h2>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">RCC stands for Reinforced Cement Concrete. It includes steel bars (reinforcement) embedded in the concrete. This provides high tensile strength, making it ideal for structural elements like beams, columns, and slabs.</p>
+        
+        <h3 class="text-xl font-semibold mb-3">Concrete Grades</h3>
+        <div class="overflow-x-auto mb-6">
+            <table class="w-full text-sm border-collapse border border-[var(--border-color)]">
+                <thead>
+                    <tr class="bg-[var(--bg-secondary)]">
+                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Grade</th>
+                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Mix Ratio (C:S:A)</th>
+                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Compressive Strength (28 days)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-[var(--border-color)] px-4 py-2">M10</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">1:3:6</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">10 MPa (1450 psi)</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-[var(--border-color)] px-4 py-2">M15</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">1:2:4</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">15 MPa (2175 psi)</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-[var(--border-color)] px-4 py-2">M20</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">1:1.5:3</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">20 MPa (2900 psi)</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-[var(--border-color)] px-4 py-2">M25</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">1:1:2</td>
+                        <td class="border border-[var(--border-color)] px-4 py-2">25 MPa (3625 psi)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-3">Frequently Asked Questions (FAQ)</h3>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
+            <summary class="font-semibold text-[var(--text-primary)]">How does this calculator account for dry volume?</summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm">When water is added to dry concrete mix, it shrinks. To get the required wet volume of poured concrete, we must multiply the wet volume by a standard dry volume factor, which is typically 1.54. This ensures you purchase enough dry materials to yield the correct volume after mixing.</p>
+        </details>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
+            <summary class="font-semibold text-[var(--text-primary)]">What is the difference between M15 and M20 concrete?</summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm">M15 concrete (1:2:4 ratio) is generally used for regular slabs and non-load-bearing elements. M20 concrete (1:1.5:3 ratio) has a higher cement content, providing greater strength, and is recommended for load-bearing structures like columns and heavy structural beams.</p>
+        </details>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
+            <summary class="font-semibold text-[var(--text-primary)]">How many cement bags do I need for a 10x10 slab?</summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm">This depends on the thickness of the slab and the concrete grade. A 10x10 ft slab that is 6 inches thick has a wet volume of 50 cft. Using M15 (1:2:4) concrete, you would need approximately 11 bags of cement. You can use our calculator above to find the exact quantities for your specific dimensions.</p>
+        </details>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
+            <summary class="font-semibold text-[var(--text-primary)]">Is this calculator accurate for Pakistan construction standards?</summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm">Yes, the calculations are based on standard civil engineering formulas widely used in Pakistan. The 1.54 dry volume factor and standard bag weight of 50kg are accurate for the local construction industry.</p>
+        </details>
+        <details class="mb-2 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
+            <summary class="font-semibold text-[var(--text-primary)]">What is the wet volume factor and why is it 1.54?</summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm">The dry volume factor of 1.54 means that dry materials take up 54% more volume than wet concrete. When mixed with water, the fine aggregates (sand) fill the voids between the coarse aggregates (crush/gravel), causing the overall volume to decrease. Therefore, you must multiply the required wet volume by 1.54 to determine the volume of dry materials to purchase.</p>
+        </details>
+    </section>
+
     <!-- SEO Educational Content -->
     <section class="w-full max-w-5xl mx-auto mt-12 mb-8 p-6 bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl shadow-sm text-[var(--text-primary)]">
         <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">Complete Guide to Construction Cost Estimation in Pakistan</h2>

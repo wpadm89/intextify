@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enforceMetricMath();
         renderRatesSidebar();
         renderEstimator();
-        calculateConcrete();
+        updateConcreteCalculator();
         if (typeof calculateSteel === 'function') calculateSteel();
         saveState();
     });
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             renderRatesSidebar();
             renderEstimator();
-            calculateConcrete();
+            updateConcreteCalculator();
             if (typeof calculateSteel === 'function') calculateSteel();
         }
     };
@@ -591,36 +591,102 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Concrete Calculator Logic ---
-    const calculateConcrete = () => {
+    let concreteChartInstance = null;
+    function updateConcreteChart(cementKg, sandKg, aggKg) {
+        if (concreteChartInstance) concreteChartInstance.destroy();
+        const ctx = document.getElementById('concreteChart');
+        if (!ctx) return;
+        concreteChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Cement', 'Sand', 'Aggregate'],
+                datasets: [{
+                    data: [cementKg, sandKg, aggKg],
+                    backgroundColor: ['#00E5FF', '#3b82f6', '#8b5cf6'],
+                    borderWidth: 0
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+    }
+
+    const updateConcreteCalculator = () => {
+        const isMetric = APP_STATE.metric;
+        const shape = document.getElementById('concShape').value;
+        const qty = parseFloat(document.getElementById('concQty').value) || 1;
+        const ratioStr = document.getElementById('concRatio').value;
+        
         const L = getRawFloat(cLength);
         const W = getRawFloat(cWidth);
         const D = getRawFloat(cDepth);
+        const dia = parseFloat(document.getElementById('concDiameter').value) || 0;
         
-        // If metric: Length/Width in Area (m * m = sqm). Depth in cm (Depth / 100 = m). Wet Vol = cum.
-        // If imperial: Length/Width in Area (ft * ft). Depth in inches (Depth / 12 = ft). Wet vol = cft.
-        let wetVol = APP_STATE.metric ? (L * W * (D / 100)) : (L * W * (D / 12));
-        
-        document.getElementById('res-wet-vol').innerText = wetVol.toFixed(2);
-        
-        let dryVol = wetVol * 1.54;
-        document.getElementById('res-dry-vol').innerText = dryVol.toFixed(2);
+        let wetVol = 0;
+        if (shape === 'slab') {
+            wetVol = isMetric ? (L * W * (D / 100)) : (L * W * (D / 12));
+            wetVol *= qty;
+        } else {
+            const H_converted = isMetric ? (D / 100) : (D / 12);
+            wetVol = Math.PI * Math.pow(dia / 2, 2) * H_converted * qty;
+        }
 
-        const ratioParts = cRatio.value.split(':').map(Number);
-        const sumRatio = ratioParts[0] + ratioParts[1] + ratioParts[2];
+        const dryVol = wetVol * 1.54; // Standard factor — NOT 1.524
 
-        const cementVol = (ratioParts[0] / sumRatio) * dryVol;
-        const sandVol = (ratioParts[1] / sumRatio) * dryVol;
-        const crushVol = (ratioParts[2] / sumRatio) * dryVol;
+        // Parse ratio
+        const parts = ratioStr.split(':').map(Number);
+        const sum = parts.reduce((a, b) => a + b, 0);
 
-        let bagVolume = APP_STATE.metric ? 0.0347 : 1.25; 
+        const cementVol = dryVol * (parts[0] / sum);
+        const sandVol = dryVol * (parts[1] / sum);
+        const aggVol = dryVol * (parts[2] / sum);
 
-        document.getElementById('res-cement-cft').innerHTML = cementVol.toFixed(2) + ` <span class="lbl-vol">${APP_STATE.metric ? 'cum' : 'cft'}</span>`;
-        document.getElementById('res-cement-bags').innerText = Math.ceil(cementVol / bagVolume) + ' Bags';
-        document.getElementById('res-sand').innerHTML = sandVol.toFixed(2) + ` <span class="lbl-vol">${APP_STATE.metric ? 'cum' : 'cft'}</span>`;
-        document.getElementById('res-crush').innerHTML = crushVol.toFixed(2) + ` <span class="lbl-vol">${APP_STATE.metric ? 'cum' : 'cft'}</span>`;
+        let cementBags, sandTons, aggTons;
+
+        if (isMetric) {
+            cementBags = (cementVol / 0.0347).toFixed(1);
+            sandTons = (sandVol * 1550 / 1000).toFixed(2);
+            aggTons = (aggVol * 1350 / 1000).toFixed(2);
+        } else {
+            cementBags = (cementVol / 1.25).toFixed(1);
+            sandTons = (sandVol * 43.76 / 1000).toFixed(2);
+            aggTons = (aggVol * 38.23 / 1000).toFixed(2);
+        }
+
+        const cementKg = (parseFloat(cementBags) * 50);
+
+        // Update DOM
+        const unitVol = isMetric ? ' cum' : ' cft';
+        document.getElementById('res-wet-vol').textContent = wetVol.toFixed(2) + unitVol;
+        document.getElementById('res-dry-vol').textContent = dryVol.toFixed(2) + unitVol;
+        document.getElementById('res-cement-bags').textContent = cementBags + ' Bags';
+        document.getElementById('res-cement-kg').textContent = cementKg + ' kg';
+        document.getElementById('res-sand-cft').textContent = sandVol.toFixed(2) + unitVol;
+        document.getElementById('res-sand-tons').textContent = sandTons + ' T';
+        document.getElementById('res-agg-cft').textContent = aggVol.toFixed(2) + unitVol;
+        document.getElementById('res-agg-tons').textContent = aggTons + ' T';
+
+        // Update chart
+        updateConcreteChart(cementKg, parseFloat(sandTons) * 1000, parseFloat(aggTons) * 1000);
     };
 
-    [cLength, cWidth, cDepth, cRatio].forEach(inp => inp.addEventListener('input', calculateConcrete));
+    const concShape = document.getElementById('concShape');
+    if (concShape) {
+        concShape.addEventListener('change', (e) => {
+            const isColumn = e.target.value === 'column';
+            document.getElementById('conc-diameter-group').classList.toggle('hidden', !isColumn);
+            document.querySelector('.conc-slab-inputs').classList.toggle('hidden', isColumn);
+            updateConcreteCalculator();
+        });
+    }
+
+    ['concLength', 'concWidth', 'concDepth', 'concDiameter', 'concQty', 'concRatio'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateConcreteCalculator);
+    });
 
     // --- Steel Calculator Logic ---
     const calculateSteel = () => {
@@ -665,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchLiveRates();
     renderRatesSidebar();
     renderEstimator();
-    calculateConcrete();
+    updateConcreteCalculator();
     if (typeof calculateSteel === 'function') calculateSteel();
 
     // --- Compliance & Cookies ---
