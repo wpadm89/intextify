@@ -8,7 +8,12 @@ export default async function handler(req, res) {
 
     // Secure endpoint via Authorization header
     const authHeader = req.headers.authorization;
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const queryKey = req.query.key;
+
+    const isCronAuthorized = authHeader === `Bearer ${process.env.CRON_SECRET}`;
+    const isManualAuthorized = queryKey && queryKey === process.env.ADMIN_PASSWORD;
+
+    if (!isCronAuthorized && !isManualAuthorized) {
         return res.status(401).json({ error: 'Unauthorized cron secret' });
     }
 
