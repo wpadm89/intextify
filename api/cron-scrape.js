@@ -40,6 +40,14 @@ export default async function handler(req, res) {
             await kv.set('intextify_rates', existing);
             return res.status(200).json({ success: true, message: 'Rates updated successfully', data: newlyScrapedRates });
         } else {
+            let existing = await kv.get('intextify_rates') || { 
+                baseRates: {}, 
+                overrides: {},
+                cityMultipliers: { lahore: 1.0, gujranwala: 0.98, talagang: 1.05, islamabad: 1.03, karachi: 1.08 }
+            };
+            existing.lastUpdated = new Date().toISOString();
+            await kv.set('intextify_rates', existing);
+
             return res.status(200).json({ success: true, message: 'Scraper ran but found no new rates.' });
         }
     } catch (err) {
