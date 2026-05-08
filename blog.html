@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction & Real Estate Blog | Intextify</title>
+    <meta name="description" content="Read expert articles on construction costs, real estate, and civil engineering in Pakistan. Community-written guides reviewed by professionals." />
+    <link rel="canonical" href="https://www.intextify.com/blog" />
+    <meta property="og:title" content="Construction & Real Estate Blog | Intextify" />
+    <meta property="og:description" content="Expert articles on construction, real estate and civil engineering in Pakistan." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.intextify.com/blog" />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
+    <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row flex-1">
+        <!-- Dashboard Sidebar / Top Config Panel -->
+        <aside class="sidebar left-sidebar order-1 lg:order-1" id="nav-sidebar">
+            <div class="sidebar-header">
+                <div class="logo flex flex-col lg:flex-row items-center text-center lg:text-left">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36" aria-label="Intextify Logo" role="img">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00E5FF" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="4" width="12" height="32" rx="4" fill="url(#logoGrad)"></rect>
+                        <rect x="20" y="16" width="12" height="20" rx="4" fill="url(#logoGrad)" opacity="0.8"></rect>
+                        <circle cx="26" cy="8" r="4" fill="#00E5FF"></circle>
+                    </svg>
+                    <div class="logo-text mt-2 lg:mt-0">
+                        <h1>Intextify</h1>
+                        <span class="logo-subtitle">Construction Suite</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Navigation -->
+            <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
+                <select onchange="if(this.value.startsWith('/')) window.location.href = this.value; else document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
+                    <option value="/">BOQ Estimator</option>
+                    <option value="/#concrete-view">Concrete Calculator</option>
+                    <option value="/#steel-view">Steel Calculator</option>
+                    <option value="/guide-5-marla">Guides</option>
+                    <option value="/blog" selected>Blog</option>
+                    <option value="/write-for-us">Write for Us</option>
+                </select>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="sidebar-nav hidden lg:!flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <a href="/" class="nav-item shrink-0">BOQ Estimator</a>
+                <a href="/#concrete-view" class="nav-item shrink-0">Concrete Calculator</a>
+                <a href="/#steel-view" class="nav-item shrink-0">Steel Calculator</a>
+                <a href="/guide-5-marla" class="nav-item shrink-0">Guides</a>
+                <a href="/blog" class="nav-item shrink-0 active">Blog</a>
+                <a href="/write-for-us" class="nav-item shrink-0">Write for Us</a>
+            </nav>
+
+            <div class="sidebar-section settings-section mt-auto pt-4 border-t border-[var(--border-color)]">
+                <div class="toggle-group">
+                    <label>Dark Theme</label>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle" checked aria-label="Toggle dark theme">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden">
+          <div class="max-w-5xl mx-auto px-6 py-10 text-gray-800 dark:text-gray-200">
+
+            <!-- Breadcrumb -->
+            <nav class="text-sm text-gray-500 dark:text-gray-400 mb-6" aria-label="Breadcrumb">
+              <a href="/" class="hover:text-[var(--accent)]">Home</a>
+              &rsaquo;
+              <span>Blog</span>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="mb-10">
+              <h1 class="text-3xl lg:text-4xl font-bold mb-3 text-[var(--primary)]">
+                Construction & Real Estate Blog
+              </h1>
+              <p class="text-lg text-gray-600 dark:text-gray-400">
+                Expert articles written by engineers and real estate professionals 
+                across Pakistan. All articles are reviewed before publishing.
+              </p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="flex flex-wrap gap-6 mb-10 p-4 bg-blue-50 dark:bg-gray-800 rounded-xl border border-blue-100 dark:border-gray-700">
+              <div class="text-center">
+                <p id="total-count" class="text-2xl font-bold text-[var(--accent)]">—</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Published Articles
+                </p>
+              </div>
+              <div class="text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">100%</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Manually Reviewed
+                </p>
+              </div>
+              <div class="text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">Free</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Always Free to Read
+                </p>
+              </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="mb-8">
+              <input type="text" id="search-input" placeholder="🔍 Search articles by title or author..." oninput="handleSearch()" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-gray-800 dark:text-gray-200" />
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="text-center py-20">
+              <div class="inline-block w-10 h-10 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p class="text-gray-500 dark:text-gray-400">Loading articles...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-20">
+              <p class="text-5xl mb-4">📭</p>
+              <p class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
+                No articles yet
+              </p>
+              <p class="text-gray-500 dark:text-gray-400 mb-6">
+                Be the first to contribute!
+              </p>
+              <a href="/write-for-us" class="inline-block px-6 py-3 bg-[var(--accent)] text-white font-bold rounded-xl hover:opacity-90 transition-opacity">
+                Write for Us
+              </a>
+            </div>
+
+            <!-- No Search Results State -->
+            <div id="no-results-state" class="hidden text-center py-16">
+              <p class="text-4xl mb-4">🔎</p>
+              <p class="text-lg font-semibold text-gray-600 dark:text-gray-400">
+                No articles match your search.
+              </p>
+            </div>
+
+            <!-- Blog Cards Grid -->
+            <div id="blog-grid" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+            </div>
+
+            <!-- Write for Us CTA -->
+            <div id="write-cta" class="hidden mt-14 p-6 bg-blue-50 dark:bg-gray-800 rounded-xl border-l-4 border-blue-500 text-center">
+              <h2 class="text-xl font-bold mb-2">Want to contribute?</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Share your expertise with thousands of readers across Pakistan.
+              </p>
+              <a href="/write-for-us" class="inline-block px-6 py-3 bg-[var(--accent)] text-white font-bold rounded-xl hover:opacity-90 transition-opacity">
+                Submit Your Article →
+              </a>
+            </div>
+
+          </div>
+
+          <!-- ── Article Reader Modal ─────────────────────────────────── -->
+          <div id="article-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-70 px-4 py-8" onclick="handleModalBackdropClick(event)">
+
+            <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col" id="modal-inner">
+
+              <!-- Modal Header -->
+              <div class="flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+                <div class="pr-8">
+                  <h2 id="modal-title" class="text-xl font-bold text-[var(--primary)] mb-1">
+                  </h2>
+                  <p id="modal-meta" class="text-sm text-gray-500 dark:text-gray-400">
+                  </p>
+                </div>
+                <button onclick="closeModal()" class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 font-bold text-lg transition-colors">
+                  ✕
+                </button>
+              </div>
+
+              <!-- Modal Body (Scrollable) -->
+              <div id="modal-content" class="overflow-y-auto p-6 text-gray-800 dark:text-gray-200 text-sm leading-relaxed whitespace-pre-wrap flex-1">
+              </div>
+
+              <!-- Modal Footer -->
+              <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-between items-center">
+                <p class="text-xs text-gray-400">
+                  Published on Intextify · All rights reserved
+                </p>
+                <button onclick="closeModal()" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm font-semibold hover:opacity-80 transition-opacity">
+                  Close
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </main>
+    </div>
+
+    <!-- Global Legal Footer -->
+    <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
+        <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
+            <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
+            <span class="separator">&bull;</span>
+            <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
+            <span class="separator">&bull;</span>
+            <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
+        </div>
+        <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+    </footer>
+
+    <script>
+      let allApprovedPosts = [];
+
+      // ── Fetch Approved Posts ──────────────────────────────────────
+      async function loadBlogPosts() {
+        try {
+          const res  = await fetch('/api/public-posts');
+          const data = await res.json();
+
+          document.getElementById('loading-state').classList.add('hidden');
+
+          if (!data.success || data.posts.length === 0) {
+            document.getElementById('empty-state').classList.remove('hidden');
+            return;
+          }
+
+          allApprovedPosts = data.posts;
+
+          // Update stats bar
+          document.getElementById('total-count').textContent = data.count;
+
+          // Show grid and CTA
+          document.getElementById('blog-grid').classList.remove('hidden');
+          document.getElementById('write-cta').classList.remove('hidden');
+
+          renderCards(allApprovedPosts);
+
+        } catch (err) {
+          document.getElementById('loading-state').innerHTML =
+            '<p class="text-red-500">Failed to load articles. Please refresh the page.</p>';
+        }
+      }
+
+      // ── Render Blog Cards ─────────────────────────────────────────
+      function renderCards(posts) {
+        const grid = document.getElementById('blog-grid');
+
+        grid.innerHTML = posts.map(post => `
+          <article
+            class="bg-white dark:bg-gray-900 border border-gray-200 
+                   dark:border-gray-700 rounded-xl p-6 shadow-sm 
+                   hover:shadow-md transition-shadow flex flex-col">
+
+            <!-- Category Tag -->
+            <span class="inline-block text-xs font-bold px-3 py-1 rounded-full 
+                         bg-blue-100 dark:bg-blue-900 text-blue-700 
+                         dark:text-blue-300 mb-4 self-start">
+              Construction & Real Estate
+            </span>
+
+            <!-- Title -->
+            <h2 class="text-lg font-bold text-[var(--primary)] mb-3 
+                       leading-snug flex-1">
+              ${escapeHtml(post.title)}
+            </h2>
+
+            <!-- Preview Text -->
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 
+                      leading-relaxed line-clamp-3">
+              ${escapeHtml(post.preview)}
+            </p>
+
+            <!-- Meta -->
+            <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs 
+                        text-gray-400 dark:text-gray-500 mb-5">
+              <span>✍️ ${escapeHtml(post.name)}</span>
+              <span>📅 ${formatDate(post.reviewedAt || post.submittedAt)}</span>
+              <span>📝 ${post.wordCount} words · 
+                ${Math.ceil(post.wordCount / 200)} min read
+              </span>
+            </div>
+
+            <!-- Read Button -->
+            <button
+              onclick="openModal(${JSON.stringify(post.id)})"
+              class="mt-auto w-full py-2 px-4 bg-[var(--accent)] text-white 
+                     font-semibold rounded-lg hover:opacity-90 
+                     transition-opacity text-sm">
+              Read Article →
+            </button>
+
+          </article>
+        `).join('');
+      }
+
+      // ── Search Handler ────────────────────────────────────────────
+      function handleSearch() {
+        const query = document.getElementById('search-input')
+                              .value.toLowerCase().trim();
+        const noResults = document.getElementById('no-results-state');
+        const grid      = document.getElementById('blog-grid');
+
+        if (!query) {
+          noResults.classList.add('hidden');
+          grid.classList.remove('hidden');
+          renderCards(allApprovedPosts);
+          return;
+        }
+
+        const filtered = allApprovedPosts.filter(post =>
+          post.title.toLowerCase().includes(query) ||
+          post.name.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+          grid.classList.add('hidden');
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+          grid.classList.remove('hidden');
+          renderCards(filtered);
+        }
+      }
+
+      // ── Modal: Open ───────────────────────────────────────────────
+      function openModal(postId) {
+        const post = allApprovedPosts.find(p => p.id === postId);
+        if (!post) return;
+
+        document.getElementById('modal-title').textContent   = post.title;
+        document.getElementById('modal-meta').textContent    =
+          `By ${post.name}  ·  ${formatDate(post.reviewedAt || post.submittedAt)}  ·  ${post.wordCount} words`;
+        document.getElementById('modal-content').textContent = post.content;
+
+        const modal = document.getElementById('article-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+      }
+
+      // ── Modal: Close ──────────────────────────────────────────────
+      function closeModal() {
+        const modal = document.getElementById('article-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      // Close modal on backdrop click (not on inner panel click)
+      function handleModalBackdropClick(e) {
+        if (e.target === document.getElementById('article-modal')) {
+          closeModal();
+        }
+      }
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      // ── Helpers ───────────────────────────────────────────────────
+      function formatDate(isoString) {
+        if (!isoString) return 'Recently';
+        return new Date(isoString).toLocaleDateString('en-PK', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        });
+      }
+
+      function escapeHtml(str) {
+        if (typeof str !== 'string') return '';
+        return str
+          .replace(/&/g,  '&amp;')
+          .replace(/</g,  '&lt;')
+          .replace(/>/g,  '&gt;')
+          .replace(/"/g,  '&quot;')
+          .replace(/'/g,  '&#039;');
+      }
+
+      // ── Init ──────────────────────────────────────────────────────
+      document.addEventListener('DOMContentLoaded', loadBlogPosts);
+    </script>
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
