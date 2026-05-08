@@ -244,6 +244,14 @@
 
           renderCards(allApprovedPosts);
 
+          // Event delegation — one listener handles ALL card buttons safely
+          document.getElementById('blog-grid').addEventListener('click', (e) => {
+            const btn = e.target.closest('.read-article-btn');
+            if (!btn) return;
+            const postId = btn.getAttribute('data-post-id');
+            if (postId) openModal(postId);
+          });
+
         } catch (err) {
           document.getElementById('loading-state').innerHTML =
             '<p class="text-red-500">Failed to load articles. Please refresh the page.</p>';
@@ -289,12 +297,13 @@
               </span>
             </div>
 
-            <!-- Read Button -->
+            <!-- Read Button — uses data-post-id, NO inline onclick -->
             <button
-              onclick="openModal(${JSON.stringify(post.id)})"
-              class="mt-auto w-full py-2 px-4 bg-[var(--accent)] text-white 
-                     font-semibold rounded-lg hover:opacity-90 
-                     transition-opacity text-sm">
+              data-post-id="${escapeHtml(post.id)}"
+              class="read-article-btn mt-auto w-full py-2 px-4 
+                     bg-[var(--accent)] text-white font-semibold 
+                     rounded-lg hover:opacity-90 transition-opacity text-sm 
+                     cursor-pointer">
               Read Article →
             </button>
 
