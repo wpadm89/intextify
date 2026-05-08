@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write for Us - Submit a Guest Post | Intextify</title>
+    <meta name="description" content="Submit your civil engineering or real estate article to Intextify. Share your expertise with thousands of readers across Pakistan." />
+    <link rel="canonical" href="https://www.intextify.com/write-for-us" />
+    <meta property="og:title" content="Write for Us | Intextify" />
+    <meta property="og:description" content="Submit your civil engineering or real estate article to Intextify." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.intextify.com/write-for-us" />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
+    <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col lg:flex-row flex-1">
+        <!-- Dashboard Sidebar / Top Config Panel -->
+        <aside class="sidebar left-sidebar order-1 lg:order-1" id="nav-sidebar">
+            <div class="sidebar-header">
+                <div class="logo flex flex-col lg:flex-row items-center text-center lg:text-left">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36" aria-label="Intextify Logo" role="img">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00E5FF" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="4" width="12" height="32" rx="4" fill="url(#logoGrad)"></rect>
+                        <rect x="20" y="16" width="12" height="20" rx="4" fill="url(#logoGrad)" opacity="0.8"></rect>
+                        <circle cx="26" cy="8" r="4" fill="#00E5FF"></circle>
+                    </svg>
+                    <div class="logo-text mt-2 lg:mt-0">
+                        <h1>Intextify</h1>
+                        <span class="logo-subtitle">Construction Suite</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Navigation -->
+            <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
+                <select onchange="if(this.value.startsWith('/')) window.location.href = this.value; else document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
+                    <option value="/">BOQ Estimator</option>
+                    <option value="/#concrete-view">Concrete Calculator</option>
+                    <option value="/#steel-view">Steel Calculator</option>
+                    <option value="/guide-5-marla">Guides</option>
+                    <option value="/write-for-us" selected>Write for Us</option>
+                </select>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="sidebar-nav hidden lg:!flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <a href="/" class="nav-item shrink-0">BOQ Estimator</a>
+                <a href="/#concrete-view" class="nav-item shrink-0">Concrete Calculator</a>
+                <a href="/#steel-view" class="nav-item shrink-0">Steel Calculator</a>
+                <a href="/guide-5-marla" class="nav-item shrink-0">Guides</a>
+                <a href="/write-for-us" class="nav-item shrink-0 active">Write for Us</a>
+            </nav>
+
+            <div class="sidebar-section settings-section mt-auto pt-4 border-t border-[var(--border-color)]">
+                <div class="toggle-group">
+                    <label>Dark Theme</label>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle" checked aria-label="Toggle dark theme">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden">
+          <div class="max-w-3xl mx-auto px-6 py-10 text-gray-800 dark:text-gray-200">
+
+            <!-- Breadcrumb -->
+            <nav class="text-sm text-gray-500 dark:text-gray-400 mb-6" aria-label="Breadcrumb">
+              <a href="/" class="hover:text-[var(--accent)]">Home</a>
+              &rsaquo;
+              <span>Write for Us</span>
+            </nav>
+
+            <!-- Header -->
+            <h1 class="text-3xl lg:text-4xl font-bold mb-3 text-[var(--primary)]">
+              Write for Us
+            </h1>
+            <p class="text-lg mb-8 text-gray-600 dark:text-gray-400">
+              Share your expertise in civil engineering, construction, or real estate 
+              with thousands of readers across Pakistan. All submissions are manually 
+              reviewed before publishing to maintain quality standards.
+            </p>
+
+            <!-- Guidelines Box -->
+            <div class="p-5 bg-blue-50 dark:bg-gray-800 rounded-lg border-l-4 border-blue-500 mb-10">
+              <h2 class="font-bold text-lg mb-3">Submission Guidelines</h2>
+              <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                <li>Article must be original and not published elsewhere.</li>
+                <li>Minimum 500 words. Maximum 5,000 words.</li>
+                <li>Topic must be relevant to construction, real estate, or civil engineering in Pakistan.</li>
+                <li>No promotional or spammy content — submissions will be rejected.</li>
+                <li>Review process takes 3–5 business days.</li>
+              </ul>
+            </div>
+
+            <!-- Success Message (hidden by default) -->
+            <div id="success-message" class="hidden p-5 bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-lg mb-6 text-center">
+              <p class="text-green-700 dark:text-green-300 font-semibold text-lg">
+                ✅ Thank you! Your article has been submitted for review.
+              </p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                We will get back to you within 3–5 business days.
+              </p>
+            </div>
+
+            <!-- Error Message (hidden by default) -->
+            <div id="error-message" class="hidden p-4 bg-red-50 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-lg mb-6">
+              <p id="error-text" class="text-red-700 dark:text-red-300 font-medium"></p>
+            </div>
+
+            <!-- Submission Form -->
+            <div id="form-container">
+              <form id="guest-post-form" class="space-y-6" novalidate>
+
+                <!-- Full Name -->
+                <div>
+                  <label for="author-name" class="block text-sm font-semibold mb-1">
+                    Full Name <span class="text-red-500">*</span>
+                  </label>
+                  <input type="text" id="author-name" name="name" required maxlength="100" placeholder="e.g. Ahmed Khan" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]" />
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <label for="author-email" class="block text-sm font-semibold mb-1">
+                    Email Address <span class="text-red-500">*</span>
+                  </label>
+                  <input type="email" id="author-email" name="email" required maxlength="200" placeholder="e.g. ahmed@example.com" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]" />
+                </div>
+
+                <!-- Article Title -->
+                <div>
+                  <label for="article-title" class="block text-sm font-semibold mb-1">
+                    Article Title <span class="text-red-500">*</span>
+                  </label>
+                  <input type="text" id="article-title" name="title" required maxlength="200" placeholder="e.g. How to Choose the Right Contractor in Lahore" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]" />
+                </div>
+
+                <!-- Article Content -->
+                <div>
+                  <label for="article-content" class="block text-sm font-semibold mb-1">
+                    Article Content <span class="text-red-500">*</span>
+                  </label>
+                  <textarea id="article-content" name="content" required rows="12" maxlength="20000" placeholder="Write your article here... (minimum 500 words)" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-y"></textarea>
+                  <p id="word-count" class="text-xs text-gray-400 mt-1">
+                    0 words (minimum 500 required)
+                  </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn" class="w-full py-3 px-6 bg-[var(--accent)] text-white font-bold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                  Submit for Review
+                </button>
+
+              </form>
+            </div>
+
+          </div>
+        </main>
+    </div>
+
+    <!-- Global Legal Footer -->
+    <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
+        <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
+            <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
+            <span class="separator">&bull;</span>
+            <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
+            <span class="separator">&bull;</span>
+            <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
+        </div>
+        <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+    </footer>
+
+    <script>
+      // Word count display
+      const contentArea = document.getElementById('article-content');
+      const wordCountEl = document.getElementById('word-count');
+
+      contentArea.addEventListener('input', () => {
+        const words = contentArea.value.trim().split(/\s+/).filter(Boolean).length;
+        wordCountEl.textContent = `${words} words (minimum 500 required)`;
+        wordCountEl.className = words >= 500
+          ? 'text-xs text-green-500 mt-1'
+          : 'text-xs text-gray-400 mt-1';
+      });
+
+      // Form submission
+      document.getElementById('guest-post-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submit-btn');
+        const errorDiv  = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const successDiv = document.getElementById('success-message');
+
+        const name    = document.getElementById('author-name').value.trim();
+        const email   = document.getElementById('author-email').value.trim();
+        const title   = document.getElementById('article-title').value.trim();
+        const content = document.getElementById('article-content').value.trim();
+
+        // Client-side validation
+        errorDiv.classList.add('hidden');
+        const wordCount = content.split(/\s+/).filter(Boolean).length;
+
+        if (!name || !email || !title || !content) {
+          errorText.textContent = 'All fields are required.';
+          errorDiv.classList.remove('hidden');
+          return;
+        }
+        if (wordCount < 500) {
+          errorText.textContent = `Article is too short (${wordCount} words). Minimum 500 words required.`;
+          errorDiv.classList.remove('hidden');
+          return;
+        }
+
+        // Disable button to prevent duplicate submissions
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting... Please wait';
+
+        try {
+          const response = await fetch('/api/guest-posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, title, content })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            // Hide form, show success
+            document.getElementById('form-container').classList.add('hidden');
+            successDiv.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            errorText.textContent = data.error || 'Submission failed. Please try again.';
+            errorDiv.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit for Review';
+          }
+
+        } catch (err) {
+          errorText.textContent = 'Network error. Please check your connection and try again.';
+          errorDiv.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit for Review';
+        }
+      });
+    </script>
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
