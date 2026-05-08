@@ -80,10 +80,11 @@
 
             <!-- Mobile Dropdown Navigation -->
             <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
-                <select onchange="document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
+                <select onchange="if(this.value.startsWith('/')) window.location.href = this.value; else document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
                     <option value="estimator-view">BOQ Estimator</option>
                     <option value="concrete-view">Concrete Calculator</option>
                     <option value="steel-view">Steel Calculator</option>
+                    <option value="/guide-5-marla">Guides</option>
                     <!-- <option value="plastering-view" disabled>Plastering (Coming Soon)</option> -->
                     <!-- <option value="flooring-view" disabled>Flooring (Coming Soon)</option> -->
                     <!-- <option value="paint-view" disabled>Paint Work (Coming Soon)</option> -->
@@ -95,6 +96,7 @@
                 <button class="nav-item active shrink-0" data-view="estimator-view">BOQ Estimator</button>
                 <button class="nav-item shrink-0" data-view="concrete-view">Concrete Calculator</button>
                 <button class="nav-item shrink-0" data-view="steel-view">Steel Calculator</button>
+                <a href="/guide-5-marla" class="nav-item shrink-0">Guides</a>
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="plastering-view">Plastering (Coming Soon)</button> -->
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button> -->
                 <!-- COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button> -->

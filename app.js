@@ -74,14 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let serverBaseRates = {}; // Store unmodified base rates
 
 
+    // Highlight active link based on URL pathname
+    document.querySelectorAll('.nav-item').forEach(link => {
+        if (link.getAttribute('href') === window.location.pathname) {
+            link.classList.add('active');
+        }
+    });
+
     navItems.forEach(btn => {
         btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-view');
+            if (!targetId) return;
+
             navItems.forEach(n => n.classList.remove('active'));
             viewSections.forEach(v => v.classList.remove('active'));
             
             btn.classList.add('active');
-            const targetId = btn.getAttribute('data-view');
-            document.getElementById(targetId).classList.add('active');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) targetEl.classList.add('active');
             
             // Context Aware Sidebar Swapping
             if(targetId === 'concrete-view') {
@@ -210,6 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
         lblThick.forEach(l => l.innerText = isMetric ? 'cm' : 'inches');
         lblVol.forEach(l => l.innerText = isMetric ? 'cum' : 'cft');
         if(unitToggleLabel) unitToggleLabel.innerText = isMetric ? 'Units: Metric (m)' : 'Units: Imperial (ft)';
+
+        if (!plotLength) return; // Exit if calculator inputs are missing
 
         // Number conversion helper
         const cleanVal = v => Number(v.toFixed(5)).toString();
@@ -615,8 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const updateConcreteCalculator = () => {
+        const concShape = document.getElementById('concShape');
+        if (!concShape) return;
+        
         const isMetric = APP_STATE.metric;
-        const shape = document.getElementById('concShape').value;
+        const shape = concShape.value;
         const qty = parseFloat(document.getElementById('concQty').value) || 1;
         const ratioStr = document.getElementById('concRatio').value;
         
@@ -727,12 +742,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     loadState();
-    initCharts();
-    fetchLiveRates();
-    renderRatesSidebar();
-    renderEstimator();
-    updateConcreteCalculator();
-    if (typeof calculateSteel === 'function') calculateSteel();
+    if (document.getElementById('plotSize')) {
+        initCharts();
+        fetchLiveRates();
+        renderRatesSidebar();
+        renderEstimator();
+        updateConcreteCalculator();
+        if (typeof calculateSteel === 'function') calculateSteel();
+    }
 
     // --- Compliance & Cookies ---
     const cookieBanner = document.getElementById('cookie-banner');

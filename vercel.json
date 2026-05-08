@@ -1,11 +1,6 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/admin.html"
-    }
-  ],
+  "trailingSlash": false,
   "crons": [
     {
       "path": "/api/cron-scrape",

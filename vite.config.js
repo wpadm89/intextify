@@ -9,7 +9,8 @@ export default defineConfig({
         admin: resolve(__dirname, 'admin.html'),
         contact: resolve(__dirname, 'contact.html'),
         privacy: resolve(__dirname, 'privacy.html'),
-        terms: resolve(__dirname, 'terms.html')
+        terms: resolve(__dirname, 'terms.html'),
+        guide5Marla: resolve(__dirname, 'guide-5-marla.html')
       }
     }
   }
