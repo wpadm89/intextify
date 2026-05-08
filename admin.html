@@ -69,6 +69,9 @@
             
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('rates-editor').style.display = 'block';
+            
+            // Save admin key to localStorage so the guest-posts section can load
+            localStorage.setItem('adminKey', currentPassword);
 
             const container = document.getElementById('overrides-container');
             const materials = ['bricks', 'cement', 'sand', 'crush', 'steel', 'labor'];
@@ -124,7 +127,7 @@
     }); 
 </script>
 <!-- Guest Posts Review Section -->
-<section id="guest-posts-section" class="mt-10">
+<section id="guest-posts-section" class="mt-10" style="display:none;">
   <h2 class="text-2xl font-bold mb-6 text-[var(--primary)]">
     📝 Guest Post Submissions
   </h2>
@@ -163,10 +166,21 @@
 
   // ── Fetch Posts ───────────────────────────────────────────────
   async function loadGuestPosts() {
-    const adminKey = localStorage.getItem('adminKey') 
-                  || prompt('Enter Admin Password:');
-    if (!adminKey) return;
-    localStorage.setItem('adminKey', adminKey);
+    const container = document.getElementById('guest-posts-container');
+    const section = document.getElementById('guest-posts-section');
+
+    // Get admin key from localStorage (set by existing admin login logic)
+    const adminKey = localStorage.getItem('adminKey');
+
+    // If not authenticated yet, hide section entirely and retry after 1 second
+    if (!adminKey) {
+      if (section) section.style.display = 'none';
+      setTimeout(loadGuestPosts, 1000);
+      return;
+    }
+
+    // Key exists — show section and fetch
+    if (section) section.style.display = 'block';
 
     try {
       const res = await fetch('/api/guest-posts', {
@@ -175,7 +189,8 @@
 
       if (res.status === 401) {
         localStorage.removeItem('adminKey');
-        document.getElementById('guest-posts-container').innerHTML =
+        if (section) section.style.display = 'none';
+        container.innerHTML =
           '<p class="text-red-500 font-semibold">❌ Unauthorized. Wrong password.</p>';
         return;
       }
@@ -185,7 +200,7 @@
       renderPosts(currentFilter);
 
     } catch (err) {
-      document.getElementById('guest-posts-container').innerHTML =
+      container.innerHTML =
         '<p class="text-red-500">Failed to load posts. Check your connection.</p>';
     }
   }
@@ -256,9 +271,21 @@
                           text-[var(--accent)] hover:opacity-80">
             📖 Read Full Article
           </summary>
-          <div class="mt-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg 
-                      text-sm leading-relaxed whitespace-pre-wrap border 
-                      border-gray-200 dark:border-gray-700 max-h-96 overflow-y-auto">
+          <div style="
+            margin-top: 12px;
+            padding: 16px;
+            background: #1a1a2e;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #374151;
+            font-family: inherit;
+          ">
             ${escapeHtml(post.content)}
           </div>
         </details>
