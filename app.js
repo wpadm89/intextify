@@ -254,39 +254,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    unitToggle.addEventListener('change', (e) => {
-        APP_STATE.metric = e.target.checked;
-        
-        // Convert Steel length input
-        const sLen = document.getElementById('steelLength');
-        if (sLen && sLen.value !== '') {
-            let currentValue = parseFloat(sLen.value);
-            if (!isNaN(currentValue)) {
-                let newValue = APP_STATE.metric ? (currentValue * 0.3048) : (currentValue / 0.3048);
-                sLen.value = newValue.toFixed(2);
+    if (unitToggle) {
+        unitToggle.addEventListener('change', (e) => {
+            APP_STATE.metric = e.target.checked;
+            
+            // Convert Steel length input
+            const sLen = document.getElementById('steelLength');
+            if (sLen && sLen.value !== '') {
+                let currentValue = parseFloat(sLen.value);
+                if (!isNaN(currentValue)) {
+                    let newValue = APP_STATE.metric ? (currentValue * 0.3048) : (currentValue / 0.3048);
+                    sLen.value = newValue.toFixed(2);
+                }
             }
-        }
 
-        enforceMetricMath();
-        renderRatesSidebar();
-        renderEstimator();
-        updateConcreteCalculator();
-        if (typeof calculateSteel === 'function') calculateSteel();
-        saveState();
-    });
+            enforceMetricMath();
+            renderRatesSidebar();
+            renderEstimator();
+            updateConcreteCalculator();
+            if (typeof calculateSteel === 'function') calculateSteel();
+            saveState();
+        });
+    }
 
-    themeToggle.addEventListener('change', (e) => {
-        APP_STATE.theme = e.target.checked ? 'dark' : 'light';
-        root.setAttribute('data-theme', APP_STATE.theme);
-        saveState();
-        
-        // Update charts text color on theme swap
-        if(pieChartInstance && barChartInstance) {
-            Chart.defaults.color = getComputedStyle(root).getPropertyValue('--text-secondary').trim() || '#94a3b8';
-            pieChartInstance.update();
-            barChartInstance.update();
-        }
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('change', (e) => {
+            APP_STATE.theme = e.target.checked ? 'dark' : 'light';
+            root.setAttribute('data-theme', APP_STATE.theme);
+            saveState();
+            
+            // Update charts text color on theme swap
+            if(pieChartInstance && barChartInstance) {
+                Chart.defaults.color = getComputedStyle(root).getPropertyValue('--text-secondary').trim() || '#94a3b8';
+                pieChartInstance.update();
+                barChartInstance.update();
+            }
+        });
+    }
 
     // --- State Engine ---
     const loadState = () => {
@@ -305,9 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
             projectLocationSelect.value = APP_STATE.location;
         }
 
-        themeToggle.checked = APP_STATE.theme === 'dark';
+        if (themeToggle) themeToggle.checked = APP_STATE.theme === 'dark';
         root.setAttribute('data-theme', APP_STATE.theme);
-        unitToggle.checked = APP_STATE.metric;
+        if (unitToggle) unitToggle.checked = APP_STATE.metric;
         if(unitToggleLabel) unitToggleLabel.innerText = APP_STATE.metric ? 'Units: Metric (m)' : 'Units: Imperial (ft)';
         if(APP_STATE.metric) {
            lblLen.forEach(l => l.innerText = 'm');
@@ -384,11 +388,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
-    projectLocationSelect.addEventListener('change', (e) => {
-        APP_STATE.location = e.target.value;
-        saveState();
-        applyFreightModifiers();
-    });
+    if (projectLocationSelect) {
+        projectLocationSelect.addEventListener('change', (e) => {
+            APP_STATE.location = e.target.value;
+            saveState();
+            applyFreightModifiers();
+        });
+    }
 
     // --- Estimator Math Engine ---
     const updateDimensions = () => {
@@ -562,45 +568,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    plotSizeSelect.addEventListener('change', (e) => {
-        const val = e.target.value;
-        APP_STATE.plotDetails.sizePreset = val;
-        
-        // Reset custom quantity overrides when plotting standard sizes
-        APP_STATE.boqData.forEach(m => m.isCustomQty = false);
-        
-        let STANDARD_PLOTS;
-        // Inject standard dims in feet or meters depending on state
-        if (APP_STATE.metric) {
-            STANDARD_PLOTS = {
-                '5_marla': { L: 15.24, W: 7.62 },
-                '10_marla': { L: 19.81, W: 10.66 },
-                '1_kanal': { L: 27.43, W: 15.24 }
-            };
-        } else {
-            STANDARD_PLOTS = {
-                '5_marla': { L: 50, W: 25 },
-                '10_marla': { L: 65, W: 35 },
-                '1_kanal': { L: 90, W: 50 }
-            };
-        }
-
-        if (STANDARD_PLOTS[val]) {
-            plotLength.value = STANDARD_PLOTS[val].L;
-            plotWidth.value = STANDARD_PLOTS[val].W;
-            renderEstimator();
-        }
-    });
-
-    [plotLength, plotWidth, roofHeight].forEach(inp => {
-        inp.addEventListener('input', () => {
-            plotSizeSelect.value = 'custom';
-            APP_STATE.plotDetails.sizePreset = 'custom';
-            // Reset custom quantity overrides when re-calculating dimensions
+    if (plotSizeSelect) {
+        plotSizeSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            APP_STATE.plotDetails.sizePreset = val;
+            
+            // Reset custom quantity overrides when plotting standard sizes
             APP_STATE.boqData.forEach(m => m.isCustomQty = false);
-            renderEstimator();
+            
+            let STANDARD_PLOTS;
+            // Inject standard dims in feet or meters depending on state
+            if (APP_STATE.metric) {
+                STANDARD_PLOTS = {
+                    '5_marla': { L: 15.24, W: 7.62 },
+                    '10_marla': { L: 19.81, W: 10.66 },
+                    '1_kanal': { L: 27.43, W: 15.24 }
+                };
+            } else {
+                STANDARD_PLOTS = {
+                    '5_marla': { L: 50, W: 25 },
+                    '10_marla': { L: 65, W: 35 },
+                    '1_kanal': { L: 90, W: 50 }
+                };
+            }
+
+            if (STANDARD_PLOTS[val]) {
+                plotLength.value = STANDARD_PLOTS[val].L;
+                plotWidth.value = STANDARD_PLOTS[val].W;
+                renderEstimator();
+            }
         });
-    });
+    }
+
+    if (plotLength && plotWidth && roofHeight) {
+        [plotLength, plotWidth, roofHeight].forEach(inp => {
+            inp.addEventListener('input', () => {
+                plotSizeSelect.value = 'custom';
+                APP_STATE.plotDetails.sizePreset = 'custom';
+                // Reset custom quantity overrides when re-calculating dimensions
+                APP_STATE.boqData.forEach(m => m.isCustomQty = false);
+                renderEstimator();
+            });
+        });
+    }
 
     // --- Concrete Calculator Logic ---
     let concreteChartInstance = null;
