@@ -12,7 +12,8 @@ export default defineConfig({
         terms: resolve(__dirname, 'terms.html'),
         guide5Marla: resolve(__dirname, 'guide-5-marla.html'),
         writeForUs: resolve(__dirname, 'write-for-us.html'),
-        blog: resolve(__dirname, 'blog.html')
+        blog: resolve(__dirname, 'blog.html'),
+        guidesHub: resolve(__dirname, 'guides.html')
       }
     }
   }
