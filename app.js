@@ -254,43 +254,127 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    if (unitToggle) {
-        unitToggle.addEventListener('change', (e) => {
-            APP_STATE.metric = e.target.checked;
-            
-            // Convert Steel length input
-            const sLen = document.getElementById('steelLength');
-            if (sLen && sLen.value !== '') {
-                let currentValue = parseFloat(sLen.value);
-                if (!isNaN(currentValue)) {
-                    let newValue = APP_STATE.metric ? (currentValue * 0.3048) : (currentValue / 0.3048);
-                    sLen.value = newValue.toFixed(2);
-                }
+    // Bridge for new unit toggle event
+    document.addEventListener('unitChange', (e) => {
+        APP_STATE.metric = e.detail.unit === 'sqm';
+        
+        // Convert Steel length input
+        const sLen = document.getElementById('steelLength');
+        if (sLen && sLen.value !== '') {
+            let currentValue = parseFloat(sLen.value);
+            if (!isNaN(currentValue)) {
+                let newValue = APP_STATE.metric ? (currentValue * 0.3048) : (currentValue / 0.3048);
+                sLen.value = newValue.toFixed(2);
             }
+        }
 
-            enforceMetricMath();
-            renderRatesSidebar();
-            renderEstimator();
-            updateConcreteCalculator();
-            if (typeof calculateSteel === 'function') calculateSteel();
-            saveState();
-        });
-    }
+        enforceMetricMath();
+        renderRatesSidebar();
+        renderEstimator();
+        updateConcreteCalculator();
+        if (typeof calculateSteel === 'function') calculateSteel();
+        saveState();
+    });
 
-    if (themeToggle) {
-        themeToggle.addEventListener('change', (e) => {
-            APP_STATE.theme = e.target.checked ? 'dark' : 'light';
-            root.setAttribute('data-theme', APP_STATE.theme);
-            saveState();
-            
-            // Update charts text color on theme swap
-            if(pieChartInstance && barChartInstance) {
-                Chart.defaults.color = getComputedStyle(root).getPropertyValue('--text-secondary').trim() || '#94a3b8';
-                pieChartInstance.update();
-                barChartInstance.update();
-            }
-        });
+    // Bridge for new dark mode toggle to update charts
+    const observer = new MutationObserver(() => {
+        APP_STATE.theme = document.documentElement.dataset.theme || 'light';
+        saveState();
+        if(pieChartInstance && barChartInstance) {
+            Chart.defaults.color = getComputedStyle(root).getPropertyValue('--text-secondary').trim() || '#94a3b8';
+            pieChartInstance.update();
+            barChartInstance.update();
+        }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+(function () {
+  'use strict';
+
+  const header     = document.getElementById('mainHeader');
+  const darkToggle = document.getElementById('darkToggle');
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (!header || !darkToggle || !menuToggle || !mobileMenu) return;
+
+  // Dark Mode — restore saved preference
+  const savedTheme = localStorage.getItem('intextify-theme');
+  if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+  darkToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    const next   = isDark ? '' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('intextify-theme', next);
+    darkToggle.setAttribute('aria-label',
+      isDark ? 'Enable dark mode' : 'Enable light mode');
+  });
+
+  // Unit Toggle
+  document.querySelectorAll('.unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.unit-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      document.dispatchEvent(new CustomEvent('unitChange', {
+        detail: { unit: btn.dataset.unit }
+      }));
+    });
+  });
+
+  // Mobile Menu
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label',
+      isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!header.contains(e.target) && mobileMenu.classList.contains('open')) {
+      mobileMenu.classList.remove('open');
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
     }
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      mobileMenu.classList.remove('open');
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.focus();
+    }
+  });
+
+  // Scroll shadow
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // SEO FIX: aria-current — set "page" on active link, 
+  // REMOVE attribute entirely on inactive links (not set to "false")
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-link').forEach(link => {
+    const href = link.getAttribute('href');
+    const isActive = href === '/'
+      ? path === '/' || path === '/index.html'
+      : path.startsWith(href);
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current'); // ← correct SEO practice
+    }
+  });
+
+})();
 
     // --- State Engine ---
     const loadState = () => {
