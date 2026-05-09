@@ -117,7 +117,7 @@
                 </div>
             </div>
 
-            <!-- Mobile Dropdown Navigation -->
+            Mobile Dropdown Navigation
             <div class="px-4 py-3 block lg:hidden border-b border-[var(--border-color)]">
                 <select onchange="if(this.value.startsWith('/')) window.location.href = this.value; else document.querySelector(`button[data-view='${this.value}']`).click();" class="w-full bg-[var(--input-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-lg p-3 outline-none min-h-[44px] font-semibold" aria-label="Select tool view">
                     <option value="/">BOQ Estimator</option>
@@ -129,7 +129,7 @@
                 </select>
             </div>
 
-            <!-- Desktop Navigation -->
+            Desktop Navigation
             <nav class="sidebar-nav hidden lg:!flex flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <a href="/" class="nav-item shrink-0">BOQ Estimator</a>
                 <a href="/#concrete-view" class="nav-item shrink-0">Concrete Calculator</a>
