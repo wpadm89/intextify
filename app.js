@@ -845,6 +845,57 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof calculateSteel === 'function') calculateSteel();
     }
 
+    // ── Hash-based view routing (from dropdown links on other pages) ──
+    const switchToView = (viewId) => {
+        if (!viewId) return;
+        viewSections.forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(viewId);
+        if (!target) return;
+        target.classList.add('active');
+
+        if (viewId === 'concrete-view') {
+            if(plotConfigSection)     plotConfigSection.classList.add('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.add('hidden');
+            if(actionFooter)          actionFooter.classList.add('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.remove('hidden');
+            updateConcreteCalculator();
+        } else if (viewId === 'steel-view') {
+            if(plotConfigSection)     plotConfigSection.classList.add('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.add('hidden');
+            if(actionFooter)          actionFooter.classList.add('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
+            calculateSteel();
+        } else if (viewId === 'estimator-view') {
+            if(plotConfigSection)     plotConfigSection.classList.remove('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.remove('hidden');
+            if(actionFooter)          actionFooter.classList.remove('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
+        }
+        document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
+        history.replaceState(null, '', '#' + viewId);
+    };
+
+    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view'];
+    const activateFromHash = () => {
+        const hash = window.location.hash.replace('#', '');
+        if (VALID_VIEWS.includes(hash)) switchToView(hash);
+    };
+    activateFromHash();
+    window.addEventListener('hashchange', activateFromHash);
+
+    // Wire dropdown links on index.html to switch views without page reload
+    document.querySelectorAll('.nav-dd-item[href]').forEach(link => {
+        const hash = link.getAttribute('href').replace('/#', '').replace('/', '');
+        if (VALID_VIEWS.includes(hash)) {
+            link.addEventListener('click', (e) => {
+                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                    e.preventDefault();
+                    switchToView(hash);
+                }
+            });
+        }
+    });
+
     // --- Compliance & Cookies ---
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
