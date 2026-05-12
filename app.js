@@ -298,6 +298,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!header || !darkToggle || !menuToggle || !mobileMenu) return;
 
+  // ── Dropdown: JS hover delay for bulletproof UX ──────────────
+  let ddCloseTimer = null;
+
+  document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+    const menu = dropdown.querySelector('.nav-dropdown-menu');
+    if (!menu) return;
+
+    const openDropdown = () => {
+      clearTimeout(ddCloseTimer);
+      dropdown.classList.add('dd-open');
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateX(-50%) translateY(0)';
+      menu.style.pointerEvents = 'auto';
+    };
+
+    const closeDropdown = () => {
+      ddCloseTimer = setTimeout(() => {
+        dropdown.classList.remove('dd-open');
+        menu.style.opacity = '';
+        menu.style.visibility = '';
+        menu.style.transform = '';
+        menu.style.pointerEvents = '';
+      }, 380); /* 380ms grace period — cursor can travel safely */
+    };
+
+    dropdown.addEventListener('mouseenter', openDropdown);
+    dropdown.addEventListener('mouseleave', closeDropdown);
+    menu.addEventListener('mouseenter', () => clearTimeout(ddCloseTimer));
+    menu.addEventListener('mouseleave', closeDropdown);
+  });
+
   // Dark Mode — restore saved preference
   const savedTheme = localStorage.getItem('intextify-theme');
   if (savedTheme) document.documentElement.dataset.theme = savedTheme;

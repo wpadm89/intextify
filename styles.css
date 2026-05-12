@@ -937,18 +937,22 @@ body { font-family: var(--font); }
 
 .nav-dropdown-menu {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;                          /* zero gap — hover is continuous */
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
   background: var(--nav-bg);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 6px;
+  padding-top: 18px;                  /* visual gap pushed inward via padding */
   min-width: 230px;
   list-style: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
+  /* Open instantly. Close with 350ms delay = grace period for mouse travel */
+  transition: opacity 0.22s var(--ease) 0.35s,
+              transform 0.22s var(--ease) 0.35s,
+              visibility 0.22s 0.35s;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.08);
@@ -961,6 +965,10 @@ body { font-family: var(--font); }
   visibility: visible;
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
+  /* Override: open with zero delay, only close is delayed */
+  transition: opacity 0.18s var(--ease) 0s,
+              transform 0.18s var(--ease) 0s,
+              visibility 0.18s 0s;
 }
 
 .nav-dropdown-menu::before {
@@ -1039,3 +1047,15 @@ a.nav-dd-item:hover { background: rgba(15,23,42,0.06); color: var(--text); }
 .nav-mobile-menu.open .mob-sub-link:nth-child(3) { animation-delay: 0.05s; }
 .nav-mobile-menu.open .mob-sub-link:nth-child(4) { animation-delay: 0.10s; }
 .nav-mobile-menu.open .mob-sub-link:nth-child(5) { animation-delay: 0.15s; }
+
+/* Invisible hover bridge — fills gap between trigger and dropdown panel */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -24px;
+  right: -24px;
+  height: 20px;           /* covers any remaining gap */
+  background: transparent;
+  display: block;
+}
