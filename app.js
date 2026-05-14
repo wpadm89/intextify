@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             viewSections.forEach(v => v.classList.remove('active'));
             
             btn.classList.add('active');
+            updateSeoContent(targetId);
             const targetEl = document.getElementById(targetId);
             if (targetEl) targetEl.classList.add('active');
             
@@ -278,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bridge for new dark mode toggle to update charts
     const observer = new MutationObserver(() => {
-        APP_STATE.theme = document.documentElement.dataset.theme || 'light';
+        APP_STATE.theme = document.documentElement.dataset.theme || 'dark';
         saveState();
         if(pieChartInstance && barChartInstance) {
             Chart.defaults.color = getComputedStyle(root).getPropertyValue('--text-secondary').trim() || '#94a3b8';
@@ -336,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   darkToggle.addEventListener('click', () => {
     const isDark = document.documentElement.dataset.theme === 'dark';
-    const next   = isDark ? '' : 'dark';
+    const next   = isDark ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     localStorage.setItem('intextify-theme', next);
     darkToggle.setAttribute('aria-label',
@@ -407,6 +408,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 })();
+
+    // ── Context-Aware SEO Sections ────────────────────────────
+    function updateSeoContent(activeViewId) {
+        const boqSeo = document.getElementById('seo-boq');
+        const pccSeo = document.getElementById('seo-pcc');
+        if (!boqSeo || !pccSeo) return;
+        const isBoq  = activeViewId === 'estimator-view';
+        const isPcc  = activeViewId === 'concrete-view';
+        boqSeo.classList.toggle('seo-hidden', !isBoq);
+        pccSeo.classList.toggle('seo-hidden', !isPcc);
+    }
+
+    // ── Scroll Transition: Tools dim when SEO section appears ─
+    function initSeoScrollTransitions() {
+        const seoWrapper = document.getElementById('seo-content-wrapper');
+        const dashLayout = document.querySelector('.dashboard-layout');
+        if (!seoWrapper || !dashLayout) return;
+
+        // Dim/lift the tools panel when SEO content scrolls in
+        const toolsFader = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                dashLayout.classList.toggle('tools-scrolled-out',
+                    e.isIntersecting);
+            });
+        }, { threshold: 0.05 });
+        toolsFader.observe(seoWrapper);
+
+        // Staggered entrance for each individual SEO block
+        const blockFader = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting)
+                    e.target.classList.add('seo-block-visible');
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.seo-block')
+            .forEach(b => blockFader.observe(b));
+    }
 
     // --- State Engine ---
     const loadState = () => {
@@ -868,6 +906,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     loadState();
+    updateSeoContent('estimator-view');
+    if (document.getElementById('seo-content-wrapper'))
+        initSeoScrollTransitions();
     if (document.getElementById('plotSize')) {
         initCharts();
         fetchLiveRates();

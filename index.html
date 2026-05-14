@@ -510,86 +510,186 @@
         </div>
     </div>
     
-    <!-- Concrete Calculator SEO & FAQ -->
-    <section class="w-full max-w-5xl mx-auto mt-12 p-6 bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl shadow-sm text-[var(--text-primary)]">
-        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">What is PCC (Plain Cement Concrete)?</h2>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">PCC stands for Plain Cement Concrete. It is a mixture of cement, sand, and aggregate without any steel reinforcement. It is primarily used for providing a firm, level base for footings and floors.</p>
-        
-        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">What is RCC (Reinforced Cement Concrete)?</h2>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">RCC stands for Reinforced Cement Concrete. It includes steel bars (reinforcement) embedded in the concrete. This provides high tensile strength, making it ideal for structural elements like beams, columns, and slabs.</p>
-        
+    <!-- ── Scroll Hint Arrow (desktop only) ─────────────────── -->
+    <div class="seo-scroll-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+
+    <!-- ── SEO Content Wrapper ───────────────────────────────── -->
+    <div id="seo-content-wrapper">
+
+      <!-- BOQ Guide: visible by default (estimator-view active) -->
+      <section id="seo-boq"
+        class="seo-block w-full max-w-5xl mx-auto mt-12 mb-4 p-6
+               bg-[var(--bg-panel)] border border-[var(--border-color)]
+               rounded-xl shadow-sm text-[var(--text-primary)]">
+        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+          Complete Guide to Construction Cost Estimation in Pakistan
+        </h2>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Planning a construction project requires precise calculations
+          and up-to-date market rates. Intextify Construction Suite is
+          designed to help homeowners, contractors, and civil engineers
+          generate accurate Bill of Quantities (BOQ) and cost estimates
+          instantly.
+        </p>
+        <h3 class="text-xl font-semibold mb-3">
+          Understanding the BOQ Estimator
+        </h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          A reliable BOQ ensures that your project stays within budget.
+          Our tool uses live market rates for essential materials like
+          Bricks, Cement, Sand, Crush, and Labor. It automatically
+          calculates the required quantities based on your plot size and
+          covered area. Proper estimation of foundational Earthfill is
+          also critical for structural integrity before masonry begins.
+        </p>
+        <h3 class="text-xl font-semibold mb-3">
+          How the Steel Calculator Works
+        </h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Our integrated Steel Calculator uses the D²/162 formula for
+          metric (meters) and D²/533 for Imperial (feet), ensuring 100%
+          accuracy in structural cost estimates.
+        </p>
+        <h3 class="text-xl font-semibold mb-3">
+          Why Use Live Material Rates?
+        </h3>
+        <p class="text-[var(--text-secondary)] leading-relaxed">
+          Construction material costs fluctuate daily. By leveraging
+          automated daily rate scraping, Intextify ensures your estimates
+          reflect true current market conditions in Pakistan.
+        </p>
+      </section>
+
+      <!-- PCC FAQ: hidden by default, shown when concrete-view active -->
+      <section id="seo-pcc"
+        class="seo-block seo-hidden w-full max-w-5xl mx-auto
+               mt-12 mb-4 p-6 bg-[var(--bg-panel)]
+               border border-[var(--border-color)] rounded-xl
+               shadow-sm text-[var(--text-primary)]">
+        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+          What is PCC (Plain Cement Concrete)?
+        </h2>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          PCC stands for Plain Cement Concrete — a mixture of cement,
+          sand, and aggregate without steel reinforcement. Primarily used
+          for firm, level bases for footings and floors.
+        </p>
+        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+          What is RCC (Reinforced Cement Concrete)?
+        </h2>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          RCC includes steel bars embedded in concrete, providing high
+          tensile strength for structural elements like beams, columns,
+          and slabs.
+        </p>
         <h3 class="text-xl font-semibold mb-3">Concrete Grades</h3>
         <div class="overflow-x-auto mb-6">
-            <table class="w-full text-sm border-collapse border border-[var(--border-color)]">
-                <thead>
-                    <tr class="bg-[var(--bg-secondary)]">
-                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Grade</th>
-                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Mix Ratio (C:S:A)</th>
-                        <th class="border border-[var(--border-color)] px-4 py-2 text-left">Compressive Strength (28 days)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="border border-[var(--border-color)] px-4 py-2">M10</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">1:3:6</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">10 MPa (1450 psi)</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-[var(--border-color)] px-4 py-2">M15</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">1:2:4</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">15 MPa (2175 psi)</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-[var(--border-color)] px-4 py-2">M20</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">1:1.5:3</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">20 MPa (2900 psi)</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-[var(--border-color)] px-4 py-2">M25</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">1:1:2</td>
-                        <td class="border border-[var(--border-color)] px-4 py-2">25 MPa (3625 psi)</td>
-                    </tr>
-                </tbody>
-            </table>
+          <table class="w-full text-sm border-collapse
+                        border border-[var(--border-color)]">
+            <thead>
+              <tr class="bg-[var(--bg-secondary)]">
+                <th class="border border-[var(--border-color)]
+                           px-4 py-2 text-left">Grade</th>
+                <th class="border border-[var(--border-color)]
+                           px-4 py-2 text-left">Mix Ratio (C:S:A)</th>
+                <th class="border border-[var(--border-color)]
+                           px-4 py-2 text-left">
+                  Compressive Strength (28 days)
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">M10</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">1:3:6</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">10 MPa (1450 psi)</td>
+              </tr>
+              <tr>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">M15</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">1:2:4</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">15 MPa (2175 psi)</td>
+              </tr>
+              <tr>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">M20</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">1:1.5:3</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">20 MPa (2900 psi)</td>
+              </tr>
+              <tr>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">M25</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">1:1:2</td>
+                <td class="border border-[var(--border-color)]
+                           px-4 py-2">25 MPa (3625 psi)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <h3 class="text-xl font-semibold mb-3">
+          Frequently Asked Questions (FAQ)
+        </h3>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4
+                        rounded-lg cursor-pointer">
+          <summary class="font-semibold text-[var(--text-primary)]">
+            How does this calculator account for dry volume?
+          </summary>
+          <p class="mt-2 text-[var(--text-secondary)] text-sm">
+            Dry materials take up 54% more volume than wet concrete.
+            Multiply wet volume × 1.54 to get required dry material
+            volume before purchase.
+          </p>
+        </details>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4
+                        rounded-lg cursor-pointer">
+          <summary class="font-semibold text-[var(--text-primary)]">
+            What is the difference between M15 and M20 concrete?
+          </summary>
+          <p class="mt-2 text-[var(--text-secondary)] text-sm">
+            M15 (1:2:4) is for regular slabs and non-load-bearing
+            elements. M20 (1:1.5:3) has higher cement content and is
+            required for load-bearing columns and heavy structural beams.
+          </p>
+        </details>
+        <details class="mb-4 bg-[var(--bg-secondary)] p-4
+                        rounded-lg cursor-pointer">
+          <summary class="font-semibold text-[var(--text-primary)]">
+            How many cement bags for a 10×10 ft slab?
+          </summary>
+          <p class="mt-2 text-[var(--text-secondary)] text-sm">
+            A 10×10 ft slab at 6 inches thick (50 cft wet volume)
+            requires approximately 11 bags of cement using M15 mix.
+            Use the calculator above for your exact dimensions.
+          </p>
+        </details>
+        <details class="mb-2 bg-[var(--bg-secondary)] p-4
+                        rounded-lg cursor-pointer">
+          <summary class="font-semibold text-[var(--text-primary)]">
+            Why is the dry volume factor 1.54?
+          </summary>
+          <p class="mt-2 text-[var(--text-secondary)] text-sm">
+            When water is added, fine aggregates fill voids between
+            coarse aggregates, shrinking the overall volume by ~35%.
+            The 1.54 factor compensates to ensure correct dry material
+            quantities are purchased.
+          </p>
+        </details>
+      </section>
 
-        <h3 class="text-xl font-semibold mb-3">Frequently Asked Questions (FAQ)</h3>
-        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
-            <summary class="font-semibold text-[var(--text-primary)]">How does this calculator account for dry volume?</summary>
-            <p class="mt-2 text-[var(--text-secondary)] text-sm">When water is added to dry concrete mix, it shrinks. To get the required wet volume of poured concrete, we must multiply the wet volume by a standard dry volume factor, which is typically 1.54. This ensures you purchase enough dry materials to yield the correct volume after mixing.</p>
-        </details>
-        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
-            <summary class="font-semibold text-[var(--text-primary)]">What is the difference between M15 and M20 concrete?</summary>
-            <p class="mt-2 text-[var(--text-secondary)] text-sm">M15 concrete (1:2:4 ratio) is generally used for regular slabs and non-load-bearing elements. M20 concrete (1:1.5:3 ratio) has a higher cement content, providing greater strength, and is recommended for load-bearing structures like columns and heavy structural beams.</p>
-        </details>
-        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
-            <summary class="font-semibold text-[var(--text-primary)]">How many cement bags do I need for a 10x10 slab?</summary>
-            <p class="mt-2 text-[var(--text-secondary)] text-sm">This depends on the thickness of the slab and the concrete grade. A 10x10 ft slab that is 6 inches thick has a wet volume of 50 cft. Using M15 (1:2:4) concrete, you would need approximately 11 bags of cement. You can use our calculator above to find the exact quantities for your specific dimensions.</p>
-        </details>
-        <details class="mb-4 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
-            <summary class="font-semibold text-[var(--text-primary)]">Is this calculator accurate for Pakistan construction standards?</summary>
-            <p class="mt-2 text-[var(--text-secondary)] text-sm">Yes, the calculations are based on standard civil engineering formulas widely used in Pakistan. The 1.54 dry volume factor and standard bag weight of 50kg are accurate for the local construction industry.</p>
-        </details>
-        <details class="mb-2 bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer">
-            <summary class="font-semibold text-[var(--text-primary)]">What is the wet volume factor and why is it 1.54?</summary>
-            <p class="mt-2 text-[var(--text-secondary)] text-sm">The dry volume factor of 1.54 means that dry materials take up 54% more volume than wet concrete. When mixed with water, the fine aggregates (sand) fill the voids between the coarse aggregates (crush/gravel), causing the overall volume to decrease. Therefore, you must multiply the required wet volume by 1.54 to determine the volume of dry materials to purchase.</p>
-        </details>
-    </section>
-
-    <!-- SEO Educational Content -->
-    <section class="w-full max-w-5xl mx-auto mt-12 mb-8 p-6 bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl shadow-sm text-[var(--text-primary)]">
-        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">Complete Guide to Construction Cost Estimation in Pakistan</h2>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">Planning a construction project requires precise calculations and up-to-date market rates. Intextify Construction Suite is designed to help homeowners, contractors, and civil engineers generate accurate Bill of Quantities (BOQ) and cost estimates instantly.</p>
-        
-        <h3 class="text-xl font-semibold mb-3">Understanding the BOQ Estimator</h3>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">A reliable BOQ ensures that your project stays within budget. Our tool uses live market rates for essential materials like Bricks, Cement, Sand, Crush, and Labor. It automatically calculates the required quantities based on your plot size and covered area, providing a detailed breakdown for every phase of construction, from the foundation to the finishing touches. Proper estimation of foundational Earthfill is also critical for structural integrity and budget planning before masonry work begins.</p>
-        
-        <h3 class="text-xl font-semibold mb-3">How the Steel Calculator Works</h3>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">Calculating the exact weight of steel reinforcement (sariya) is often complicated. Our integrated Steel Calculator simplifies this by using standard civil engineering formulas. For lengths measured in meters, the tool automatically applies the standard D² / 162 formula. If you switch your units to Imperial (feet), it dynamically adjusts to use the D² / 533 formula. This ensures 100% accuracy in your structural cost estimates whether you are building a commercial zone or a residential block.</p>
-        
-        <h3 class="text-xl font-semibold mb-3">Why Use Live Material Rates?</h3>
-        <p class="text-[var(--text-secondary)] leading-relaxed">Construction material costs fluctuate daily. By leveraging automated daily rate scraping, Intextify ensures that your estimates reflect the true current market conditions, eliminating the guesswork from your project planning.</p>
-    </section>
+    </div>
+    <!-- ── End SEO Content Wrapper ───────────────────────────── -->
 
     <!-- Global Legal Footer -->
     <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">

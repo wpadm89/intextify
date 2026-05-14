@@ -602,13 +602,15 @@ input:checked + .slider:before { transform: translateX(20px); }
 @media (min-width: 1000px) {
     .dashboard-layout {
         flex-direction: row;
-        height: 100vh;
-        overflow: hidden;
+        min-height: calc(100vh - var(--nav-height));
+        /* height:100vh removed — body must scroll to reach SEO sections */
     }
 
     .sidebar {
         flex: 0 0 min-content;
-        height: 100vh;
+        position: sticky;
+        top: var(--nav-height);
+        height: calc(100vh - var(--nav-height));
         overflow-y: auto;
         border-bottom: none;
         backdrop-filter: blur(20px);
@@ -651,8 +653,8 @@ input:checked + .slider:before { transform: translateX(20px); }
     .sidebar-footer { margin-top: auto; }
 
     .content-area {
-        height: 100vh;
-        overflow-y: auto;
+        min-height: calc(100vh - var(--nav-height));
+        /* overflow-y removed — body scroll replaces internal scroll */
     }
 
     /* Dashboard Desktop layout */
@@ -1058,4 +1060,97 @@ a.nav-dd-item:hover { background: rgba(15,23,42,0.06); color: var(--text); }
   height: 20px;           /* covers any remaining gap */
   background: transparent;
   display: block;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK / LIGHT MODE — LIGHT MODE CONTRAST FIXES
+   ═══════════════════════════════════════════════════════════ */
+
+/* Fix: total value gradient endpoint was white→white in light mode */
+[data-theme="light"] .overview-widget .total-value {
+    background: linear-gradient(45deg, var(--accent), #0369a1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Fix: metric card bg barely visible on light bg */
+[data-theme="light"] .card-metric {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Fix: info-card border contrast */
+[data-theme="light"] .info-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SEO SECTION — SCROLL TRANSITION SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+
+/* Smooth transition on the tools panel */
+.dashboard-layout {
+    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+/* Tools panel fades & lifts when SEO scrolls into view */
+.dashboard-layout.tools-scrolled-out {
+    opacity: 0.08;
+    pointer-events: none;
+    transform: translateY(-14px) scale(0.982);
+}
+
+/* SEO wrapper floats above the dimmed tools layer */
+#seo-content-wrapper {
+    position: relative;
+    z-index: 10;
+    background: var(--bg-main);
+    /* Soft separator shadow to distinguish from tools */
+    box-shadow: 0 -16px 40px -4px var(--bg-main);
+}
+
+/* Individual SEO block entrance — starts hidden */
+.seo-block {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.seo-block:nth-child(2) { transition-delay: 0.12s; }
+.seo-block:nth-child(3) { transition-delay: 0.24s; }
+
+/* Triggered by IntersectionObserver in app.js */
+.seo-block.seo-block-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Context-aware hide/show — toggled by updateSeoContent() */
+.seo-hidden { display: none !important; }
+
+/* Scroll hint chevron — desktop only */
+@media (min-width: 1000px) {
+    .seo-scroll-hint {
+        display: flex;
+        justify-content: center;
+        padding: 1.25rem 0 0.5rem;
+        opacity: 0.3;
+        animation: hint-bounce 1.9s ease-in-out infinite;
+        pointer-events: none;
+    }
+    .seo-scroll-hint svg {
+        width: 28px; height: 28px;
+        stroke: var(--accent);
+        stroke-width: 2.2; fill: none;
+        stroke-linecap: round; stroke-linejoin: round;
+    }
+}
+@media (max-width: 999px) { .seo-scroll-hint { display: none; } }
+
+@keyframes hint-bounce {
+    0%, 100% { transform: translateY(0);  }
+    50%       { transform: translateY(9px); }
 }
