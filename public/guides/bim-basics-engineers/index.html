@@ -41,81 +41,19 @@
 </head>
 <body class="max-w-[100vw] overflow-x-hidden">
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col">
-  <header class="nav-header" id="mainHeader" role="banner">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Intextify - Construction Calculators Pakistan">
-        <div class="nav-logo-icon" aria-hidden="true">
-          <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-        </div>
-        <span class="nav-logo-text">Intex<span>tify</span></span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <ul class="nav-links" role="list">
-          <li class="nav-dropdown">
-            <a href="/" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-              Calculators
-              <svg class="nav-dd-arrow w-4 h-4 flex-shrink-0" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
-            </a>
-            <ul class="nav-dropdown-menu" role="menu" aria-label="Calculator tools">
-              <li role="none"><a href="/#estimator-view" class="nav-dd-item" role="menuitem">📊 BOQ Estimator</a></li>
-              <li role="none"><a href="/#concrete-view"  class="nav-dd-item" role="menuitem">🧱 Concrete Calculator</a></li>
-              <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
-              <li class="nav-dd-divider" role="separator"></li>
-              <li role="none"><span class="nav-dd-item nav-dd-soon">🪟 Plastering <span class="dd-badge">Soon</span></span></li>
-              <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
-            </ul>
-          </li>
-          <li><a href="/guides" class="nav-link">Guides</a></li>
-          <li><a href="/blog" class="nav-link">Blog</a></li>
-          <li><a href="/write-for-us" class="nav-link">Write for Us</a></li>
-        </ul>
-      </nav>
-      <div class="nav-right">
-        <div class="unit-toggle" role="group" aria-label="Measurement unit">
-          <button class="unit-btn active" data-unit="sqft" aria-pressed="true">sqft</button>
-          <button class="unit-btn" data-unit="sqm" aria-pressed="false">sqm</button>
-        </div>
-        <button class="dark-toggle" id="darkToggle" aria-label="Enable dark mode">
-          <svg class="icon-sun w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <svg class="icon-moon w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-          </svg>
-        </button>
-        <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
-        <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-          <span class="ham-bar" aria-hidden="true"></span>
-          <span class="ham-bar" aria-hidden="true"></span>
-          <span class="ham-bar" aria-hidden="true"></span>
-        </button>
+  <header class="w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-8">
+        <a href="/" class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+          <span class="text-blue-600">Intextify</span>
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <a href="/" class="hover:text-blue-600 transition">Calculators</a>
+          <a href="/guides" class="text-blue-600">Guides</a>
+          <a href="/blog" class="hover:text-blue-600 transition">Blog</a>
+          <a href="/write-for-us" class="hover:text-blue-600 transition">Write for Us</a>
+        </nav>
       </div>
-    </div>
-    <div class="nav-mobile-menu" id="mobileMenu">
-      <nav aria-label="Mobile navigation">
-        <div class="nav-mobile-inner">
-          <span class="mob-nav-group-label">Calculators</span>
-          <a href="/#estimator-view" class="mob-nav-link mob-sub-link">📊 BOQ Estimator</a>
-          <a href="/#concrete-view" class="mob-nav-link mob-sub-link">🧱 Concrete Calc</a>
-          <a href="/#steel-view" class="mob-nav-link mob-sub-link">⚙️ Steel Calc</a>
-          <a href="/guides" class="mob-nav-link">Guides</a>
-          <a href="/blog" class="mob-nav-link">Blog</a>
-          <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
-          <div class="mob-divider" aria-hidden="true"></div>
-          <button class="mob-cta">Get Started</button>
-        </div>
-      </nav>
     </div>
   </header>
 
