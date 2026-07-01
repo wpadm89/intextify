@@ -22,160 +22,158 @@
 
   <!-- Stylesheets -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
   <!-- Google AdSense Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
 </head>
-<body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
-<header class="nav-header" id="mainHeader" role="banner">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Intextify - Construction Calculators Pakistan">
-      <div class="nav-logo-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <span class="nav-logo-text">Intex<span>tify</span></span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <ul class="nav-links" role="list">
-        <li class="nav-dropdown">
-          <a href="/" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-            Calculators
-            <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
-          </a>
-          <ul class="nav-dropdown-menu" role="menu" aria-label="Calculator tools">
-            <li role="none"><a href="/#estimator-view" class="nav-dd-item" role="menuitem">📊 BOQ Estimator</a></li>
-            <li role="none"><a href="/#concrete-view"  class="nav-dd-item" role="menuitem">🧱 Concrete Calculator</a></li>
-            <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
-            <li class="nav-dd-divider" role="separator"></li>
-            <li role="none"><span class="nav-dd-item nav-dd-soon">🪟 Plastering <span class="dd-badge">Soon</span></span></li>
-            <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
-          </ul>
-        </li>
-        <li><a href="/guides" class="nav-link">Guides</a></li>
-        <li><a href="/blog" class="nav-link">Blog</a></li>
-        <li><a href="/write-for-us" class="nav-link">Write for Us</a></li>
-      </ul>
-    </nav>
-    <div class="nav-right">
-      <div class="unit-toggle" role="group" aria-label="Measurement unit">
-        <button class="unit-btn active" data-unit="sqft" aria-pressed="true">sqft</button>
-        <button class="unit-btn" data-unit="sqm" aria-pressed="false">sqm</button>
-      </div>
-      <button class="dark-toggle" id="darkToggle" aria-label="Enable dark mode">
-        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-        </svg>
-      </button>
-      <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
-      <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="ham-bar" aria-hidden="true"></span>
-        <span class="ham-bar" aria-hidden="true"></span>
-        <span class="ham-bar" aria-hidden="true"></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile-menu" id="mobileMenu">
-    <nav aria-label="Mobile navigation">
-      <div class="nav-mobile-inner">
-        <span class="mob-nav-group-label">Calculators</span>
-        <a href="/#estimator-view" class="mob-nav-link mob-sub-link">📊 BOQ Estimator</a>
-        <a href="/#concrete-view" class="mob-nav-link mob-sub-link">🧱 Concrete Calc</a>
-        <a href="/#steel-view" class="mob-nav-link mob-sub-link">⚙️ Steel Calc</a>
-        <a href="/guides" class="mob-nav-link">Guides</a>
-        <a href="/blog" class="mob-nav-link">Blog</a>
-        <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
-        <div class="mob-divider" aria-hidden="true"></div>
-        <button class="mob-cta">Get Started</button>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col flex-1">
-  <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden p-0">
-    <div class="max-w-4xl mx-auto px-6 py-8 text-gray-800 dark:text-gray-200" style="padding-top: 2rem;">
-      <nav class="text-sm text-[var(--text-secondary)] mb-6" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-[var(--accent)] font-medium">Home</a>
-        &rsaquo;
-        <a href="/guides" class="hover:text-[var(--accent)]">Guides</a>
-        &rsaquo;
-        <span>BIM Basics for Engineers</span>
+<body class="max-w-[100vw] overflow-x-hidden">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col">
+  <header class="nav-header" id="mainHeader" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Intextify - Construction Calculators Pakistan">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Intex<span>tify</span></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links" role="list">
+          <li class="nav-dropdown">
+            <a href="/" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Calculators
+              <svg class="nav-dd-arrow w-4 h-4 flex-shrink-0" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </a>
+            <ul class="nav-dropdown-menu" role="menu" aria-label="Calculator tools">
+              <li role="none"><a href="/#estimator-view" class="nav-dd-item" role="menuitem">📊 BOQ Estimator</a></li>
+              <li role="none"><a href="/#concrete-view"  class="nav-dd-item" role="menuitem">🧱 Concrete Calculator</a></li>
+              <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
+              <li class="nav-dd-divider" role="separator"></li>
+              <li role="none"><span class="nav-dd-item nav-dd-soon">🪟 Plastering <span class="dd-badge">Soon</span></span></li>
+              <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
+            </ul>
+          </li>
+          <li><a href="/guides" class="nav-link">Guides</a></li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/write-for-us" class="nav-link">Write for Us</a></li>
+        </ul>
       </nav>
+      <div class="nav-right">
+        <div class="unit-toggle" role="group" aria-label="Measurement unit">
+          <button class="unit-btn active" data-unit="sqft" aria-pressed="true">sqft</button>
+          <button class="unit-btn" data-unit="sqm" aria-pressed="false">sqm</button>
+        </div>
+        <button class="dark-toggle" id="darkToggle" aria-label="Enable dark mode">
+          <svg class="icon-sun w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
+        <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="ham-bar" aria-hidden="true"></span>
+          <span class="ham-bar" aria-hidden="true"></span>
+          <span class="ham-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile-menu" id="mobileMenu">
+      <nav aria-label="Mobile navigation">
+        <div class="nav-mobile-inner">
+          <span class="mob-nav-group-label">Calculators</span>
+          <a href="/#estimator-view" class="mob-nav-link mob-sub-link">📊 BOQ Estimator</a>
+          <a href="/#concrete-view" class="mob-nav-link mob-sub-link">🧱 Concrete Calc</a>
+          <a href="/#steel-view" class="mob-nav-link mob-sub-link">⚙️ Steel Calc</a>
+          <a href="/guides" class="mob-nav-link">Guides</a>
+          <a href="/blog" class="mob-nav-link">Blog</a>
+          <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
+          <div class="mob-divider" aria-hidden="true"></div>
+          <button class="mob-cta">Get Started</button>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-      <h1 class="text-3xl lg:text-4xl font-bold mb-2 text-[var(--accent)]">
-        Building Information Modeling (BIM) Basics for Pakistani Engineers
-      </h1>
-      <p class="text-sm text-[var(--text-secondary)] mb-8 font-medium">
-        By Intextify Editorial Team &middot; Updated: July 2026
-      </p>
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-1">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-4">
+      Home &gt; Guides &gt; <span class="text-slate-700 dark:text-slate-300">BIM Basics for Engineers</span>
+    </nav>
 
-      <p class="mb-6 text-lg text-[var(--text-primary)]">The architecture, engineering, and construction (AEC) industry in Pakistan is undergoing a massive digital transformation. For decades, the industry has heavily relied on traditional 2D Computer-Aided Design (CAD) drafting. However, the increasing complexity of mega commercial projects, coupled with the need for stringent cost control and rapid execution, has exposed the limitations of 2D workflows. Enter Building Information Modeling (BIM). BIM is not just a software or a 3D model; it is a holistic, intelligent, model-based process that equips professionals with the insight and tools to plan, design, construct, and manage buildings and infrastructure more efficiently. This comprehensive guide serves as a foundational blueprint for Pakistani engineers looking to transition into the world of BIM and digital twins.</p>
+    <!-- Title and Metadata -->
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+      Building Information Modeling (BIM) Basics for Pakistani Engineers
+    </h1>
+    <div class="text-sm text-slate-500 mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
+      By Intextify Editorial Team • Updated July 2026
+    </div>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">1. Bridging the Gap: From 2D CAD to Digital Twins</h2>
-      <p class="mb-4 text-[var(--text-primary)]">To appreciate the value of BIM, one must first understand the fundamental shift it represents from conventional drafting methods.</p>
+    <!-- Article Content Elements -->
+    <div class="prose prose-slate dark:prose-invert max-w-none space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+      <p>The architecture, engineering, and construction (AEC) industry in Pakistan is undergoing a massive digital transformation. For decades, the industry has heavily relied on traditional 2D Computer-Aided Design (CAD) drafting. However, the increasing complexity of mega commercial projects, coupled with the need for stringent cost control and rapid execution, has exposed the limitations of 2D workflows. Enter Building Information Modeling (BIM). BIM is not just a software or a 3D model; it is a holistic, intelligent, model-based process that equips professionals with the insight and tools to plan, design, construct, and manage buildings and infrastructure more efficiently. This comprehensive guide serves as a foundational blueprint for Pakistani engineers looking to transition into the world of BIM and digital twins.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">The Limitations of Old 2D CAD Drafting Styles</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">In traditional 2D CAD workflows, a project is represented through hundreds, sometimes thousands, of disconnected drawings (plans, elevations, sections, and details). A modification in one architectural plan requires manual, tedious updates across all corresponding structural and MEP (Mechanical, Electrical, and Plumbing) drawings. This disjointed process inevitably leads to human error, inconsistencies, and severe miscommunication among stakeholders. The result? Unforeseen clashes on the construction site, leading to expensive rework, material wastage, and significant project delays.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">1. Bridging the Gap: From 2D CAD to Digital Twins</h2>
+      <p>To appreciate the value of BIM, one must first understand the fundamental shift it represents from conventional drafting methods.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">The Paradigm Shift to Digital Twin Infrastructure Frameworks</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">BIM revolutionizes this process by creating a central, data-rich 3D model—a 'digital twin' of the physical asset. Every element in a BIM model is an intelligent object. A wall isn't just a set of parallel lines; it's a digital entity containing crucial data regarding its material composition, thickness, thermal properties, cost, and load-bearing capacity. When you adjust the height of a wall in a 3D view, the software automatically updates the corresponding floor plans, elevations, sections, and quantity schedules instantly. This single source of truth ensures that all disciplines (architecture, structure, MEP) are constantly synchronized, significantly mitigating the risks associated with siloed 2D workflows.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">The Limitations of Old 2D CAD Drafting Styles</h3>
+      <p>In traditional 2D CAD workflows, a project is represented through hundreds, sometimes thousands, of disconnected drawings (plans, elevations, sections, and details). A modification in one architectural plan requires manual, tedious updates across all corresponding structural and MEP (Mechanical, Electrical, and Plumbing) drawings. This disjointed process inevitably leads to human error, inconsistencies, and severe miscommunication among stakeholders. The result? Unforeseen clashes on the construction site, leading to expensive rework, material wastage, and significant project delays.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">2. Introduction to Core BIM Workflows and Software</h2>
-      <p class="mb-4 text-[var(--text-primary)]">While BIM is a methodology, it is executed through specialized software. Understanding the core tools is essential for any modern civil engineer.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">The Paradigm Shift to Digital Twin Infrastructure Frameworks</h3>
+      <p>BIM revolutionizes this process by creating a central, data-rich 3D model—a 'digital twin' of the physical asset. Every element in a BIM model is an intelligent object. A wall isn't just a set of parallel lines; it's a digital entity containing crucial data regarding its material composition, thickness, thermal properties, cost, and load-bearing capacity. When you adjust the height of a wall in a 3D view, the software automatically updates the corresponding floor plans, elevations, sections, and quantity schedules instantly. This single source of truth ensures that all disciplines (architecture, structure, MEP) are constantly synchronized, significantly mitigating the risks associated with siloed 2D workflows.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Autodesk Revit: The Cornerstone of Building Design</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Autodesk Revit is arguably the industry standard for BIM in vertical construction (buildings). It operates on parametric modeling, meaning the relationships between different building components are defined by parameters. Revit supports multidisciplinary collaboration, offering specialized toolsets for Architecture, Structure, and MEP. For a structural engineer in Pakistan, Revit allows for the accurate modeling of concrete reinforcement (rebar), steel connections, and the generation of precise structural analytical models that can be seamlessly exported to analysis software like ETABS or SAP2000.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">2. Introduction to Core BIM Workflows and Software</h2>
+      <p>While BIM is a methodology, it is executed through specialized software. Understanding the core tools is essential for any modern civil engineer.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Civil 3D: Mastering Horizontal Infrastructure</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">While Revit rules vertical structures, AutoCAD Civil 3D is the powerhouse for horizontal infrastructure projects such as highways, land development, rail networks, and water systems. Civil 3D applies BIM principles to civil engineering design. It creates dynamic, data-driven surfaces, alignments, profiles, and pipe networks. If an engineer modifies the horizontal alignment of a proposed highway, Civil 3D automatically updates the vertical profile, cross-sections, and earthwork volume calculations in real-time. This dynamic capability is indispensable for large-scale housing society developments and infrastructure projects across Pakistan.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Autodesk Revit: The Cornerstone of Building Design</h3>
+      <p>Autodesk Revit is arguably the industry standard for BIM in vertical construction (buildings). It operates on parametric modeling, meaning the relationships between different building components are defined by parameters. Revit supports multidisciplinary collaboration, offering specialized toolsets for Architecture, Structure, and MEP. For a structural engineer in Pakistan, Revit allows for the accurate modeling of concrete reinforcement (rebar), steel connections, and the generation of precise structural analytical models that can be seamlessly exported to analysis software like ETABS or SAP2000.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Navisworks: The Ultimate Coordination Hub</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Autodesk Navisworks is a project review software that enables AEC professionals to holistically review integrated models and data with stakeholders to gain better control over project outcomes. It doesn't author the models; instead, it aggregates models from various software platforms (Revit, Civil 3D, Tekla, etc.) into a single, federated model. This makes Navisworks the critical environment for coordination, simulation, and analysis before actual construction begins.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Civil 3D: Mastering Horizontal Infrastructure</h3>
+      <p>While Revit rules vertical structures, AutoCAD Civil 3D is the powerhouse for horizontal infrastructure projects such as highways, land development, rail networks, and water systems. Civil 3D applies BIM principles to civil engineering design. It creates dynamic, data-driven surfaces, alignments, profiles, and pipe networks. If an engineer modifies the horizontal alignment of a proposed highway, Civil 3D automatically updates the vertical profile, cross-sections, and earthwork volume calculations in real-time. This dynamic capability is indispensable for large-scale housing society developments and infrastructure projects across Pakistan.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">3. Real-World Application in Pakistani Commercial Construction</h2>
-      <p class="mb-4 text-[var(--text-primary)]">The theoretical benefits of BIM translate into massive tangible savings on the ground, particularly in the complex commercial construction landscape of Pakistan's major urban centers.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Navisworks: The Ultimate Coordination Hub</h3>
+      <p>Autodesk Navisworks is a project review software that enables AEC professionals to holistically review integrated models and data with stakeholders to gain better control over project outcomes. It doesn't author the models; instead, it aggregates models from various software platforms (Revit, Civil 3D, Tekla, etc.) into a single, federated model. This makes Navisworks the critical environment for coordination, simulation, and analysis before actual construction begins.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Clash Detection: Solving Problems Before They Happen</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">In complex high-rise buildings, routing massive HVAC ducts, electrical cable trays, and plumbing pipes through restricted ceiling plenums without intersecting structural beams is a logistical nightmare. In traditional workflows, these "clashes" are often discovered on-site, requiring contractors to halt work and find ad-hoc, often compromised, solutions. Using the federated model in Navisworks, engineers run automated 'Clash Detection' tests. The software instantly highlights where a structural beam intersects an HVAC duct. These spatial conflicts are resolved in the digital environment during the pre-construction phase. This proactive approach saves millions of rupees in rework, materials, and labor hours on Pakistani commercial sites.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">3. Real-World Application in Pakistani Commercial Construction</h2>
+      <p>The theoretical benefits of BIM translate into massive tangible savings on the ground, particularly in the complex commercial construction landscape of Pakistan's major urban centers.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">4D Simulation: Integrating the Dimension of Time</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">BIM extends beyond 3D geometry. '4D BIM' involves linking the 3D model components to the project construction schedule (e.g., from MS Project or Primavera P6). This allows engineers and project managers to generate visual, time-based simulations of the construction sequence. They can visually analyze the logistics of site layout, monitor the delivery and staging of materials, and ensure that construction activities do not conflict temporally. 4D simulation provides an incredibly powerful way to communicate the construction plan to clients and site teams, ensuring everyone understands the critical path.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Clash Detection: Solving Problems Before They Happen</h3>
+      <p>In complex high-rise buildings, routing massive HVAC ducts, electrical cable trays, and plumbing pipes through restricted ceiling plenums without intersecting structural beams is a logistical nightmare. In traditional workflows, these "clashes" are often discovered on-site, requiring contractors to halt work and find ad-hoc, often compromised, solutions. Using the federated model in Navisworks, engineers run automated 'Clash Detection' tests. The software instantly highlights where a structural beam intersects an HVAC duct. These spatial conflicts are resolved in the digital environment during the pre-construction phase. This proactive approach saves millions of rupees in rework, materials, and labor hours on Pakistani commercial sites.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">5D Simulation: Real-Time Cost Estimation (BOQ)</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">The fifth dimension in BIM is cost. '5D BIM' links the intelligent components of the 3D model with cost databases. As the design evolves, the quantities of materials (concrete volume, steel tonnage, brick count) are automatically and precisely extracted from the model. This allows estimators to generate highly accurate Bills of Quantities (BOQs) instantly. If the architect changes the facade material or alters the floor area, the total project cost is updated dynamically. For developers in Pakistan managing tight budgets amid fluctuating material prices, 5D BIM provides unparalleled financial predictability and control.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">4D Simulation: Integrating the Dimension of Time</h3>
+      <p>BIM extends beyond 3D geometry. '4D BIM' involves linking the 3D model components to the project construction schedule (e.g., from MS Project or Primavera P6). This allows engineers and project managers to generate visual, time-based simulations of the construction sequence. They can visually analyze the logistics of site layout, monitor the delivery and staging of materials, and ensure that construction activities do not conflict temporally. 4D simulation provides an incredibly powerful way to communicate the construction plan to clients and site teams, ensuring everyone understands the critical path.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">Conclusion: Embracing the Digital Future</h2>
-      <p class="mb-8 text-[var(--text-primary)]">The transition to Building Information Modeling is an irreversible global trend, and the Pakistani engineering sector is rapidly catching up. Mastery of BIM workflows, encompassing Revit, Civil 3D, and Navisworks, alongside an understanding of clash detection and 4D/5D simulations, is no longer just a specialized skill—it is becoming a fundamental requirement for civil engineers. By bridging the gap from outdated 2D drafting to sophisticated digital twin frameworks, engineers empower themselves to design smarter, construct more efficiently, and deliver higher quality infrastructure projects that meet the demands of the 21st century. The future belongs to those who build it digitally first.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">5D Simulation: Real-Time Cost Estimation (BOQ)</h3>
+      <p>The fifth dimension in BIM is cost. '5D BIM' links the intelligent components of the 3D model with cost databases. As the design evolves, the quantities of materials (concrete volume, steel tonnage, brick count) are automatically and precisely extracted from the model. This allows estimators to generate highly accurate Bills of Quantities (BOQs) instantly. If the architect changes the facade material or alters the floor area, the total project cost is updated dynamically. For developers in Pakistan managing tight budgets amid fluctuating material prices, 5D BIM provides unparalleled financial predictability and control.</p>
+
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">Conclusion: Embracing the Digital Future</h2>
+      <p>The transition to Building Information Modeling is an irreversible global trend, and the Pakistani engineering sector is rapidly catching up. Mastery of BIM workflows, encompassing Revit, Civil 3D, and Navisworks, alongside an understanding of clash detection and 4D/5D simulations, is no longer just a specialized skill—it is becoming a fundamental requirement for civil engineers. By bridging the gap from outdated 2D drafting to sophisticated digital twin frameworks, engineers empower themselves to design smarter, construct more efficiently, and deliver higher quality infrastructure projects that meet the demands of the 21st century. The future belongs to those who build it digitally first.</p>
     </div>
   </main>
+
+  <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
+    <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
+      <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
+      <span class="separator">&bull;</span>
+      <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
+      <span class="separator">&bull;</span>
+      <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
+    </div>
+    <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+  </footer>
 </div>
-
-<footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
-  <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
-    <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
-    <span class="separator">&bull;</span>
-    <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
-    <span class="separator">&bull;</span>
-    <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
-  </div>
-  <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
-</footer>
-
 <script type="module" src="/app.js"></script>
 </body>
 </html>

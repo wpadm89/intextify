@@ -22,169 +22,167 @@
 
   <!-- Stylesheets -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
   <!-- Google AdSense Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
 </head>
-<body class="max-w-[100vw] overflow-x-hidden flex flex-col min-h-screen">
-<header class="nav-header" id="mainHeader" role="banner">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Intextify - Construction Calculators Pakistan">
-      <div class="nav-logo-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <span class="nav-logo-text">Intex<span>tify</span></span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <ul class="nav-links" role="list">
-        <li class="nav-dropdown">
-          <a href="/" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-            Calculators
-            <svg class="nav-dd-arrow" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
-          </a>
-          <ul class="nav-dropdown-menu" role="menu" aria-label="Calculator tools">
-            <li role="none"><a href="/#estimator-view" class="nav-dd-item" role="menuitem">📊 BOQ Estimator</a></li>
-            <li role="none"><a href="/#concrete-view"  class="nav-dd-item" role="menuitem">🧱 Concrete Calculator</a></li>
-            <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
-            <li class="nav-dd-divider" role="separator"></li>
-            <li role="none"><span class="nav-dd-item nav-dd-soon">🪟 Plastering <span class="dd-badge">Soon</span></span></li>
-            <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
-          </ul>
-        </li>
-        <li><a href="/guides" class="nav-link">Guides</a></li>
-        <li><a href="/blog" class="nav-link">Blog</a></li>
-        <li><a href="/write-for-us" class="nav-link">Write for Us</a></li>
-      </ul>
-    </nav>
-    <div class="nav-right">
-      <div class="unit-toggle" role="group" aria-label="Measurement unit">
-        <button class="unit-btn active" data-unit="sqft" aria-pressed="true">sqft</button>
-        <button class="unit-btn" data-unit="sqm" aria-pressed="false">sqm</button>
-      </div>
-      <button class="dark-toggle" id="darkToggle" aria-label="Enable dark mode">
-        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-        </svg>
-      </button>
-      <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
-      <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="ham-bar" aria-hidden="true"></span>
-        <span class="ham-bar" aria-hidden="true"></span>
-        <span class="ham-bar" aria-hidden="true"></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile-menu" id="mobileMenu">
-    <nav aria-label="Mobile navigation">
-      <div class="nav-mobile-inner">
-        <span class="mob-nav-group-label">Calculators</span>
-        <a href="/#estimator-view" class="mob-nav-link mob-sub-link">📊 BOQ Estimator</a>
-        <a href="/#concrete-view" class="mob-nav-link mob-sub-link">🧱 Concrete Calc</a>
-        <a href="/#steel-view" class="mob-nav-link mob-sub-link">⚙️ Steel Calc</a>
-        <a href="/guides" class="mob-nav-link">Guides</a>
-        <a href="/blog" class="mob-nav-link">Blog</a>
-        <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
-        <div class="mob-divider" aria-hidden="true"></div>
-        <button class="mob-cta">Get Started</button>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col flex-1">
-  <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden p-0">
-    <div class="max-w-4xl mx-auto px-6 py-8 text-gray-800 dark:text-gray-200" style="padding-top: 2rem;">
-      <nav class="text-sm text-[var(--text-secondary)] mb-6" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-[var(--accent)] font-medium">Home</a>
-        &rsaquo;
-        <a href="/guides" class="hover:text-[var(--accent)]">Guides</a>
-        &rsaquo;
-        <span>Sustainable Construction</span>
+<body class="max-w-[100vw] overflow-x-hidden">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col">
+  <header class="nav-header" id="mainHeader" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Intextify - Construction Calculators Pakistan">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Intex<span>tify</span></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links" role="list">
+          <li class="nav-dropdown">
+            <a href="/" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Calculators
+              <svg class="nav-dd-arrow w-4 h-4 flex-shrink-0" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </a>
+            <ul class="nav-dropdown-menu" role="menu" aria-label="Calculator tools">
+              <li role="none"><a href="/#estimator-view" class="nav-dd-item" role="menuitem">📊 BOQ Estimator</a></li>
+              <li role="none"><a href="/#concrete-view"  class="nav-dd-item" role="menuitem">🧱 Concrete Calculator</a></li>
+              <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
+              <li class="nav-dd-divider" role="separator"></li>
+              <li role="none"><span class="nav-dd-item nav-dd-soon">🪟 Plastering <span class="dd-badge">Soon</span></span></li>
+              <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
+            </ul>
+          </li>
+          <li><a href="/guides" class="nav-link">Guides</a></li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/write-for-us" class="nav-link">Write for Us</a></li>
+        </ul>
       </nav>
+      <div class="nav-right">
+        <div class="unit-toggle" role="group" aria-label="Measurement unit">
+          <button class="unit-btn active" data-unit="sqft" aria-pressed="true">sqft</button>
+          <button class="unit-btn" data-unit="sqm" aria-pressed="false">sqm</button>
+        </div>
+        <button class="dark-toggle" id="darkToggle" aria-label="Enable dark mode">
+          <svg class="icon-sun w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
+        <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="ham-bar" aria-hidden="true"></span>
+          <span class="ham-bar" aria-hidden="true"></span>
+          <span class="ham-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile-menu" id="mobileMenu">
+      <nav aria-label="Mobile navigation">
+        <div class="nav-mobile-inner">
+          <span class="mob-nav-group-label">Calculators</span>
+          <a href="/#estimator-view" class="mob-nav-link mob-sub-link">📊 BOQ Estimator</a>
+          <a href="/#concrete-view" class="mob-nav-link mob-sub-link">🧱 Concrete Calc</a>
+          <a href="/#steel-view" class="mob-nav-link mob-sub-link">⚙️ Steel Calc</a>
+          <a href="/guides" class="mob-nav-link">Guides</a>
+          <a href="/blog" class="mob-nav-link">Blog</a>
+          <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
+          <div class="mob-divider" aria-hidden="true"></div>
+          <button class="mob-cta">Get Started</button>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-      <h1 class="text-3xl lg:text-4xl font-bold mb-2 text-[var(--accent)]">
-        Future of Sustainable Construction in Pakistan
-      </h1>
-      <p class="text-sm text-[var(--text-secondary)] mb-8 font-medium">
-        By Intextify Editorial Team &middot; Updated: July 2026
-      </p>
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-1">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-4">
+      Home &gt; Guides &gt; <span class="text-slate-700 dark:text-slate-300">Future of Sustainable Construction in Pakistan</span>
+    </nav>
 
-      <p class="mb-6 text-lg text-[var(--text-primary)]">The construction sector in Pakistan is standing at a critical juncture. Rapid urbanization, increasing energy demands, and the undeniable impacts of climate change necessitate a monumental shift from traditional building practices toward environmentally responsible methodologies. Sustainable construction is no longer a luxury reserved for a few elite projects; it is an absolute necessity for the future. From the sweltering heat of Lahore to the humid coastal climate of Karachi, architects and civil engineers are rethinking how structures interact with their environments. This comprehensive guide explores the multifaceted landscape of sustainable construction in Pakistan, focusing on passive cooling strategies, the advent of locally manufactured eco-friendly materials, the reduction of the carbon footprint through renewable energy, and the evolving framework of local regulations.</p>
+    <!-- Title and Metadata -->
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+      Future of Sustainable Construction in Pakistan
+    </h1>
+    <div class="text-sm text-slate-500 mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
+      By Intextify Editorial Team • Updated July 2026
+    </div>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">1. Passive Cooling Methods for Extreme Climates</h2>
-      <p class="mb-4 text-[var(--text-primary)]">Pakistan experiences significant climatic variations, with much of the country facing intensely hot summers. The heavy reliance on air conditioning places an enormous strain on the national grid and inflates utility bills exponentially. Passive cooling offers a sustainable solution by minimizing heat gain and maximizing natural heat dissipation without relying on mechanical systems.</p>
+    <!-- Article Content Elements -->
+    <div class="prose prose-slate dark:prose-invert max-w-none space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+      <p>The construction sector in Pakistan is standing at a critical juncture. Rapid urbanization, increasing energy demands, and the undeniable impacts of climate change necessitate a monumental shift from traditional building practices toward environmentally responsible methodologies. Sustainable construction is no longer a luxury reserved for a few elite projects; it is an absolute necessity for the future. From the sweltering heat of Lahore to the humid coastal climate of Karachi, architects and civil engineers are rethinking how structures interact with their environments. This comprehensive guide explores the multifaceted landscape of sustainable construction in Pakistan, focusing on passive cooling strategies, the advent of locally manufactured eco-friendly materials, the reduction of the carbon footprint through renewable energy, and the evolving framework of local regulations.</p>
+
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">1. Passive Cooling Methods for Extreme Climates</h2>
+      <p>Pakistan experiences significant climatic variations, with much of the country facing intensely hot summers. The heavy reliance on air conditioning places an enormous strain on the national grid and inflates utility bills exponentially. Passive cooling offers a sustainable solution by minimizing heat gain and maximizing natural heat dissipation without relying on mechanical systems.</p>
       
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Thermal Mass and Natural Insulation</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">The concept of thermal mass refers to a material's capacity to absorb, store, and release heat energy. In regions like Lahore and Multan, where the diurnal temperature range can be significant, utilizing high thermal mass materials such as adobe, rammed earth, or thick brick and concrete walls is highly effective. These materials absorb the intense daytime heat, delaying its transfer into the interior spaces (a phenomenon known as thermal lag). As the outside temperature drops during the evening and night, the stored heat is slowly released. When coupled with nighttime ventilation, the building can be effectively cooled before the next cycle begins, dramatically reducing the need for artificial cooling during peak hours.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Thermal Mass and Natural Insulation</h3>
+      <p>The concept of thermal mass refers to a material's capacity to absorb, store, and release heat energy. In regions like Lahore and Multan, where the diurnal temperature range can be significant, utilizing high thermal mass materials such as adobe, rammed earth, or thick brick and concrete walls is highly effective. These materials absorb the intense daytime heat, delaying its transfer into the interior spaces (a phenomenon known as thermal lag). As the outside temperature drops during the evening and night, the stored heat is slowly released. When coupled with nighttime ventilation, the building can be effectively cooled before the next cycle begins, dramatically reducing the need for artificial cooling during peak hours.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Solar Shading and Optimal Orientation</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Proper building orientation is the cornerstone of passive design. In Pakistan, the harsh summer sun predominantly hits the southern and western facades. Sustainable designs prioritize elongated east-west axes, minimizing the surface area exposed to direct sunlight during the hottest parts of the day. Furthermore, the strategic implementation of solar shading devices is crucial. Overhangs, louvers, and traditional architectural elements like 'chajjas' and 'jaalis' (perforated screens) are making a strong comeback in modern designs. In Karachi, where the coastal breeze is a major asset, jaalis allow for continuous cross-ventilation while blocking direct solar radiation, effectively creating comfortable microclimates within residential and commercial spaces.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Solar Shading and Optimal Orientation</h3>
+      <p>Proper building orientation is the cornerstone of passive design. In Pakistan, the harsh summer sun predominantly hits the southern and western facades. Sustainable designs prioritize elongated east-west axes, minimizing the surface area exposed to direct sunlight during the hottest parts of the day. Furthermore, the strategic implementation of solar shading devices is crucial. Overhangs, louvers, and traditional architectural elements like 'chajjas' and 'jaalis' (perforated screens) are making a strong comeback in modern designs. In Karachi, where the coastal breeze is a major asset, jaalis allow for continuous cross-ventilation while blocking direct solar radiation, effectively creating comfortable microclimates within residential and commercial spaces.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Green Roofs and Reflective Surfaces</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">The urban heat island effect is a major issue in densely populated cities. Green roofs, which involve planting vegetation over a waterproofing membrane, not only provide excellent thermal insulation but also reduce stormwater runoff and improve air quality. Alternatively, cool roofs—painted with highly reflective white or light-colored coatings—can reflect a significant portion of solar radiation back into the atmosphere, keeping the building interior noticeably cooler and lowering rooftop temperatures by several degrees.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Green Roofs and Reflective Surfaces</h3>
+      <p>The urban heat island effect is a major issue in densely populated cities. Green roofs, which involve planting vegetation over a waterproofing membrane, not only provide excellent thermal insulation but also reduce stormwater runoff and improve air quality. Alternatively, cool roofs—painted with highly reflective white or light-colored coatings—can reflect a significant portion of solar radiation back into the atmosphere, keeping the building interior noticeably cooler and lowering rooftop temperatures by several degrees.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">2. Modern Eco-Friendly Materials Available Locally</h2>
-      <p class="mb-4 text-[var(--text-primary)]">The traditional reliance on fired red clay bricks and conventional Portland cement is a major contributor to greenhouse gas emissions and environmental degradation, primarily due to the energy-intensive manufacturing processes and topsoil depletion. Fortunately, the Pakistani market is witnessing a steady influx of sustainable alternatives that do not compromise on structural integrity.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">2. Modern Eco-Friendly Materials Available Locally</h2>
+      <p>The traditional reliance on fired red clay bricks and conventional Portland cement is a major contributor to greenhouse gas emissions and environmental degradation, primarily due to the energy-intensive manufacturing processes and topsoil depletion. Fortunately, the Pakistani market is witnessing a steady influx of sustainable alternatives that do not compromise on structural integrity.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Fly Ash Bricks and Blocks</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Fly ash, a byproduct of coal-fired power plants, has emerged as a revolutionary building material. When mixed with sand, lime, and gypsum, it forms bricks that are lighter, stronger, and more uniform than traditional clay bricks. Crucially, the manufacturing of fly ash bricks does not require firing in kilns, saving vast amounts of energy and preventing the emission of toxic fumes. They also possess lower water absorption properties and provide better thermal insulation, making them an ideal choice for the Pakistani climate.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Fly Ash Bricks and Blocks</h3>
+      <p>Fly ash, a byproduct of coal-fired power plants, has emerged as a revolutionary building material. When mixed with sand, lime, and gypsum, it forms bricks that are lighter, stronger, and more uniform than traditional clay bricks. Crucially, the manufacturing of fly ash bricks does not require firing in kilns, saving vast amounts of energy and preventing the emission of toxic fumes. They also possess lower water absorption properties and provide better thermal insulation, making them an ideal choice for the Pakistani climate.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Blended Cement Variants</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">The production of clinker, the primary ingredient in ordinary Portland cement, is highly carbon-intensive. To combat this, local manufacturers are increasingly promoting blended cements, such as Portland blast furnace slag cement and Portland pozzolana cement. These variants replace a portion of the clinker with industrial byproducts like slag or fly ash. The result is a product that not only boasts a significantly lower carbon footprint but also exhibits improved long-term durability, increased resistance to sulfate attack, and reduced heat of hydration—which is particularly beneficial for large concrete pours in hot weather.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Blended Cement Variants</h3>
+      <p>The production of clinker, the primary ingredient in ordinary Portland cement, is highly carbon-intensive. To combat this, local manufacturers are increasingly promoting blended cements, such as Portland blast furnace slag cement and Portland pozzolana cement. These variants replace a portion of the clinker with industrial byproducts like slag or fly ash. The result is a product that not only boasts a significantly lower carbon footprint but also exhibits improved long-term durability, increased resistance to sulfate attack, and reduced heat of hydration—which is particularly beneficial for large concrete pours in hot weather.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Cellular Lightweight Concrete (CLC) Blocks</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">CLC blocks are rapidly gaining traction in high-rise constructions and modern residential projects. Produced by introducing a foaming agent into a cement-sand slurry, these blocks contain millions of microscopic air bubbles. This unique structure makes them incredibly lightweight, substantially reducing the dead load on the building's foundation and steel framework. More importantly, the trapped air acts as a superior thermal and acoustic insulator, drastically improving the building's energy efficiency and occupant comfort compared to standard solid concrete blocks.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Cellular Lightweight Concrete (CLC) Blocks</h3>
+      <p>CLC blocks are rapidly gaining traction in high-rise constructions and modern residential projects. Produced by introducing a foaming agent into a cement-sand slurry, these blocks contain millions of microscopic air bubbles. This unique structure makes them incredibly lightweight, substantially reducing the dead load on the building's foundation and steel framework. More importantly, the trapped air acts as a superior thermal and acoustic insulator, drastically improving the building's energy efficiency and occupant comfort compared to standard solid concrete blocks.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">3. Energy Footprint Reductions and Solar Integration</h2>
-      <p class="mb-4 text-[var(--text-primary)]">As electricity tariffs in Pakistan continue to climb, achieving energy independence at the building level has transitioned from an idealistic goal to an economic imperative. Sustainable construction seamlessly integrates renewable energy systems and energy-efficient technologies from the ground up.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">3. Energy Footprint Reductions and Solar Integration</h2>
+      <p>As electricity tariffs in Pakistan continue to climb, achieving energy independence at the building level has transitioned from an idealistic goal to an economic imperative. Sustainable construction seamlessly integrates renewable energy systems and energy-efficient technologies from the ground up.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Solar Array Integration</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Pakistan is blessed with abundant solar irradiance throughout the year. The transition towards sustainable infrastructure involves moving beyond retrofitting solar panels as an afterthought to treating them as fundamental architectural elements. Building-Integrated Photovoltaics (BIPV) are systems where solar panels replace conventional building materials in parts of the building envelope, such as the roof, skylights, or facades. This dual-functionality not only generates clean electricity but also offsets material costs. Net-metering regulations implemented by NEPRA (National Electric Power Regulatory Authority) have further incentivized solar adoption, allowing building owners to sell excess generated power back to the national grid, thereby accelerating the return on investment.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Solar Array Integration</h3>
+      <p>Pakistan is blessed with abundant solar irradiance throughout the year. The transition towards sustainable infrastructure involves moving beyond retrofitting solar panels as an afterthought to treating them as fundamental architectural elements. Building-Integrated Photovoltaics (BIPV) are systems where solar panels replace conventional building materials in parts of the building envelope, such as the roof, skylights, or facades. This dual-functionality not only generates clean electricity but also offsets material costs. Net-metering regulations implemented by NEPRA (National Electric Power Regulatory Authority) have further incentivized solar adoption, allowing building owners to sell excess generated power back to the national grid, thereby accelerating the return on investment.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Smart Building Management Systems (BMS)</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">To truly minimize the energy footprint, modern sustainable buildings employ intelligent automation. BMS integrate HVAC (Heating, Ventilation, and Air Conditioning), lighting, and security systems into a centralized network. By utilizing occupancy sensors, daylight harvesting techniques (adjusting artificial lighting based on available natural light), and programmable thermostats, these systems ensure that energy is only consumed precisely when and where it is needed. In commercial plazas and corporate offices across Islamabad and Karachi, BMS deployments are demonstrating energy savings of up to 30%.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Smart Building Management Systems (BMS)</h3>
+      <p>To truly minimize the energy footprint, modern sustainable buildings employ intelligent automation. BMS integrate HVAC (Heating, Ventilation, and Air Conditioning), lighting, and security systems into a centralized network. By utilizing occupancy sensors, daylight harvesting techniques (adjusting artificial lighting based on available natural light), and programmable thermostats, these systems ensure that energy is only consumed precisely when and where it is needed. In commercial plazas and corporate offices across Islamabad and Karachi, BMS deployments are demonstrating energy savings of up to 30%.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">4. Local Regulatory Compliance and Green Frameworks</h2>
-      <p class="mb-4 text-[var(--text-primary)]">The shift toward sustainability is being gradually formalized through regulatory frameworks and rating systems tailored to the local context. While comprehensive national green building codes are still in the evolutionary phase, significant strides have been made.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">4. Local Regulatory Compliance and Green Frameworks</h2>
+      <p>The shift toward sustainability is being gradually formalized through regulatory frameworks and rating systems tailored to the local context. While comprehensive national green building codes are still in the evolutionary phase, significant strides have been made.</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">Building Energy Code of Pakistan (BECP)</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">The Energy Conservation Act and the subsequent Building Energy Code of Pakistan provide guidelines for improving the energy efficiency of commercial and large residential buildings. The code specifies minimum requirements for the building envelope, HVAC systems, lighting, and electrical power systems. Compliance with these codes is becoming increasingly stringent for new mega-projects approved by development authorities like the LDA (Lahore Development Authority) and CDA (Capital Development Authority).</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">Building Energy Code of Pakistan (BECP)</h3>
+      <p>The Energy Conservation Act and the subsequent Building Energy Code of Pakistan provide guidelines for improving the energy efficiency of commercial and large residential buildings. The code specifies minimum requirements for the building envelope, HVAC systems, lighting, and electrical power systems. Compliance with these codes is becoming increasingly stringent for new mega-projects approved by development authorities like the LDA (Lahore Development Authority) and CDA (Capital Development Authority).</p>
 
-      <h3 class="text-xl font-medium mt-6 mb-2 text-[var(--text-primary)]">The Role of LEED and Local Green Ratings</h3>
-      <p class="mb-4 text-[var(--text-secondary)]">Many high-profile corporate developments in Pakistan are actively pursuing international certifications such as LEED (Leadership in Energy and Environmental Design). These certifications provide a structured, points-based system covering site sustainability, water efficiency, energy and atmosphere, materials and resources, and indoor environmental quality. Furthermore, local initiatives are emerging to create rating systems that are more attuned to Pakistan's specific socioeconomic and climatic conditions, encouraging a broader spectrum of developers to embrace sustainable practices without prohibitive certification costs.</p>
+      <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 mt-4 mb-2 block">The Role of LEED and Local Green Ratings</h3>
+      <p>Many high-profile corporate developments in Pakistan are actively pursuing international certifications such as LEED (Leadership in Energy and Environmental Design). These certifications provide a structured, points-based system covering site sustainability, water efficiency, energy and atmosphere, materials and resources, and indoor environmental quality. Furthermore, local initiatives are emerging to create rating systems that are more attuned to Pakistan's specific socioeconomic and climatic conditions, encouraging a broader spectrum of developers to embrace sustainable practices without prohibitive certification costs.</p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4 text-[var(--accent)]">Conclusion: Paving the Way Forward</h2>
-      <p class="mb-8 text-[var(--text-primary)]">The future of construction in Pakistan is unequivocally green. The integration of passive cooling techniques adapted to local climates, the widespread adoption of innovative, eco-friendly materials like fly ash and CLC blocks, and the aggressive pursuit of energy footprint reductions through solar integration are not just trends—they are the new standard. As the industry matures, supported by strengthening regulatory frameworks and a growing awareness of lifecycle costs versus initial capital expenditure, sustainable construction will safeguard the environment while delivering economically viable, highly efficient, and exceptionally comfortable living and working spaces for generations to come. The responsibility lies with today's engineers, architects, and developers to champion this transition and build a resilient infrastructure for Pakistan.</p>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">Conclusion: Paving the Way Forward</h2>
+      <p>The future of construction in Pakistan is unequivocally green. The integration of passive cooling techniques adapted to local climates, the widespread adoption of innovative, eco-friendly materials like fly ash and CLC blocks, and the aggressive pursuit of energy footprint reductions through solar integration are not just trends—they are the new standard. As the industry matures, supported by strengthening regulatory frameworks and a growing awareness of lifecycle costs versus initial capital expenditure, sustainable construction will safeguard the environment while delivering economically viable, highly efficient, and exceptionally comfortable living and working spaces for generations to come. The responsibility lies with today's engineers, architects, and developers to champion this transition and build a resilient infrastructure for Pakistan.</p>
     </div>
   </main>
+
+  <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
+    <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
+      <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
+      <span class="separator">&bull;</span>
+      <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
+      <span class="separator">&bull;</span>
+      <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
+    </div>
+    <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+  </footer>
 </div>
-
-<footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
-  <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
-    <a href="/privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
-    <span class="separator">&bull;</span>
-    <a href="/terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
-    <span class="separator">&bull;</span>
-    <a href="/contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
-  </div>
-  <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
-</footer>
-
 <script type="module" src="/app.js"></script>
 </body>
 </html>
