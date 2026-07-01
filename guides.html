@@ -263,13 +263,13 @@
                   bg-blue-50 dark:bg-gray-800 rounded-xl 
                   border border-blue-100 dark:border-gray-700">
         <div class="text-center">
-          <p class="text-2xl font-bold text-[var(--accent)]">1</p>
+          <p class="text-2xl font-bold text-[var(--accent)]">3</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
             Published Guides
           </p>
         </div>
         <div class="text-center">
-          <p class="text-2xl font-bold text-[var(--accent)]">2</p>
+          <p class="text-2xl font-bold text-[var(--accent)]">0</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
             Coming Soon
           </p>
@@ -348,36 +348,40 @@
           </div>
         </div>
 
-        <!-- ── CARD 2: Sustainable Construction (COMING SOON) ── -->
+        <!-- ── CARD 2: Sustainable Construction (LIVE) ── -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm 
                     border border-gray-100 dark:border-gray-700 
-                    overflow-hidden flex flex-col opacity-80">
+                    overflow-hidden hover:shadow-md transition-shadow flex flex-col">
 
           <!-- Thumbnail -->
           <div class="h-48 bg-green-100 dark:bg-gray-700 
                       flex items-center justify-center relative">
             <span class="text-6xl">🌱</span>
-            <div class="absolute top-3 right-3 text-xs font-bold 
-                        px-2 py-1 rounded-full bg-yellow-100 
-                        dark:bg-yellow-900 text-yellow-700 
-                        dark:text-yellow-300">
-              Coming Soon
-            </div>
           </div>
 
           <div class="p-6 flex-1 flex flex-col">
 
-            <!-- Category -->
-            <span class="text-xs font-bold text-green-600 
-                         dark:text-green-400 uppercase 
-                         tracking-wider mb-2">
-              Sustainability
-            </span>
+            <!-- Category + Status -->
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-green-600 
+                           dark:text-green-400 uppercase 
+                           tracking-wider">
+                Sustainability
+              </span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full 
+                           bg-green-100 dark:bg-green-900 
+                           text-green-700 dark:text-green-300">
+                ✅ Live
+              </span>
+            </div>
 
-            <!-- Title — Plain text, NO link (no broken href) -->
+            <!-- Title -->
             <h2 class="text-xl font-bold mb-3 text-[var(--primary)] 
+                       hover:text-[var(--accent)] transition-colors 
                        leading-snug">
-              Future of Sustainable Construction in Pakistan
+              <a href="/guides/sustainable-construction">
+                Future of Sustainable Construction in Pakistan
+              </a>
             </h2>
 
             <!-- Description -->
@@ -388,46 +392,51 @@
               residential and commercial builds across Pakistan.
             </p>
 
-            <!-- Coming Soon Label — NO link -->
-            <span class="text-sm font-semibold text-gray-400 
-                         dark:text-gray-500 mt-auto cursor-default">
-              🔒 Guide Coming Soon
-            </span>
+            <!-- CTA -->
+            <a href="/guides/sustainable-construction"
+               class="text-sm font-semibold text-[var(--accent)] 
+                      hover:underline mt-auto">
+              Read Full Guide &rarr;
+            </a>
 
           </div>
         </div>
 
-        <!-- ── CARD 3: BIM Guide (COMING SOON) ───────────────── -->
+        <!-- ── CARD 3: BIM Guide (LIVE) ──────────────────────── -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm 
                     border border-gray-100 dark:border-gray-700 
-                    overflow-hidden flex flex-col opacity-80">
+                    overflow-hidden hover:shadow-md transition-shadow flex flex-col">
 
           <!-- Thumbnail -->
           <div class="h-48 bg-purple-100 dark:bg-gray-700 
                       flex items-center justify-center relative">
             <span class="text-6xl">🏗️</span>
-            <div class="absolute top-3 right-3 text-xs font-bold 
-                        px-2 py-1 rounded-full bg-yellow-100 
-                        dark:bg-yellow-900 text-yellow-700 
-                        dark:text-yellow-300">
-              Coming Soon
-            </div>
           </div>
 
           <div class="p-6 flex-1 flex flex-col">
 
-            <!-- Category -->
-            <span class="text-xs font-bold text-purple-600 
-                         dark:text-purple-400 uppercase 
-                         tracking-wider mb-2">
-              Technology
-            </span>
+            <!-- Category + Status -->
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-purple-600 
+                           dark:text-purple-400 uppercase 
+                           tracking-wider">
+                Technology
+              </span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full 
+                           bg-green-100 dark:bg-green-900 
+                           text-green-700 dark:text-green-300">
+                ✅ Live
+              </span>
+            </div>
 
-            <!-- Title — Plain text, NO link -->
+            <!-- Title -->
             <h2 class="text-xl font-bold mb-3 text-[var(--primary)] 
+                       hover:text-[var(--accent)] transition-colors 
                        leading-snug">
-              Building Information Modeling (BIM) Basics 
-              for Pakistani Engineers
+              <a href="/guides/bim-basics-engineers">
+                Building Information Modeling (BIM) Basics 
+                for Pakistani Engineers
+              </a>
             </h2>
 
             <!-- Description -->
@@ -438,11 +447,12 @@
               coordination in mega construction projects.
             </p>
 
-            <!-- Coming Soon Label — NO link -->
-            <span class="text-sm font-semibold text-gray-400 
-                         dark:text-gray-500 mt-auto cursor-default">
-              🔒 Guide Coming Soon
-            </span>
+            <!-- CTA -->
+            <a href="/guides/bim-basics-engineers"
+               class="text-sm font-semibold text-[var(--accent)] 
+                      hover:underline mt-auto">
+              Read Full Guide &rarr;
+            </a>
 
           </div>
         </div>
