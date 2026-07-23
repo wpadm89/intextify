@@ -176,7 +176,7 @@
         </svg>
       </button>
 
-      <button class="nav-cta" aria-label="Get started with Intextify">Get Started</button>
+      <button class="nav-cta js-start-estimate" aria-label="Start a construction cost estimate">Start estimate</button>
 
       <button class="nav-hamburger" id="menuToggle"
               aria-label="Open navigation menu"
@@ -202,7 +202,7 @@
         <a href="/blog"         class="mob-nav-link">Blog</a>
         <a href="/write-for-us" class="mob-nav-link">Write for Us</a>
         <div class="mob-divider" aria-hidden="true"></div>
-        <button class="mob-cta">Get Started</button>
+        <button class="mob-cta js-start-estimate">Start estimate</button>
       </div>
     </nav>
   </div>
@@ -286,6 +286,19 @@
         <main class="content-area order-3 lg:order-2 min-w-0 w-full max-w-full overflow-x-hidden [&_.dash-widget]:w-[calc(100%-2rem)] lg:[&_.dash-widget]:w-full [&_.dash-widget]:max-w-md lg:[&_.dash-widget]:max-w-none [&_.dash-widget]:mx-auto lg:[&_.dash-widget]:mx-0 [&_.dash-widget]:overflow-hidden [&_.panel]:w-[calc(100%-2rem)] lg:[&_.panel]:w-full [&_.panel]:max-w-md lg:[&_.panel]:max-w-none [&_.panel]:mx-auto lg:[&_.panel]:mx-0 [&_.panel]:overflow-hidden">
             <!-- BOQ Estimator View -->
             <section class="view-section active" id="estimator-view">
+                <section class="estimate-intro" aria-labelledby="estimate-intro-title">
+                    <div>
+                        <p class="eyebrow">Pakistan construction cost planner</p>
+                        <h1 id="estimate-intro-title">Get a practical house-cost estimate in minutes.</h1>
+                        <p>Choose a city and plot size, review the live material rates, then export a clear BOQ summary.</p>
+                    </div>
+                    <ol class="estimate-steps" aria-label="Estimate steps">
+                        <li><span>1</span>Project details</li>
+                        <li><span>2</span>Review rates</li>
+                        <li><span>3</span>Export BOQ</li>
+                    </ol>
+                    <button class="estimate-intro-cta js-start-estimate">Start with project details</button>
+                </section>
                 
                 <div class="dashboard-grid">
                     
@@ -293,11 +306,16 @@
                     <div class="dash-widget overview-widget">
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="widget-title mb-0">Estimated Total Construction Cost</h2>
-                            <span id="rates-last-updated" class="text-[0.8rem] text-[var(--text-secondary)] bg-[var(--bg-primary)] px-2 py-1 rounded-[4px] border border-[var(--border-color)]">Last Updated : Fetching...</span>
+                            <span id="rates-last-updated" class="rate-status">Checking material rates…</span>
                         </div>
                         <div class="total-cost-container">
                             <div class="total-value" id="overall-total">Rs. 0</div>
+                            <div class="estimate-summary" aria-live="polite">
+                                <span id="cost-per-sqft">Calculating cost per sqft…</span>
+                                <span id="estimate-range">A planning estimate, not a contractor quote</span>
+                            </div>
                         </div>
+                        <p class="estimate-disclaimer">Rates are configurable and may vary by supplier, specification, transport, and site conditions.</p>
                     </div>
 
                     <!-- Pie Chart Layout -->
@@ -674,6 +692,7 @@
             </div>
             
             <div class="sidebar-section" id="plot-config-section">
+                <p class="config-step">Step 1 of 2</p>
                 <h3>Project Information</h3>
                 <div class="form-group">
                     <label for="projectLocation">Project Location</label>
@@ -718,10 +737,12 @@
             </div>
 
             <div class="sidebar-section" id="rates-config-section">
+                <p class="config-step">Step 2 of 2</p>
                 <h3>Material Rates (Local)</h3>
                 <div id="material-rates-container">
                     <!-- Rate inputs injected via JS -->
                 </div>
+                <p class="rate-source-note">Rates are applied to this estimate after location adjustments. Review and edit them before exporting.</p>
             </div>
 
             <div class="sidebar-section hidden" id="concrete-config-section">

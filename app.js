@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const projectLocationSelect = document.getElementById('projectLocation');
     const ratesLastUpdatedEl = document.getElementById('rates-last-updated');
+    const costPerSqftEl = document.getElementById('cost-per-sqft');
+    const estimateRangeEl = document.getElementById('estimate-range');
 
     const cLength = document.getElementById('concLength');
     const cWidth = document.getElementById('concWidth');
@@ -508,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const fetchLiveRates = () => {
-        overallTotalEl.innerHTML = '<span class="animate-pulse text-gray-400">Fetching live rates...</span>';
+        if (ratesLastUpdatedEl) ratesLastUpdatedEl.textContent = 'Checking material rates…';
 
         const fetchPromise = fetch('/api/rates').then(res => {
             if (!res.ok) throw new Error('Server error: ' + res.status);
@@ -526,9 +528,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dateObj = new Date(data.lastUpdated);
                     const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                     const formattedTime = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    ratesLastUpdatedEl.innerText = `Last Updated : ${formattedDate} [${formattedTime}]`;
+                    ratesLastUpdatedEl.innerText = `Rates updated ${formattedDate}, ${formattedTime}`;
                 } else {
-                    ratesLastUpdatedEl.innerText = `Last Updated : Today`;
+                    ratesLastUpdatedEl.innerText = 'Rates updated today';
                 }
                 
                 // Merge overrides on top of base rates
@@ -550,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     try {
                         const cached = JSON.parse(cachedRaw);
                         serverBaseRates = cached.rates;
-                        ratesLastUpdatedEl.innerHTML = `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Cached</span> Using cached rates`;
+                        ratesLastUpdatedEl.textContent = 'Using saved rates — review before exporting';
                         applyFreightModifiers();
                         return;
                     } catch (e) {
@@ -558,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 
-                ratesLastUpdatedEl.innerHTML = `<span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Baseline</span> Using baseline rates`;
+                ratesLastUpdatedEl.textContent = 'Using baseline rates — review before exporting';
                 
                 // Initialize with fallbacks
                 APP_STATE.boqData.forEach(mat => { serverBaseRates[mat.id] = mat.defaultRate; });
@@ -732,6 +734,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         overallTotalEl.innerText = formatCurrency(overallCost);
+        const sqftArea = APP_STATE.metric ? currentArea / 0.092903 : currentArea;
+        const costPerSqft = sqftArea > 0 ? overallCost / sqftArea : 0;
+        if (costPerSqftEl) costPerSqftEl.textContent = `About ${formatCurrency(costPerSqft)} per sqft`;
+        if (estimateRangeEl) {
+            const low = overallCost * 0.9;
+            const high = overallCost * 1.1;
+            estimateRangeEl.textContent = `Typical planning range: ${formatCurrency(low)}–${formatCurrency(high)}`;
+        }
 
         // Update Charts Data dynamically
         if(pieChartInstance && barChartInstance) {
@@ -1229,6 +1239,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+    });
+
+    document.querySelectorAll('.js-start-estimate').forEach(button => {
+        button.addEventListener('click', () => {
+            if (!document.getElementById('estimator-view')?.classList.contains('active')) {
+                switchToView('estimator-view');
+            }
+            const config = document.getElementById('config-sidebar');
+            config?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.setTimeout(() => projectLocationSelect?.focus(), 500);
+        });
     });
 
     // --- Compliance & Cookies ---
