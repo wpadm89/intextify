@@ -1035,6 +1035,73 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el) el.addEventListener('change', calculateFlooring);
     });
 
+    // --- Paint Work Calculator Logic ---
+    const calculatePaint = () => {
+        const areaInp = document.getElementById('paintArea');
+        const coatsSel = document.getElementById('paintCoats');
+        const typeSel = document.getElementById('paintType');
+        const primerChk = document.getElementById('paintPrimer');
+        
+        if (!areaInp || !coatsSel || !typeSel || !primerChk) return;
+        
+        const area = parseFloat(areaInp.value) || 0;
+        const coats = parseInt(coatsSel.value) || 2;
+        const typeStr = typeSel.value || 'emulsion';
+        const hasPrimer = primerChk.checked;
+        
+        const netArea = area * 0.85; // 15% deduction for doors/windows
+        
+        let paintCoverage = 110;
+        if (typeStr === 'weather') paintCoverage = 95;
+        if (typeStr === 'distemper') paintCoverage = 120;
+        
+        const paintLiters = (netArea * coats) / paintCoverage;
+        const primerLiters = hasPrimer ? (netArea * 1) / 220 : 0;
+        
+        // Container calculations (Bucket ~16L, Gallon ~3.64L)
+        const paintBuckets = Math.floor(paintLiters / 16);
+        const paintRemLiters = paintLiters % 16;
+        const paintGals = Math.ceil(paintRemLiters / 3.64);
+        
+        const primerBuckets = Math.floor(primerLiters / 16);
+        const primerRemLiters = primerLiters % 16;
+        const primerGals = Math.ceil(primerRemLiters / 3.64);
+        
+        // Pricing (Hardcoded Base Rates per User Constraint)
+        // Paint: Bucket = Rs. 15000, Gallon = Rs. 3500
+        // Primer: Bucket = Rs. 12000, Gallon = Rs. 2800
+        let paintCost = (paintBuckets * 15000) + (paintGals * 3500);
+        let primerCost = (primerBuckets * 12000) + (primerGals * 2800);
+        
+        const totalCost = paintCost + primerCost;
+        
+        // Update DOM
+        const elArea = document.getElementById('res-paint-area');
+        const elPLiters = document.getElementById('res-paint-liters');
+        const elPContainers = document.getElementById('res-paint-containers');
+        const elPrLiters = document.getElementById('res-primer-liters');
+        const elPrContainers = document.getElementById('res-primer-containers');
+        const elCost = document.getElementById('res-paint-cost');
+        
+        if (elArea) elArea.innerText = netArea.toFixed(2);
+        if (elPLiters) elPLiters.innerText = paintLiters.toFixed(2) + ' L';
+        if (elPContainers) elPContainers.innerText = `${paintGals} G, ${paintBuckets} B`;
+        if (elPrLiters) elPrLiters.innerText = primerLiters.toFixed(2) + ' L';
+        if (elPrContainers) elPrContainers.innerText = `${primerGals} G, ${primerBuckets} B`;
+        if (elCost) elCost.innerText = formatCurrency(totalCost);
+    };
+
+    const pArea2 = document.getElementById('paintArea');
+    const pCoats = document.getElementById('paintCoats');
+    const pType = document.getElementById('paintType');
+    const pPrimer = document.getElementById('paintPrimer');
+    
+    if (pArea2) pArea2.addEventListener('input', calculatePaint);
+    [pCoats, pType, pPrimer].forEach(el => {
+        if (el) el.addEventListener('change', calculatePaint);
+    });
+
+
 
     const sDia = document.getElementById('steelDiameter');
     const sLen = document.getElementById('steelLength');
@@ -1055,6 +1122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof calculateSteel === 'function') calculateSteel();
         if (typeof calculatePlastering === 'function') calculatePlastering();
         if (typeof calculateFlooring === 'function') calculateFlooring();
+        if (typeof calculatePaint === 'function') calculatePaint();
     }
 
     // ── Hash-based view routing (from dropdown links on other pages) ──
@@ -1089,6 +1157,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(actionFooter)          actionFooter.classList.add('hidden');
             if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
             calculateFlooring();
+        } else if (viewId === 'paint-view') {
+            if(plotConfigSection)     plotConfigSection.classList.add('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.add('hidden');
+            if(actionFooter)          actionFooter.classList.add('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
+            calculatePaint();
         } else if (viewId === 'estimator-view') {
             if(plotConfigSection)     plotConfigSection.classList.remove('hidden');
             if(ratesConfigSection)    ratesConfigSection.classList.remove('hidden');
@@ -1099,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.replaceState(null, '', '#' + viewId);
     };
 
-    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view', 'plastering-view', 'flooring-view'];
+    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view', 'plastering-view', 'flooring-view', 'paint-view'];
     const activateFromHash = () => {
         const hash = window.location.hash.replace('#', '');
         if (VALID_VIEWS.includes(hash)) switchToView(hash);

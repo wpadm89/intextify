@@ -141,6 +141,7 @@
             <li class="nav-dd-divider" role="separator"></li>
             <li role="none"><a href="/#plastering-view" class="nav-dd-item" role="menuitem">🪟 Plastering</a></li>
             <li role="none"><a href="/#flooring-view" class="nav-dd-item" role="menuitem">🏠 Flooring</a></li>
+            <li role="none"><a href="/#paint-view" class="nav-dd-item" role="menuitem">🎨 Paint Work</a></li>
           </ul>
         </li>
         <li><a href="/guides"       class="nav-link">Guides</a></li>
@@ -240,7 +241,7 @@
                     <option value="/write-for-us">Write for Us</option>
                     <option value="plastering-view">Plastering Estimator</option>
                     <option value="flooring-view">Flooring Calculator</option>
-                    <option value="paint-view" disabled>Paint Work (Coming Soon)</option>
+                    <option value="paint-view">Paint Estimator</option>
                 </select>
             </div>
 
@@ -254,7 +255,7 @@
                 <a href="/write-for-us" class="nav-item shrink-0">Write for Us</a>
                 <button class="nav-item shrink-0" data-view="plastering-view">Plastering</button>
                 <button class="nav-item shrink-0" data-view="flooring-view">Flooring</button>
-                COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button>
+                <button class="nav-item shrink-0" data-view="paint-view">Paint Work</button>
             </nav>
 
             <div class="sidebar-section settings-section mt-auto pt-4 border-t border-[var(--border-color)]">
@@ -587,8 +588,72 @@
             <section class="view-section" id="paint-view">
                 <div class="panel">
                     <div class="panel-header">
-                        <h2>Paint Work Estimator</h2>
-                        <p class="subtitle">Coming soon!</p>
+                        <h2>Paint Work Calculator</h2>
+                        <p class="subtitle">Calculate paint coverage, containers, and cost for your walls and ceilings.</p>
+                    </div>
+                    
+                    <div class="concrete-grid">
+                        <div class="form-group">
+                            <label for="paintArea">Total Surface Area (sqft)</label>
+                            <input type="number" id="paintArea" placeholder="e.g., 2000" value="2000">
+                        </div>
+                        <div class="form-group">
+                            <label for="paintCoats">Number of Coats</label>
+                            <select id="paintCoats">
+                                <option value="1">1 Coat</option>
+                                <option value="2" selected>2 Coats (Standard)</option>
+                                <option value="3">3 Coats</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="paintType">Paint Type</label>
+                            <select id="paintType">
+                                <option value="emulsion" selected>Emulsion / Plastic Paint (110 sqft/L)</option>
+                                <option value="weather">Weather Shield Exterior (95 sqft/L)</option>
+                                <option value="distemper">Distemper (120 sqft/L)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                            <input type="checkbox" id="paintPrimer" checked style="width: 20px; height: 20px; accent-color: var(--accent);">
+                            <label for="paintPrimer" style="margin: 0; font-weight: normal; cursor: pointer;">Include Primer Coat (220 sqft/L)</label>
+                        </div>
+
+                        <div class="concrete-results mt-4">
+                            <h3>Calculation Results</h3>
+                            
+                            <div class="metric-card mt-4">
+                                <span>Net Paintable Area (sqft) <small style="display:block; opacity:0.8; font-size:12px;">(15% deducted for doors/windows)</small></span>
+                                <strong id="res-paint-area">0.00</strong>
+                            </div>
+                            
+                            <table class="w-full text-sm mt-4">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-color)]">
+                                        <th class="text-left py-2">Material</th>
+                                        <th class="text-right py-2">Total Liters</th>
+                                        <th class="text-right py-2">Containers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Paint</td>
+                                        <td id="res-paint-liters" class="text-right font-bold text-[var(--accent)]">0 L</td>
+                                        <td id="res-paint-containers" class="text-right text-xs">0 G, 0 B</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Primer</td>
+                                        <td id="res-primer-liters" class="text-right font-bold text-[var(--accent)]">0 L</td>
+                                        <td id="res-primer-containers" class="text-right text-xs">0 G, 0 B</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="metric-card mt-4">
+                                <span>Estimated Material Cost</span>
+                                <strong id="res-paint-cost" class="mat-final highlight">Rs. 0</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
