@@ -1,7 +1,23 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import fs from 'fs';
+
+const rewritePlugin = () => ({
+  name: 'rewrite-plugin',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url.startsWith('/blog/') && req.url !== '/blog/') {
+        req.url = '/blog.html';
+      } else if (req.url.startsWith('/guides/') && req.url !== '/guides/') {
+        req.url = '/guides.html';
+      }
+      next();
+    });
+  }
+});
 
 export default defineConfig({
+  plugins: [rewritePlugin()],
   build: {
     rollupOptions: {
       input: {
