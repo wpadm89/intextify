@@ -26,6 +26,8 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
+        about: resolve(__dirname, 'about.html'),
+        editorialPolicy: resolve(__dirname, 'editorial-policy.html'),
         guide5Marla: resolve(__dirname, 'guide-5-marla.html'),
         writeForUs: resolve(__dirname, 'write-for-us.html'),
         blog: resolve(__dirname, 'blog.html'),

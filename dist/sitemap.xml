@@ -25,22 +25,32 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.intextify.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.intextify.com/editorial-policy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
   <!-- Static Articles Section -->
   <url>
     <loc>https://www.intextify.com/articles/structural-analysis-foundations</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.intextify.com/articles/comprehensive-estimation-models</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.intextify.com/articles/pakistani-infrastructure-trends</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
