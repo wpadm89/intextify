@@ -1,0 +1,8 @@
+# robots.txt for Intextify Construction Suite
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Point to the sitemap for faster indexing
+Sitemap: https://www.intextify.com/sitemap.xml

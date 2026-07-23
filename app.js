@@ -510,11 +510,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchLiveRates = () => {
         overallTotalEl.innerHTML = '<span class="animate-pulse text-gray-400">Fetching live rates...</span>';
 
-        fetch('/api/rates')
-            .then(res => {
-                if (!res.ok) throw new Error('Server error: ' + res.status);
-                return res.json();
-            })
+        const fetchPromise = fetch('/api/rates').then(res => {
+            if (!res.ok) throw new Error('Server error: ' + res.status);
+            return res.json();
+        });
+
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout after 8 seconds')), 8000)
+        );
+
+        Promise.race([fetchPromise, timeoutPromise])
             .then(data => {
                 // Set default if not provided
                 if (data.lastUpdated) {
@@ -528,17 +533,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Merge overrides on top of base rates
                 serverBaseRates = { ...data.baseRates, ...data.overrides };
+                
+                // Cache the successful fetch
+                localStorage.setItem('cached_rates', JSON.stringify({
+                    rates: serverBaseRates,
+                    timestamp: new Date().toISOString()
+                }));
+                
                 applyFreightModifiers();
             })
-            .catch(() => {
-                ratesLastUpdatedEl.innerText = 'Last Updated : Offline (Local)';
-                console.log('Backend not reachable, using static fallbacks.');
+            .catch(err => {
+                console.log('Backend not reachable or timed out:', err.message);
+                
+                const cachedRaw = localStorage.getItem('cached_rates');
+                if (cachedRaw) {
+                    try {
+                        const cached = JSON.parse(cachedRaw);
+                        serverBaseRates = cached.rates;
+                        ratesLastUpdatedEl.innerHTML = `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Cached</span> Using cached rates`;
+                        applyFreightModifiers();
+                        return;
+                    } catch (e) {
+                        console.error('Failed to parse cached rates', e);
+                    }
+                }
+                
+                ratesLastUpdatedEl.innerHTML = `<span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Baseline</span> Using baseline rates`;
                 
                 // Initialize with fallbacks
                 APP_STATE.boqData.forEach(mat => { serverBaseRates[mat.id] = mat.defaultRate; });
                 applyFreightModifiers();
-                
-                overallTotalEl.textContent = 'Rs. (offline estimate)';
             });
     };
 
@@ -813,6 +837,13 @@ document.addEventListener('DOMContentLoaded', () => {
             wetVol = Math.PI * Math.pow(dia / 2, 2) * H_converted * qty;
         }
 
+        if (wetVol === 0) {
+            const zeroState = `<span class="text-gray-400 text-sm">Enter dimensions</span>`;
+            const ids = ['res-wet-vol', 'res-dry-vol', 'res-cement-bags', 'res-cement-kg', 'res-sand-cft', 'res-sand-tons', 'res-agg-cft', 'res-agg-tons'];
+            ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = zeroState; });
+            if (typeof concreteChartInstance !== 'undefined' && concreteChartInstance) { concreteChartInstance.destroy(); concreteChartInstance = null; }
+            return;
+        }
         const dryVol = wetVol * 1.54; // Standard factor — NOT 1.524
 
         // Parse ratio
@@ -1049,6 +1080,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const typeStr = typeSel.value || 'emulsion';
         const hasPrimer = primerChk.checked;
         
+        if (area === 0) {
+            const zeroState = `<span class="text-gray-400 text-sm">Enter dimensions</span>`;
+            const ids = ['res-paint-area', 'res-paint-liters', 'res-paint-containers', 'res-primer-liters', 'res-primer-containers', 'res-paint-cost'];
+            ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = zeroState; });
+            return;
+        }
         const netArea = area * 0.85; // 15% deduction for doors/windows
         
         let paintCoverage = 110;
