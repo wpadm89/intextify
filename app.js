@@ -899,6 +899,61 @@ document.addEventListener('DOMContentLoaded', () => {
         if (costEl) costEl.innerText = formatCurrency(totalCost);
     };
 
+    // --- Plastering Calculator Logic ---
+    const calculatePlastering = () => {
+        const areaInp = document.getElementById('plastArea');
+        const thickInp = document.getElementById('plastThickness');
+        const ratioSel = document.getElementById('plastRatio');
+        if (!areaInp || !thickInp || !ratioSel) return;
+        
+        const area = parseFloat(areaInp.value) || 0;
+        const thickness = parseFloat(thickInp.value) || 0;
+        const ratioStr = ratioSel.value || '1:6';
+        
+        // Wet Volume = Area (sqft) * (Thickness (in) / 12)
+        const wetVol = area * (thickness / 12);
+        const dryVol = wetVol * 1.33; // Standard mortar dry volume factor
+        
+        const parts = ratioStr.split(':').map(Number);
+        const sum = parts.reduce((a, b) => a + b, 0);
+        
+        const cementVol = dryVol * (parts[0] / sum);
+        const sandVol = dryVol * (parts[1] / sum);
+        
+        const cementBags = (cementVol / 1.25);
+        const sandTons = (sandVol * 43.76) / 1000;
+        
+        // Pricing
+        const cementMat = APP_STATE.boqData.find(m => m.id === 'cement');
+        const sandMat = APP_STATE.boqData.find(m => m.id === 'sand');
+        const cementRate = cementMat ? cementMat.currentRate : (serverBaseRates['cement'] || 1450);
+        const sandRate = sandMat ? sandMat.currentRate : (serverBaseRates['sand'] || 55);
+        
+        // Cost: Cement bags * rate per bag + Sand volume (cft) * rate per cft
+        const totalCost = (Math.ceil(cementBags) * cementRate) + (sandVol * sandRate);
+        
+        // Update DOM
+        const elWet = document.getElementById('res-plast-wet');
+        const elDry = document.getElementById('res-plast-dry');
+        const elCement = document.getElementById('res-plast-cement');
+        const elSand = document.getElementById('res-plast-sand');
+        const elCost = document.getElementById('res-plast-cost');
+        
+        if (elWet) elWet.innerText = wetVol.toFixed(2);
+        if (elDry) elDry.innerText = dryVol.toFixed(2);
+        if (elCement) elCement.innerText = Math.ceil(cementBags) + ' Bags';
+        if (elSand) elSand.innerText = sandTons.toFixed(2) + ' Tons';
+        if (elCost) elCost.innerText = formatCurrency(totalCost);
+    };
+
+    const pArea = document.getElementById('plastArea');
+    const pThick = document.getElementById('plastThickness');
+    const pRatio = document.getElementById('plastRatio');
+    if (pArea) pArea.addEventListener('input', calculatePlastering);
+    if (pThick) pThick.addEventListener('input', calculatePlastering);
+    if (pRatio) pRatio.addEventListener('change', calculatePlastering);
+
+
     const sDia = document.getElementById('steelDiameter');
     const sLen = document.getElementById('steelLength');
     if (sDia) sDia.addEventListener('input', calculateSteel);
@@ -916,6 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderEstimator();
         updateConcreteCalculator();
         if (typeof calculateSteel === 'function') calculateSteel();
+        if (typeof calculatePlastering === 'function') calculatePlastering();
     }
 
     // ── Hash-based view routing (from dropdown links on other pages) ──
@@ -938,6 +994,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(actionFooter)          actionFooter.classList.add('hidden');
             if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
             calculateSteel();
+        } else if (viewId === 'plastering-view') {
+            if(plotConfigSection)     plotConfigSection.classList.add('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.add('hidden');
+            if(actionFooter)          actionFooter.classList.add('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
+            calculatePlastering();
         } else if (viewId === 'estimator-view') {
             if(plotConfigSection)     plotConfigSection.classList.remove('hidden');
             if(ratesConfigSection)    ratesConfigSection.classList.remove('hidden');
@@ -948,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.replaceState(null, '', '#' + viewId);
     };
 
-    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view'];
+    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view', 'plastering-view'];
     const activateFromHash = () => {
         const hash = window.location.hash.replace('#', '');
         if (VALID_VIEWS.includes(hash)) switchToView(hash);

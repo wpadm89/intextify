@@ -426,7 +426,62 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Plastering Requirements</h2>
-                        <p class="subtitle">Coming soon!</p>
+                        <p class="subtitle">Calculate mortar required for wall and ceiling plastering.</p>
+                    </div>
+                    
+                    <div class="concrete-grid">
+                        <div class="form-group">
+                            <label for="plastArea">Total Surface Area (sqft)</label>
+                            <input type="number" id="plastArea" placeholder="e.g., 1000" value="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="plastThickness">Plaster Thickness (inches)</label>
+                            <input type="number" id="plastThickness" placeholder="e.g., 0.5" value="0.5" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="plastRatio">Mortar Mix Ratio</label>
+                            <select id="plastRatio">
+                                <option value="1:4">1:4 (High strength - exterior/ceilings)</option>
+                                <option value="1:6" selected>1:6 (Standard interior walls)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="concrete-results mt-4">
+                            <h3>Calculation Results</h3>
+                            
+                            <div class="metric-card mt-4">
+                                <span>Wet Volume (cft)</span>
+                                <strong id="res-plast-wet">0.00</strong>
+                            </div>
+                            <div class="metric-card">
+                                <span>Dry Volume (Wet × 1.33)</span>
+                                <strong id="res-plast-dry">0.00</strong>
+                            </div>
+                            
+                            <table class="w-full text-sm mt-4">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-color)]">
+                                        <th class="text-left py-2">Material</th>
+                                        <th class="text-right py-2">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cement</td>
+                                        <td id="res-plast-cement" class="text-right text-[var(--accent)] font-bold">0 Bags</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sand</td>
+                                        <td id="res-plast-sand" class="text-right">0 Tons</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="metric-card mt-4">
+                                <span>Estimated Cost</span>
+                                <strong id="res-plast-cost" class="mat-final highlight">Rs. 0</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
