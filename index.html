@@ -140,7 +140,7 @@
             <li role="none"><a href="/#steel-view"     class="nav-dd-item" role="menuitem">⚙️ Steel Calculator</a></li>
             <li class="nav-dd-divider" role="separator"></li>
             <li role="none"><a href="/#plastering-view" class="nav-dd-item" role="menuitem">🪟 Plastering</a></li>
-            <li role="none"><span class="nav-dd-item nav-dd-soon">🏠 Flooring <span class="dd-badge">Soon</span></span></li>
+            <li role="none"><a href="/#flooring-view" class="nav-dd-item" role="menuitem">🏠 Flooring</a></li>
           </ul>
         </li>
         <li><a href="/guides"       class="nav-link">Guides</a></li>
@@ -239,7 +239,7 @@
                     <option value="/blog">Blog</option>
                     <option value="/write-for-us">Write for Us</option>
                     <option value="plastering-view">Plastering Estimator</option>
-                    <option value="flooring-view" disabled>Flooring (Coming Soon)</option>
+                    <option value="flooring-view">Flooring Calculator</option>
                     <option value="paint-view" disabled>Paint Work (Coming Soon)</option>
                 </select>
             </div>
@@ -253,7 +253,7 @@
                 <a href="/blog" class="nav-item shrink-0">Blog</a>
                 <a href="/write-for-us" class="nav-item shrink-0">Write for Us</a>
                 <button class="nav-item shrink-0" data-view="plastering-view">Plastering</button>
-                COMING SOON: <button class="nav-item shrink-0" data-view="flooring-view">Flooring (Coming Soon)</button>
+                <button class="nav-item shrink-0" data-view="flooring-view">Flooring</button>
                 COMING SOON: <button class="nav-item shrink-0" data-view="paint-view">Paint Work (Coming Soon)</button>
             </nav>
 
@@ -489,7 +489,98 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Flooring Calculator</h2>
-                        <p class="subtitle">Coming soon!</p>
+                        <p class="subtitle">Calculate tiles and mortar bedding requirements for floors.</p>
+                    </div>
+                    
+                    <div class="concrete-grid">
+                        <div class="input-row">
+                            <div class="form-group half">
+                                <label for="floorRoomL">Room Length (<span class="lbl-len">ft</span>)</label>
+                                <input type="number" id="floorRoomL" placeholder="e.g., 12" value="12">
+                            </div>
+                            <div class="form-group half">
+                                <label for="floorRoomW">Room Width (<span class="lbl-len">ft</span>)</label>
+                                <input type="number" id="floorRoomW" placeholder="e.g., 14" value="14">
+                            </div>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="form-group half">
+                                <label for="floorTileL">Tile Length (inches)</label>
+                                <input type="number" id="floorTileL" placeholder="e.g., 24" value="24">
+                            </div>
+                            <div class="form-group half">
+                                <label for="floorTileW">Tile Width (inches)</label>
+                                <input type="number" id="floorTileW" placeholder="e.g., 24" value="24">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="floorWaste">Waste Allowance</label>
+                            <select id="floorWaste">
+                                <option value="0.05" selected>5% (Standard)</option>
+                                <option value="0.10">10% (Complex cuts)</option>
+                                <option value="0.15">15% (Diagonal layout)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="floorBedding">Bedding Thickness (inches)</label>
+                            <input type="number" id="floorBedding" placeholder="e.g., 1.5" value="1.5" step="0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="floorRatio">Mortar Mix Ratio</label>
+                            <select id="floorRatio">
+                                <option value="1:4">1:4 (Heavy duty base)</option>
+                                <option value="1:6" selected>1:6 (Standard residential floor)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="concrete-results mt-4">
+                            <h3>Calculation Results</h3>
+                            
+                            <div class="metric-card mt-4">
+                                <span>Total Room Area (<span class="lbl-vol">sqft</span>)</span>
+                                <strong id="res-floor-area">0.00</strong>
+                            </div>
+                            <div class="metric-card mt-2">
+                                <span>Total Tiles Required</span>
+                                <strong id="res-floor-tiles" class="text-[var(--accent)] text-xl">0</strong>
+                            </div>
+                            <div class="metric-card mt-2">
+                                <span>Bedding Wet Volume (cft)</span>
+                                <strong id="res-floor-wet">0.00</strong>
+                            </div>
+                            <div class="metric-card">
+                                <span>Bedding Dry Volume (cft)</span>
+                                <strong id="res-floor-dry">0.00</strong>
+                            </div>
+                            
+                            <table class="w-full text-sm mt-4">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-color)]">
+                                        <th class="text-left py-2">Material</th>
+                                        <th class="text-right py-2">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cement (Bedding)</td>
+                                        <td id="res-floor-cement" class="text-right text-[var(--accent)] font-bold">0 Bags</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sand (Bedding)</td>
+                                        <td id="res-floor-sand" class="text-right">0 Tons</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="metric-card mt-4">
+                                <span>Est. Mortar Cost (Cement + Sand)</span>
+                                <strong id="res-floor-cost" class="mat-final highlight">Rs. 0</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

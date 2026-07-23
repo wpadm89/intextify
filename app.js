@@ -954,6 +954,88 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pRatio) pRatio.addEventListener('change', calculatePlastering);
 
 
+    // --- Flooring Calculator Logic ---
+    const calculateFlooring = () => {
+        const rLenInp = document.getElementById('floorRoomL');
+        const rWidInp = document.getElementById('floorRoomW');
+        const tLenInp = document.getElementById('floorTileL');
+        const tWidInp = document.getElementById('floorTileW');
+        const wasteSel = document.getElementById('floorWaste');
+        const thickInp = document.getElementById('floorBedding');
+        const ratioSel = document.getElementById('floorRatio');
+        
+        if (!rLenInp || !rWidInp || !tLenInp || !tWidInp || !wasteSel || !thickInp || !ratioSel) return;
+        
+        const rLen = parseFloat(rLenInp.value) || 0;
+        const rWid = parseFloat(rWidInp.value) || 0;
+        const tLen = parseFloat(tLenInp.value) || 0;
+        const tWid = parseFloat(tWidInp.value) || 0;
+        const waste = parseFloat(wasteSel.value) || 0.05;
+        const thickness = parseFloat(thickInp.value) || 0;
+        const ratioStr = ratioSel.value || '1:6';
+        
+        const roomArea = rLen * rWid;
+        
+        let totalTiles = 0;
+        if (tLen > 0 && tWid > 0 && roomArea > 0) {
+            const tileAreaSqft = (tLen * tWid) / 144;
+            totalTiles = Math.ceil((roomArea * (1 + waste)) / tileAreaSqft);
+        }
+        
+        const wetVol = roomArea * (thickness / 12);
+        const dryVol = wetVol * 1.33; 
+        
+        const parts = ratioStr.split(':').map(Number);
+        const sum = parts.reduce((a, b) => a + b, 0);
+        
+        const cementVol = dryVol * (parts[0] / sum);
+        const sandVol = dryVol * (parts[1] / sum);
+        
+        const cementBags = (cementVol / 1.25);
+        const sandTons = (sandVol * 43.76) / 1000;
+        
+        // Pricing
+        const cementMat = APP_STATE.boqData.find(m => m.id === 'cement');
+        const sandMat = APP_STATE.boqData.find(m => m.id === 'sand');
+        const cementRate = cementMat ? cementMat.currentRate : (serverBaseRates['cement'] || 1450);
+        const sandRate = sandMat ? sandMat.currentRate : (serverBaseRates['sand'] || 55);
+        
+        const totalCost = (Math.ceil(cementBags) * cementRate) + (sandVol * sandRate);
+        
+        // Update DOM
+        const elArea = document.getElementById('res-floor-area');
+        const elTiles = document.getElementById('res-floor-tiles');
+        const elWet = document.getElementById('res-floor-wet');
+        const elDry = document.getElementById('res-floor-dry');
+        const elCement = document.getElementById('res-floor-cement');
+        const elSand = document.getElementById('res-floor-sand');
+        const elCost = document.getElementById('res-floor-cost');
+        
+        if (elArea) elArea.innerText = roomArea.toFixed(2);
+        if (elTiles) elTiles.innerText = totalTiles;
+        if (elWet) elWet.innerText = wetVol.toFixed(2);
+        if (elDry) elDry.innerText = dryVol.toFixed(2);
+        if (elCement) elCement.innerText = Math.ceil(cementBags) + ' Bags';
+        if (elSand) elSand.innerText = sandTons.toFixed(2) + ' Tons';
+        if (elCost) elCost.innerText = formatCurrency(totalCost);
+    };
+
+    const fRLen = document.getElementById('floorRoomL');
+    const fRWid = document.getElementById('floorRoomW');
+    const fTLen = document.getElementById('floorTileL');
+    const fTWid = document.getElementById('floorTileW');
+    const fWaste = document.getElementById('floorWaste');
+    const fThick = document.getElementById('floorBedding');
+    const fRatio = document.getElementById('floorRatio');
+    
+    [fRLen, fRWid, fTLen, fTWid, fThick].forEach(el => {
+        if (el) el.addEventListener('input', calculateFlooring);
+    });
+    [fWaste, fRatio].forEach(el => {
+        if (el) el.addEventListener('change', calculateFlooring);
+    });
+
+
     const sDia = document.getElementById('steelDiameter');
     const sLen = document.getElementById('steelLength');
     if (sDia) sDia.addEventListener('input', calculateSteel);
@@ -972,6 +1054,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateConcreteCalculator();
         if (typeof calculateSteel === 'function') calculateSteel();
         if (typeof calculatePlastering === 'function') calculatePlastering();
+        if (typeof calculateFlooring === 'function') calculateFlooring();
     }
 
     // ── Hash-based view routing (from dropdown links on other pages) ──
@@ -1000,6 +1083,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(actionFooter)          actionFooter.classList.add('hidden');
             if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
             calculatePlastering();
+        } else if (viewId === 'flooring-view') {
+            if(plotConfigSection)     plotConfigSection.classList.add('hidden');
+            if(ratesConfigSection)    ratesConfigSection.classList.add('hidden');
+            if(actionFooter)          actionFooter.classList.add('hidden');
+            if(concreteConfigSection) concreteConfigSection.classList.add('hidden');
+            calculateFlooring();
         } else if (viewId === 'estimator-view') {
             if(plotConfigSection)     plotConfigSection.classList.remove('hidden');
             if(ratesConfigSection)    ratesConfigSection.classList.remove('hidden');
@@ -1010,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.replaceState(null, '', '#' + viewId);
     };
 
-    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view', 'plastering-view'];
+    const VALID_VIEWS = ['estimator-view', 'concrete-view', 'steel-view', 'plastering-view', 'flooring-view'];
     const activateFromHash = () => {
         const hash = window.location.hash.replace('#', '');
         if (VALID_VIEWS.includes(hash)) switchToView(hash);
