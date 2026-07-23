@@ -3,8 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/residential", "destination": "/residential/index.html" },
-    { "source": "/blog/:slug", "destination": "/blog.html" },
-    { "source": "/guides/:slug", "destination": "/guides.html" }
+    { "source": "/blog/:slug", "destination": "/blog" },
+    { "source": "/guides/:slug", "destination": "/guides" }
   ],
   "headers": [
     {
