@@ -526,7 +526,7 @@
     </div>
 
     <!-- ── SEO Content Wrapper ───────────────────────────────── -->
-    <div id="seo-content-wrapper">
+    <article id="seo-content-wrapper">
 
       <!-- BOQ Guide: visible by default (estimator-view active) -->
       <section id="seo-boq"
@@ -696,7 +696,34 @@
         </details>
       </section>
 
-    </div>
+      <!-- Steel Guide: hidden by default, shown when steel-view active -->
+      <section id="seo-steel"
+        class="seo-block seo-hidden w-full max-w-5xl mx-auto
+               mt-12 mb-4 p-6 bg-[var(--bg-panel)]
+               border border-[var(--border-color)] rounded-xl
+               shadow-sm text-[var(--text-primary)]">
+        <header>
+          <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+            Steel Reinforcement Cost & Weight Estimation
+          </h2>
+        </header>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Accurate estimation of steel (rebar) is critical for structural stability and cost control. 
+          Our integrated Steel Calculator automatically computes weight using standard engineering formulas.
+        </p>
+        <h3 class="text-xl font-semibold mb-3">Metric Formula (kg/m)</h3>
+        <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+          When measuring steel bar lengths in meters, the weight per meter is calculated as: 
+          <strong>Weight = D² / 162</strong> (Where D is the diameter in mm).
+        </p>
+        <h3 class="text-xl font-semibold mb-3">Imperial Formula (kg/ft)</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          In Pakistan, lengths are often measured in feet. The weight per foot is calculated as:
+          <strong>Weight = D² / 533</strong> (Where D is the diameter in mm).
+        </p>
+      </section>
+
+    </article>
     <!-- ── End SEO Content Wrapper ───────────────────────────── -->
 
     <!-- Global Legal Footer -->
