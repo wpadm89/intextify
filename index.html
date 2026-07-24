@@ -208,6 +208,26 @@
   </div>
 </header>
 
+    <section class="home-hero" aria-labelledby="home-hero-title">
+        <div class="home-hero-content">
+            <p class="home-hero-kicker">Construction planning for Pakistan</p>
+            <h1 id="home-hero-title">Plan your build with clearer costs and fewer surprises.</h1>
+            <p class="home-hero-copy">Create a preliminary BOQ, compare material costs, and check concrete or steel quantities before you speak to suppliers or contractors.</p>
+            <div class="home-hero-actions">
+                <button class="home-hero-primary js-start-estimate">Start a free estimate</button>
+                <a class="home-hero-secondary" href="/guides">Read planning guides</a>
+            </div>
+            <ul class="home-hero-points" role="list"><li>Location-aware material rates</li><li>Editable assumptions</li><li>Exportable BOQ summary</li></ul>
+        </div>
+        <div class="home-hero-card" aria-label="Example estimate preview">
+            <span class="home-hero-card-label">Example project</span>
+            <strong>5 Marla · Lahore</strong>
+            <div class="home-hero-card-total">Itemised cost plan</div>
+            <div class="home-hero-bars"><i></i><i></i><i></i><i></i></div>
+            <small>Change the city, plot size, and rates to create your own.</small>
+        </div>
+    </section>
+
     <div class="dashboard-layout max-w-[100vw] overflow-x-hidden flex flex-col flex-1">
         <!-- Dashboard Sidebar / Top Config Panel -->
         <!-- OLD SIDEBAR — DO NOT DELETE
@@ -860,6 +880,29 @@
           automated daily rate scraping, Intextify ensures your estimates
           reflect true current market conditions in Pakistan.
         </p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>5 Marla plot in Lahore (1,125 sqft, using 225 sqft/Marla), single-story, standard construction grade:</strong><br>
+          Based on the 1,125 sqft covered area and a standard 11 ft roof height (multiplier 1.0), the calculator estimates the following high-level material breakdown:<br>
+          &bull; <strong>Bricks:</strong> 14,794 pieces<br>
+          &bull; <strong>Cement:</strong> 439 bags<br>
+          &bull; <strong>Sand:</strong> 2,070 cft<br>
+          &bull; <strong>Crush:</strong> 1,474 cft<br>
+          &bull; <strong>Steel:</strong> 2,959 kg<br>
+          &bull; <strong>Labor:</strong> 1,125 sqft
+        </p>
+        
+        <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
       </section>
 
       <!-- PCC FAQ: hidden by default, shown when concrete-view active -->
@@ -936,6 +979,26 @@
             </tbody>
           </table>
         </div>
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>10ft &times; 10ft slab, 6 inches thick:</strong><br>
+          &bull; Wet volume = 10 &times; 10 &times; 0.5 = 50 cft<br>
+          &bull; Dry volume = 50 &times; 1.54 = 77 cft<br>
+          &bull; Using M15 (1:2:4): total parts = 7, cement volume = 77/7 = 11 cft &approx; 11 bags<br>
+          &bull; Sand = 77 &times; (2/7) = 22 cft &approx; 0.96 tons<br>
+          &bull; Aggregate (Crush) = 77 &times; (4/7) = 44 cft &approx; 1.83 tons
+        </p>
+        <div class="reviewer-byline flex items-center gap-4 mt-8 mb-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
+
         <h3 class="text-xl font-semibold mb-3">
           Frequently Asked Questions (FAQ)
         </h3>
@@ -1011,6 +1074,127 @@
           In Pakistan, lengths are often measured in feet. The weight per foot is calculated as:
           <strong>Weight = D² / 533</strong> (Where D is the diameter in mm).
         </p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>12mm bar, 100 ft total length:</strong><br>
+          &bull; Weight = (12&sup2; / 533) &times; 100 = 27.02 kg<br>
+          &bull; At the current default rate of Rs. 282/kg, the estimated cost is 27.02 &times; 282 = Rs. 7,620.
+        </p>
+
+        <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Plastering Guide: hidden by default -->
+      <section id="seo-plastering"
+        class="seo-block seo-hidden w-full max-w-5xl mx-auto
+               mt-12 mb-4 p-6 bg-[var(--bg-panel)]
+               border border-[var(--border-color)] rounded-xl
+               shadow-sm text-[var(--text-primary)]">
+        <header>
+          <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+            Plastering Mortar Requirements
+          </h2>
+        </header>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Calculating mortar for plastering requires converting surface area and thickness into wet volume, then adjusting for dry material shrinkage.
+        </p>
+        
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>500 sqft wall area, 0.5 inch thickness, 1:6 mix:</strong><br>
+          &bull; Wet volume = 500 &times; (0.5/12) = 20.83 cft<br>
+          &bull; Dry volume = 20.83 &times; 1.33 = 27.7 cft<br>
+          &bull; Total parts = 7, cement = 27.7 / 7 &approx; 3.96 cft &approx; 3.16 bags<br>
+          &bull; Sand = 27.7 &times; (6/7) = 23.74 cft &approx; 1.04 tons
+        </p>
+        <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Flooring Guide: hidden by default -->
+      <section id="seo-flooring"
+        class="seo-block seo-hidden w-full max-w-5xl mx-auto
+               mt-12 mb-4 p-6 bg-[var(--bg-panel)]
+               border border-[var(--border-color)] rounded-xl
+               shadow-sm text-[var(--text-primary)]">
+        <header>
+          <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+            Flooring &amp; Bedding Calculation
+          </h2>
+        </header>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Tile calculations must account for wastage and mortar bedding volume.
+        </p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>12ft &times; 10ft room, 12"&times;12" tiles, 5% waste, 1:6 bedding mix, 1 inch bedding thickness:</strong><br>
+          &bull; Area = 120 sqft, tiles needed = 120 (at 1 sqft/tile) &times; 1.05 &approx; 126 tiles<br>
+          &bull; Bedding wet volume = 120 &times; (1/12) = 10 cft<br>
+          &bull; Bedding dry volume = 10 &times; 1.33 = 13.3 cft
+        </p>
+        <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Paint Guide: hidden by default -->
+      <section id="seo-paint"
+        class="seo-block seo-hidden w-full max-w-5xl mx-auto
+               mt-12 mb-4 p-6 bg-[var(--bg-panel)]
+               border border-[var(--border-color)] rounded-xl
+               shadow-sm text-[var(--text-primary)]">
+        <header>
+          <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
+            Paint Coverage &amp; Cost
+          </h2>
+        </header>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          Estimating paint involves deducting area for doors/windows and distributing the required liters into standard containers (Gallons and Buckets).
+        </p>
+
+        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
+        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          <strong>800 sqft surface, 2 coats, Emulsion (110 sqft/L):</strong><br>
+          &bull; Net paintable area = 800 &times; 0.85 = 680 sqft (15% deduction)<br>
+          &bull; Liters needed = (680 &times; 2) / 110 &approx; 12.36 L<br>
+          &bull; Containers (16L bucket, 3.64L gallon) = 0 B, 4 G
+        </p>
+        <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
+            <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
+                HR
+            </div>
+            <div class="byline-info text-sm">
+                <p class="font-bold text-[var(--text-primary)] m-0">Eng. Hamza Raza</p>
+                <p class="text-[var(--text-secondary)] m-0 font-medium">Civil Engineer, Content Reviewer at Intextify</p>
+                <p class="text-[var(--text-secondary)] m-0 mt-1 opacity-80">Reviews all calculator formulas and mix ratios for accuracy against standard Pakistani construction practice.</p>
+            </div>
+        </div>
       </section>
 
       <!-- Civil Engineering Glossary -->

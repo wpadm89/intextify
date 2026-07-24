@@ -413,13 +413,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Context-Aware SEO Sections ────────────────────────────
     function updateSeoContent(activeViewId) {
-        const boqSeo = document.getElementById('seo-boq');
-        const pccSeo = document.getElementById('seo-pcc');
-        if (!boqSeo || !pccSeo) return;
-        const isBoq  = activeViewId === 'estimator-view';
-        const isPcc  = activeViewId === 'concrete-view';
-        boqSeo.classList.toggle('seo-hidden', !isBoq);
-        pccSeo.classList.toggle('seo-hidden', !isPcc);
+        const mappings = [
+            { id: 'seo-boq', view: 'estimator-view' },
+            { id: 'seo-pcc', view: 'concrete-view' },
+            { id: 'seo-steel', view: 'steel-view' },
+            { id: 'seo-plastering', view: 'plastering-view' },
+            { id: 'seo-flooring', view: 'flooring-view' },
+            { id: 'seo-paint', view: 'paint-view' }
+        ];
+        
+        mappings.forEach(m => {
+            const el = document.getElementById(m.id);
+            if (el) {
+                el.classList.toggle('seo-hidden', activeViewId !== m.view);
+            }
+        });
     }
 
     // ── Scroll Transition: Tools dim when SEO section appears ─
