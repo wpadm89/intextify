@@ -215,7 +215,10 @@
             <p class="home-hero-copy">Create a preliminary BOQ, compare material costs, and check concrete or steel quantities before you speak to suppliers or contractors.</p>
             <div class="home-hero-actions">
                 <button class="home-hero-primary js-start-estimate">Start a free estimate</button>
-                <a class="home-hero-secondary" href="/guides">Read planning guides</a>
+                <a class="home-hero-secondary" href="/guides">
+                    Read planning guides
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
             </div>
             <ul class="home-hero-points" role="list"><li>Location-aware material rates</li><li>Editable assumptions</li><li>Exportable BOQ summary</li></ul>
         </div>
@@ -724,7 +727,7 @@
             </section>
 
             <!-- Moved Action Buttons & Pro Panel -->
-            <div class="sidebar-footer flex flex-col w-full max-w-2xl mx-auto px-4 lg:px-0 gap-4 mb-8 mt-auto">
+            <div class="sidebar-footer flex flex-col w-full gap-4 mb-8 mt-auto">
                 <div class="flex flex-col sm:flex-row gap-4 w-full">
                     <button class="action-btn w-full rounded-lg mt-0" id="btn-export">Export to PDF</button>
                     <button class="action-btn primary-btn w-full rounded-lg mt-0" id="btn-save">Save Estimate</button>
@@ -774,7 +777,7 @@
         </main>
         
         <!-- Right Sidebar / Configuration Options -->
-        <aside class="sidebar config-sidebar lg:sticky lg:top-0 lg:self-start lg:max-h-screen lg:overflow-y-auto order-2 lg:order-3 [&_input]:min-h-[44px] [&_select]:min-h-[44px] [&_.sidebar-section]:mx-4 lg:[&_.sidebar-section]:mx-0" id="config-sidebar">
+        <aside class="sidebar config-sidebar lg:sticky lg:top-0 lg:self-start order-2 lg:order-3 [&_input]:min-h-[44px] [&_select]:min-h-[44px] [&_.sidebar-section]:mx-4 lg:[&_.sidebar-section]:mx-0" id="config-sidebar">
             <div class="sidebar-header">
                 <h2>Configuration</h2>
             </div>
@@ -880,20 +883,36 @@
             <!-- Action buttons moved to content area -->
         </aside>
         
-        <!-- Cookie Consent Banner for AdSense Compliance -->
-        <div id="cookie-banner" class="cookie-banner hidden">
-            <div class="cookie-content">
-                <p>We use cookies and tracker technologies to analyze traffic and personalize ads.<br>By continuing, you consent to our <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
-                <button id="accept-cookies" class="action-btn primary-btn btn-small">Accept</button>
-            </div>
-        </div>
     </div>
-    
-    <section class="mt-8 border-t border-gray-100 pt-6 max-w-3xl mx-auto px-4">
-      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">How to Use the Smart BOQ Estimator & Construction Calculator</h2>
-      <p class="mb-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Our automated civil engineering suite provides instant material calculations based on current Pakistani market rates. To compute an accurate Bill of Quantities (BOQ), select your target project location (e.g., Lahore, Karachi, Islamabad), input standard plot sizes such as 5 Marla, 10 Marla, or 1 Kanal, and specify structural dimensions including covered area and floor heights.</p>
-      <h3 class="text-md font-medium text-slate-700 dark:text-slate-300 mb-1">Understanding Material Cost Distribution</h3>
-      <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">The integrated mathematical modules parse raw dimension boundaries to formulate localized breakdowns for vital infrastructure components. This includes exact calculations for brick counts, concrete volumetric ratios (sand, cement, crush/gravel distributions), reinforcing steel reinforcement weights in tons, and associated manual labor wages required for structural grey structures.</p>
+
+    <section class="how-to-use-section w-full max-w-5xl mx-auto mt-12 mb-4 p-6 bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl shadow-sm text-[var(--text-primary)]">
+      <h2 class="text-2xl font-bold text-[var(--accent)] mb-3">How to Use the Smart BOQ Estimator & Construction Calculator</h2>
+      <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+        Getting a reliable cost estimate takes three steps: tell us where and how big you're building, review the material rates, then export your BOQ. Here's how each step works.
+      </p>
+
+      <ol class="how-to-steps grid gap-5 sm:grid-cols-3 mb-6 list-none p-0">
+        <li class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--accent)] text-[#0f172a] font-bold text-sm mb-3">1</span>
+          <h3 class="font-semibold mb-1">Enter project details</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">Pick your city (Lahore, Karachi, Islamabad, Gujranwala, or Talagang) and a plot size like 5 Marla, 10 Marla, or 1 Kanal — or enter custom length, width, and roof height.</p>
+        </li>
+        <li class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--accent)] text-[#0f172a] font-bold text-sm mb-3">2</span>
+          <h3 class="font-semibold mb-1">Review live material rates</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">Bricks, cement, sand, crush, steel, and labor rates are pre-filled from current market data for your city. Edit any rate if your supplier quotes differently.</p>
+        </li>
+        <li class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--accent)] text-[#0f172a] font-bold text-sm mb-3">3</span>
+          <h3 class="font-semibold mb-1">Export your BOQ</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">Check the cost breakdown and timeline, then export a clean PDF summary to share with contractors or suppliers.</p>
+        </li>
+      </ol>
+
+      <h3 class="text-lg font-semibold mb-2">Understanding your cost breakdown</h3>
+      <p class="text-[var(--text-secondary)] leading-relaxed">
+        Once you've entered your dimensions, the estimator splits your total cost across bricks, cement, sand, crush, steel, and labor — shown as a pie chart alongside a month-by-month construction timeline. Each material card below the chart shows the exact quantity (bags, tons, or pieces) and cost, so you can see precisely where your budget is going before you talk to a contractor.
+      </p>
     </section>
 
     <!-- ── Scroll Hint Arrow (desktop only) ─────────────────── -->
@@ -908,59 +927,94 @@
 
       <!-- BOQ Guide: visible by default (estimator-view active) -->
       <section id="seo-boq"
-        class="seo-block w-full max-w-5xl mx-auto mt-12 mb-4 p-6
+        class="seo-block w-full max-w-5xl mx-auto mt-12 mb-4 p-6 sm:p-8
                bg-[var(--bg-panel)] border border-[var(--border-color)]
                rounded-xl shadow-sm text-[var(--text-primary)]">
-        <h2 class="text-2xl font-bold text-[var(--accent)] mb-4">
-          Complete Guide to Construction Cost Estimation in Pakistan
-        </h2>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+
+        <div class="flex items-center gap-4 mb-5">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: color-mix(in srgb, var(--accent) 15%, transparent);">
+            📋
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--accent)] m-0">BOQ Estimation Guide</p>
+            <h2 class="text-2xl font-bold m-0">
+              Complete Guide to Construction Cost Estimation in Pakistan
+            </h2>
+          </div>
+        </div>
+
+        <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">
           Planning a construction project requires precise calculations
           and up-to-date market rates. Intextify Construction Suite is
           designed to help homeowners, contractors, and civil engineers
           generate accurate Bill of Quantities (BOQ) and cost estimates
           instantly.
         </p>
-        <h3 class="text-xl font-semibold mb-3">
-          Understanding the BOQ Estimator
-        </h3>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
-          A reliable BOQ ensures that your project stays within budget.
-          Our tool uses live market rates for essential materials like
-          Bricks, Cement, Sand, Crush, and Labor. It automatically
-          calculates the required quantities based on your plot size and
-          covered area. Proper estimation of foundational Earthfill is
-          also critical for structural integrity before masonry begins.
-        </p>
-        <h3 class="text-xl font-semibold mb-3">
-          How the Steel Calculator Works
-        </h3>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
-          Our integrated Steel Calculator uses the D²/162 formula for
-          metric (meters) and D²/533 for Imperial (feet), ensuring 100%
-          accuracy in structural cost estimates.
-        </p>
-        <h3 class="text-xl font-semibold mb-3">
-          Why Use Live Material Rates?
-        </h3>
-        <p class="text-[var(--text-secondary)] leading-relaxed">
-          Construction material costs fluctuate daily. By leveraging
-          automated daily rate scraping, Intextify ensures your estimates
-          reflect true current market conditions in Pakistan.
-        </p>
 
-        <h3 class="text-xl font-semibold mb-3 mt-6">Worked Example</h3>
-        <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
-          <strong>5 Marla plot in Lahore (1,125 sqft, using 225 sqft/Marla), single-story, standard construction grade:</strong><br>
-          Based on the 1,125 sqft covered area and a standard 11 ft roof height (multiplier 1.0), the calculator estimates the following high-level material breakdown:<br>
-          &bull; <strong>Bricks:</strong> 14,794 pieces<br>
-          &bull; <strong>Cement:</strong> 439 bags<br>
-          &bull; <strong>Sand:</strong> 2,070 cft<br>
-          &bull; <strong>Crush:</strong> 1,474 cft<br>
-          &bull; <strong>Steel:</strong> 2,959 kg<br>
-          &bull; <strong>Labor:</strong> 1,125 sqft
-        </p>
-        
+        <div class="grid gap-5 sm:grid-cols-3 mb-8">
+          <div class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+            <div class="text-xl mb-2" aria-hidden="true">📊</div>
+            <h3 class="text-base font-semibold mb-2">Understanding the BOQ Estimator</h3>
+            <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
+              A reliable BOQ ensures that your project stays within budget. Our tool uses live market rates for Bricks, Cement, Sand, Crush, and Labor, and calculates required quantities from your plot size and covered area — including foundational Earthfill, critical before masonry begins.
+            </p>
+          </div>
+          <div class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+            <div class="text-xl mb-2" aria-hidden="true">⚙️</div>
+            <h3 class="text-base font-semibold mb-2">How the Steel Calculator Works</h3>
+            <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
+              Our integrated Steel Calculator uses the <strong>D²/162</strong> formula for metric (meters) and <strong>D²/533</strong> for Imperial (feet), ensuring accurate structural cost estimates for any bar diameter.
+            </p>
+          </div>
+          <div class="p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+            <div class="text-xl mb-2" aria-hidden="true">📈</div>
+            <h3 class="text-base font-semibold mb-2">Why Use Live Material Rates?</h3>
+            <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
+              Construction material costs fluctuate daily. By leveraging automated daily rate scraping, Intextify ensures your estimates reflect true current market conditions in Pakistan.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <h3 class="text-base font-semibold mb-1">Worked Example</h3>
+          <p class="text-[var(--text-secondary)] text-sm mb-4 leading-relaxed">
+            <strong>5 Marla plot in Lahore (1,125 sqft, using 225 sqft/Marla), single-story, standard construction grade.</strong>
+            Based on the 1,125 sqft covered area and a standard 11 ft roof height (multiplier 1.0), the calculator estimates the following high-level material breakdown:
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Bricks</p>
+              <p class="text-[var(--accent)] font-bold m-0">14,794</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">pieces</p>
+            </div>
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Cement</p>
+              <p class="text-[var(--accent)] font-bold m-0">439</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">bags</p>
+            </div>
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Sand</p>
+              <p class="text-[var(--accent)] font-bold m-0">2,070</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">cft</p>
+            </div>
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Crush</p>
+              <p class="text-[var(--accent)] font-bold m-0">1,474</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">cft</p>
+            </div>
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Steel</p>
+              <p class="text-[var(--accent)] font-bold m-0">2,959</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">kg</p>
+            </div>
+            <div class="p-3 rounded-md bg-[var(--bg-panel)] border border-[var(--border-color)] text-center">
+              <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wide m-0 mb-1">Labor</p>
+              <p class="text-[var(--accent)] font-bold m-0">1,125</p>
+              <p class="text-[var(--text-secondary)] text-xs m-0">sqft</p>
+            </div>
+          </div>
+        </div>
+
         <div class="reviewer-byline flex items-center gap-4 mt-8 pt-6 border-t border-[var(--border-color)]">
             <div class="byline-avatar flex-shrink-0 w-12 h-12 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-lg">
                 HR
@@ -1276,48 +1330,116 @@
             Civil Engineering Glossary
           </h2>
         </header>
-        <dl class="space-y-6">
-          <div>
-            <dt class="font-bold text-lg text-[var(--primary)]">Bill of Quantities (BOQ)</dt>
-            <dd class="text-[var(--text-secondary)] mt-1">A detailed document used in tendering in the construction industry in which materials, parts, and labor (and their costs) are itemized.</dd>
-          </div>
-          <div>
-            <dt class="font-bold text-lg text-[var(--primary)]">Plain Cement Concrete (PCC)</dt>
-            <dd class="text-[var(--text-secondary)] mt-1">A mixture of cement, sand, and aggregate without any steel reinforcement, typically used as a foundational leveling course.</dd>
-          </div>
-          <div>
-            <dt class="font-bold text-lg text-[var(--primary)]">Reinforced Cement Concrete (RCC)</dt>
-            <dd class="text-[var(--text-secondary)] mt-1">Concrete that contains embedded steel bars (rebar) to provide high tensile strength, used in slabs, beams, and columns.</dd>
-          </div>
-          <div>
-            <dt class="font-bold text-lg text-[var(--primary)]">Marla to Square Feet Conversion in Pakistan</dt>
-            <dd class="text-[var(--text-secondary)] mt-1">A Marla is a traditional unit of land area. In Lahore, 1 Marla is generally equal to 225 square feet, while in other regions it may be 272 square feet.</dd>
-          </div>
-          <div>
-            <dt class="font-bold text-lg text-[var(--primary)]">Steel Grade 60 vs Grade 40</dt>
-            <dd class="text-[var(--text-secondary)] mt-1">Grade 60 steel has a minimum yield strength of 60,000 psi and is standard for commercial and major residential load-bearing structures. Grade 40 (40,000 psi) is typically used for minor, non-load-bearing elements.</dd>
-          </div>
-        </dl>
+        <div class="glossary-accordion space-y-3">
+          <details class="group bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer border border-[var(--border-color)]">
+            <summary class="font-semibold text-[var(--text-primary)] list-none flex items-center justify-between gap-3">
+              Bill of Quantities (BOQ)
+              <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed">A detailed document used in tendering in the construction industry in which materials, parts, and labor (and their costs) are itemized.</p>
+          </details>
+          <details class="group bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer border border-[var(--border-color)]">
+            <summary class="font-semibold text-[var(--text-primary)] list-none flex items-center justify-between gap-3">
+              Plain Cement Concrete (PCC)
+              <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed">A mixture of cement, sand, and aggregate without any steel reinforcement, typically used as a foundational leveling course.</p>
+          </details>
+          <details class="group bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer border border-[var(--border-color)]">
+            <summary class="font-semibold text-[var(--text-primary)] list-none flex items-center justify-between gap-3">
+              Reinforced Cement Concrete (RCC)
+              <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed">Concrete that contains embedded steel bars (rebar) to provide high tensile strength, used in slabs, beams, and columns.</p>
+          </details>
+          <details class="group bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer border border-[var(--border-color)]">
+            <summary class="font-semibold text-[var(--text-primary)] list-none flex items-center justify-between gap-3">
+              Marla to Square Feet Conversion in Pakistan
+              <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed">A Marla is a traditional unit of land area. In Lahore, 1 Marla is generally equal to 225 square feet, while in other regions it may be 272 square feet.</p>
+          </details>
+          <details class="group bg-[var(--bg-secondary)] p-4 rounded-lg cursor-pointer border border-[var(--border-color)]">
+            <summary class="font-semibold text-[var(--text-primary)] list-none flex items-center justify-between gap-3">
+              Steel Grade 60 vs Grade 40
+              <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+            </summary>
+            <p class="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed">Grade 60 steel has a minimum yield strength of 60,000 psi and is standard for commercial and major residential load-bearing structures. Grade 40 (40,000 psi) is typically used for minor, non-load-bearing elements.</p>
+          </details>
+        </div>
       </section>
 
     </article>
     <!-- ── End SEO Content Wrapper ───────────────────────────── -->
 
     <!-- Global Legal Footer -->
-    <footer class="legal-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto flex flex-col items-center justify-center p-6">
-        <div class="legal-links mb-2 text-sm flex gap-2 justify-center items-center">
-            <a href="privacy.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Privacy</a>
-            <span class="separator">&bull;</span>
-            <a href="terms.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Terms</a>
-            <span class="separator">&bull;</span>
-            <a href="contact.html" target="_blank" class="hover:text-[var(--accent)] font-semibold transition-colors">Contact</a>
-            <span class="separator">&bull;</span>
-            <a href="about" class="hover:text-[var(--accent)] font-semibold transition-colors">About</a>
-            <span class="separator">&bull;</span>
-            <a href="editorial-policy" class="hover:text-[var(--accent)] font-semibold transition-colors">Editorial Policy</a>
+    <footer class="site-footer w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] mt-auto">
+        <div class="max-w-6xl mx-auto px-6 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+
+            <div>
+                <a href="/" class="inline-flex items-center gap-2.5 mb-3" aria-label="Intextify home">
+                    <span class="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </span>
+                    <span class="font-bold text-[var(--text-primary)]">Intex<span class="text-[var(--accent)]">tify</span></span>
+                </a>
+                <p class="text-sm text-[var(--text-secondary)] leading-relaxed max-w-xs">
+                    Instant BOQ, material, and cost estimates for construction projects across Pakistan — built for homeowners, contractors, and civil engineers.
+                </p>
+            </div>
+
+            <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-3">Calculators</p>
+                <ul class="space-y-2 text-sm list-none p-0 m-0">
+                    <li><a href="/#estimator-view" class="footer-link">BOQ Estimator</a></li>
+                    <li><a href="/#concrete-view" class="footer-link">Concrete Calculator</a></li>
+                    <li><a href="/#steel-view" class="footer-link">Steel Calculator</a></li>
+                    <li><a href="/#plastering-view" class="footer-link">Plastering</a></li>
+                    <li><a href="/#flooring-view" class="footer-link">Flooring</a></li>
+                    <li><a href="/#paint-view" class="footer-link">Paint Work</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-3">Company</p>
+                <ul class="space-y-2 text-sm list-none p-0 m-0">
+                    <li><a href="/guides" class="footer-link">Guides</a></li>
+                    <li><a href="/blog" class="footer-link">Blog</a></li>
+                    <li><a href="/write-for-us" class="footer-link">Write for Us</a></li>
+                    <li><a href="about" class="footer-link">About</a></li>
+                    <li><a href="contact.html" target="_blank" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-3">Legal</p>
+                <ul class="space-y-2 text-sm list-none p-0 m-0">
+                    <li><a href="privacy.html" target="_blank" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="terms.html" target="_blank" class="footer-link">Terms of Service</a></li>
+                    <li><a href="editorial-policy" class="footer-link">Editorial Policy</a></li>
+                </ul>
+            </div>
+
         </div>
-        <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+        <div class="border-t border-[var(--border-color)]">
+            <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row gap-2 items-center justify-between">
+                <div class="copyright text-xs opacity-50">&copy; 2026 Intextify. All rights reserved.</div>
+                <p class="text-xs opacity-50 m-0">Estimates are for planning purposes and not a substitute for a contractor's quote.</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Cookie Consent Banner for AdSense Compliance — kept outside .dashboard-layout so its
+         fixed positioning is relative to the viewport, not clipped by an ancestor's will-change -->
+    <div id="cookie-banner" class="cookie-banner hidden">
+        <div class="cookie-content">
+            <p>We use cookies and tracker technologies to analyze traffic and personalize ads.<br>By continuing, you consent to our <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
+            <button id="accept-cookies" class="action-btn primary-btn btn-small">Accept</button>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
