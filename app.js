@@ -181,6 +181,31 @@ document.addEventListener('DOMContentLoaded', () => {
             styles: { fontSize: 11, cellPadding: 4, textColor: [40, 40, 40] }
         });
         
+        // Add Watermark or Pro Header
+        if (localStorage.getItem('intextify_pro_unlocked') === 'true') {
+            const preparedFor = document.getElementById('pdf-prepared-for')?.value.trim();
+            const projectName = document.getElementById('pdf-project-name')?.value.trim();
+            if (preparedFor) {
+                doc.setFontSize(10);
+                doc.setTextColor(50, 50, 50);
+                doc.text(`Prepared for: ${preparedFor}`, 14, 37);
+            }
+            if (projectName) {
+                doc.setFontSize(10);
+                doc.setTextColor(50, 50, 50);
+                doc.text(`Project: ${projectName}`, 14, 42);
+            }
+        } else {
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.setTextColor(150, 150, 150);
+                doc.text("Generated with Intextify — Free Tier", doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
+            }
+        }
+        
+        
         // Ask for Download Location using File System Access API
         try {
             if (window.showSaveFilePicker) {
@@ -742,6 +767,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         overallTotalEl.innerText = formatCurrency(overallCost);
+        
+        // Show waitlist card once calculation finishes
+        const waitlistCard = document.getElementById('waitlist-card');
+        if (waitlistCard) {
+            waitlistCard.classList.remove('hidden');
+        }
+        
         const sqftArea = APP_STATE.metric ? currentArea / 0.092903 : currentArea;
         const costPerSqft = sqftArea > 0 ? overallCost / sqftArea : 0;
         if (costPerSqftEl) costPerSqftEl.textContent = `About ${formatCurrency(costPerSqft)} per sqft`;
@@ -1273,6 +1305,120 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('intextify_cookie_consent', 'accepted');
             cookieBanner.style.opacity = '0';
             setTimeout(() => cookieBanner.classList.add('hidden'), 300);
+        });
+    }
+
+    // ── PRO EXPORT LOGIC ───────────────────────────────────────────
+    const isPro = localStorage.getItem('intextify_pro_unlocked') === 'true';
+    const promoView = document.getElementById('pro-promo-view');
+    const unlockedView = document.getElementById('pro-unlocked-view');
+    
+    if (promoView && unlockedView && isPro) {
+        promoView.classList.add('hidden');
+        unlockedView.classList.remove('hidden');
+    }
+
+    const btnRedeemPro = document.getElementById('btn-redeem-pro');
+    if (btnRedeemPro) {
+        btnRedeemPro.addEventListener('click', async () => {
+            const code = document.getElementById('pro-code-input').value.trim();
+            const msg = document.getElementById('pro-redeem-msg');
+            if (!code) return;
+
+            btnRedeemPro.disabled = true;
+            btnRedeemPro.innerText = 'Checking...';
+            msg.classList.add('hidden');
+
+            try {
+                const res = await fetch('/api/redeem-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const data = await res.json();
+
+                msg.classList.remove('hidden');
+                if (res.ok) {
+                    localStorage.setItem('intextify_pro_unlocked', 'true');
+                    msg.classList.remove('text-red-500');
+                    msg.classList.add('text-green-500');
+                    msg.innerText = data.message || 'Pro unlocked!';
+                    setTimeout(() => {
+                        promoView.classList.add('hidden');
+                        unlockedView.classList.remove('hidden');
+                    }, 1000);
+                } else {
+                    msg.classList.remove('text-green-500');
+                    msg.classList.add('text-red-500');
+                    msg.innerText = data.error || 'Invalid code.';
+                }
+            } catch (err) {
+                msg.classList.remove('hidden');
+                msg.classList.remove('text-green-500');
+                msg.classList.add('text-red-500');
+                msg.innerText = 'Network error.';
+            }
+            btnRedeemPro.disabled = false;
+            btnRedeemPro.innerText = 'Unlock Pro';
+        });
+    }
+
+    // ── CONTRACTOR WAITLIST LOGIC ──────────────────────────────────
+    const btnWaitlist = document.getElementById('btn-join-waitlist');
+    if (btnWaitlist) {
+        btnWaitlist.addEventListener('click', async () => {
+            const name = document.getElementById('waitlist-name').value;
+            const phone = document.getElementById('waitlist-phone').value;
+            const honeypot = document.getElementById('waitlist-honeypot').value;
+            const msg = document.getElementById('waitlist-msg');
+            
+            const cityEl = document.getElementById('projectLocation');
+            const city = cityEl.options[cityEl.selectedIndex].text;
+            
+            const plotEl = document.getElementById('plotSize');
+            const plotSize = plotEl.options[plotEl.selectedIndex].text;
+            
+            const estimatedBudgetStr = document.getElementById('overall-total').innerText.replace(/[^\d.-]/g, '');
+            const estimatedBudget = parseFloat(estimatedBudgetStr) || 0;
+
+            if (!name || !phone) {
+                msg.innerText = 'Name and phone are required.';
+                msg.classList.remove('hidden', 'text-green-500');
+                msg.classList.add('text-red-500');
+                return;
+            }
+
+            btnWaitlist.disabled = true;
+            btnWaitlist.innerText = 'Joining...';
+            
+            try {
+                const res = await fetch('/api/join-waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, phone, city, plotSize, estimatedBudget, honeypot })
+                });
+                const data = await res.json();
+                
+                msg.classList.remove('hidden');
+                if (res.ok) {
+                    msg.classList.remove('text-red-500');
+                    msg.classList.add('text-green-500');
+                    msg.innerText = 'Added to waitlist! We will contact you soon.';
+                    btnWaitlist.style.display = 'none';
+                } else {
+                    msg.classList.remove('text-green-500');
+                    msg.classList.add('text-red-500');
+                    msg.innerText = data.error || 'Failed to join waitlist.';
+                    btnWaitlist.disabled = false;
+                    btnWaitlist.innerText = 'Join Waitlist';
+                }
+            } catch(e) {
+                msg.classList.remove('hidden', 'text-green-500');
+                msg.classList.add('text-red-500');
+                msg.innerText = 'Network error.';
+                btnWaitlist.disabled = false;
+                btnWaitlist.innerText = 'Join Waitlist';
+            }
         });
     }
 });

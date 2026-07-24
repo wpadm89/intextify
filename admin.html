@@ -219,6 +219,24 @@
         }
     }); 
 </script>
+<!-- Pro Unlock Codes Section -->
+<section id="pro-codes-section" class="mt-10" style="display:none; max-width: 800px; margin: 2rem auto;">
+  <h2 class="text-2xl font-bold mb-6 text-[var(--primary)]">🔑 Pro Unlock Codes</h2>
+  <div class="admin-panel" style="max-width: 100%;">
+    <p class="mb-4 text-sm text-gray-400">Generate a new 8-character unlock code to send to customers after confirming payment via EasyPaisa/JazzCash.</p>
+    <button class="action-btn primary-btn" id="btn-generate-code" style="margin-top: 0;">Generate New Unlock Code</button>
+    <div id="new-code-display" class="mt-4 p-4 bg-gray-800 rounded-lg text-center font-mono text-xl text-[#00E5FF]" style="display:none; border: 1px dashed #00E5FF;"></div>
+  </div>
+</section>
+
+<!-- Waitlist Section -->
+<section id="waitlist-section" class="mt-10" style="display:none; max-width: 800px; margin: 2rem auto;">
+  <h2 class="text-2xl font-bold mb-6 text-[var(--primary)]">📋 Contractor Waitlist</h2>
+  <div id="waitlist-container" class="space-y-4">
+    <p class="text-gray-400 text-sm">Loading submissions...</p>
+  </div>
+</section>
+
 <!-- Guest Posts Review Section -->
 <section id="guest-posts-section" class="mt-10" style="display:none;">
   <h2 class="text-2xl font-bold mb-6 text-[var(--primary)]">
@@ -453,8 +471,96 @@
       .replace(/'/g, '&#039;');
   }
 
+  // ── Pro Codes & Waitlist Logic ─────────────────────────────────
+  async function generateProCode() {
+    const adminKey = localStorage.getItem('adminKey');
+    if (!adminKey) return;
+    
+    const btn = document.getElementById('btn-generate-code');
+    const display = document.getElementById('new-code-display');
+    btn.disabled = true;
+    btn.innerText = 'Generating...';
+    
+    try {
+      const res = await fetch('/api/generate-code', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${adminKey}` }
+      });
+      const data = await res.json();
+      if (res.ok) {
+        display.style.display = 'block';
+        display.innerText = data.code;
+      } else {
+        alert(data.error || 'Failed to generate code.');
+      }
+    } catch (err) {
+      alert('Network error while generating code.');
+    }
+    btn.disabled = false;
+    btn.innerText = 'Generate New Unlock Code';
+  }
+
+  async function loadWaitlist() {
+    const container = document.getElementById('waitlist-container');
+    const section = document.getElementById('waitlist-section');
+    const proSection = document.getElementById('pro-codes-section');
+    const adminKey = localStorage.getItem('adminKey');
+
+    if (!adminKey) {
+      if (section) section.style.display = 'none';
+      if (proSection) proSection.style.display = 'none';
+      setTimeout(loadWaitlist, 1000);
+      return;
+    }
+
+    if (section) section.style.display = 'block';
+    if (proSection) proSection.style.display = 'block';
+
+    try {
+      const res = await fetch('/api/get-waitlist', {
+        headers: { 'Authorization': `Bearer ${adminKey}` }
+      });
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+      const list = data.list || [];
+      
+      if (list.length === 0) {
+        container.innerHTML = `<p class="text-gray-400 text-sm">No waitlist entries yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = list.map(entry => `
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-5 mb-4 bg-white dark:bg-gray-900 shadow-sm">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-bold text-lg text-[var(--primary)]">${escapeHtml(entry.name)}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                📞 ${escapeHtml(entry.phone)} &nbsp;|&nbsp; 🏙️ ${escapeHtml(entry.city)} &nbsp;|&nbsp; 📐 ${escapeHtml(entry.plotSize)}
+              </p>
+              <p class="text-sm text-green-600 dark:text-green-400 mt-2 font-semibold">
+                💰 Est. Budget: Rs. ${Number(entry.estimatedBudget).toLocaleString()}
+              </p>
+            </div>
+            <span class="text-xs text-gray-400">
+              ${new Date(entry.submittedAt).toLocaleDateString('en-PK', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p class="text-red-500">Failed to load waitlist.</p>';
+    }
+  }
+
+  document.getElementById('btn-generate-code').addEventListener('click', generateProCode);
+
   // Auto-load on page ready
-  document.addEventListener('DOMContentLoaded', loadGuestPosts);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadGuestPosts();
+    loadWaitlist();
+  });
 </script>
 </body>
 </html>

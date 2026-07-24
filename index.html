@@ -364,6 +364,31 @@
 
                 </div>
 
+                <!-- Contractor Match Waitlist (Injected dynamically or hidden by default) -->
+                <div id="waitlist-card" class="dash-widget overview-widget hidden" style="margin-top: 1.5rem; background-color: var(--bg-secondary); border-color: var(--accent);">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                        <div>
+                            <h2 class="widget-title mb-1 text-[var(--accent)]">Want contractor quotes for this project?</h2>
+                            <p class="text-sm text-[var(--text-secondary)]">We're building a network of vetted contractors — join the waitlist and we'll reach out when it's ready.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="form-group mb-0">
+                            <label class="text-xs text-[var(--text-secondary)] mb-1 block">Name</label>
+                            <input type="text" id="waitlist-name" placeholder="Your Name" class="w-full min-h-[40px] px-3 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded text-sm text-[var(--text-primary)]">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="text-xs text-[var(--text-secondary)] mb-1 block">Phone (WhatsApp)</label>
+                            <input type="tel" id="waitlist-phone" placeholder="03XXXXXXXXX" class="w-full min-h-[40px] px-3 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded text-sm text-[var(--text-primary)]">
+                        </div>
+                        <input type="hidden" id="waitlist-honeypot" value="">
+                    </div>
+                    <div class="mt-4 flex flex-col sm:flex-row items-center gap-4">
+                        <button id="btn-join-waitlist" class="action-btn primary-btn w-full sm:w-auto mt-0 px-6 py-2 rounded-lg">Join Waitlist</button>
+                        <p id="waitlist-msg" class="text-sm font-semibold hidden"></p>
+                    </div>
+                </div>
+
             </section>
 
             <!-- Concrete Calculator View -->
@@ -698,10 +723,53 @@
                 </div>
             </section>
 
-            <!-- Moved Action Buttons -->
-            <div class="sidebar-footer flex flex-col sm:flex-row w-full max-w-2xl mx-auto px-4 lg:px-0 gap-4 mb-8 mt-auto">
-                <button class="action-btn w-full rounded-lg mt-0" id="btn-export">Export to PDF</button>
-                <button class="action-btn primary-btn w-full rounded-lg mt-0" id="btn-save">Save Estimate</button>
+            <!-- Moved Action Buttons & Pro Panel -->
+            <div class="sidebar-footer flex flex-col w-full max-w-2xl mx-auto px-4 lg:px-0 gap-4 mb-8 mt-auto">
+                <div class="flex flex-col sm:flex-row gap-4 w-full">
+                    <button class="action-btn w-full rounded-lg mt-0" id="btn-export">Export to PDF</button>
+                    <button class="action-btn primary-btn w-full rounded-lg mt-0" id="btn-save">Save Estimate</button>
+                </div>
+
+                <!-- Upgrade to Pro Panel -->
+                <div class="pro-upgrade-panel bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl p-5 shadow-sm text-left mt-2">
+                    <div id="pro-promo-view">
+                        <h4 class="font-bold text-[var(--accent)] mb-2 flex items-center gap-2">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            Upgrade to Pro PDF
+                        </h4>
+                        <p class="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed">Free export includes Intextify branding. Upgrade to Pro for a clean, client-ready PDF — Rs. 300, one-time.</p>
+                        
+                        <div class="bg-[var(--bg-secondary)] p-3 rounded-lg border border-[var(--border-color)] mb-4">
+                            <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                                <strong>How to upgrade:</strong> Send Rs. 300 via EasyPaisa/JazzCash to <strong class="text-white">[PAYMENT_NUMBER_PLACEHOLDER]</strong>, WhatsApp the screenshot to <a href="[WHATSAPP_LINK_PLACEHOLDER]" class="text-[#00E5FF] underline hover:text-white" target="_blank">[WHATSAPP_LINK_PLACEHOLDER]</a>, and you'll receive an unlock code within a few hours.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="pro-code-input" class="flex-1 min-h-[44px] px-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg text-[var(--text-primary)] text-sm" placeholder="Have a Pro code? Enter it here">
+                            <button id="btn-redeem-pro" class="action-btn min-h-[44px] px-4 rounded-lg m-0" style="margin-top:0;">Unlock Pro</button>
+                        </div>
+                        <p id="pro-redeem-msg" class="text-xs mt-3 hidden font-medium"></p>
+                    </div>
+
+                    <div id="pro-unlocked-view" class="hidden">
+                        <h4 class="font-bold text-[#10b981] mb-2 flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Pro Export Unlocked
+                        </h4>
+                        <p class="text-sm text-[var(--text-secondary)] mb-4">You can now customize your PDF headers before exporting. No watermark will be added.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="form-group mb-0">
+                                <label class="text-xs text-[var(--text-secondary)] mb-1 block">Prepared for (Name)</label>
+                                <input type="text" id="pdf-prepared-for" placeholder="e.g. Ali Khan" class="w-full min-h-[44px] px-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-[var(--text-primary)]">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="text-xs text-[var(--text-secondary)] mb-1 block">Project Name / Location</label>
+                                <input type="text" id="pdf-project-name" placeholder="e.g. 5 Marla DHA Phase 6" class="w-full min-h-[44px] px-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg text-sm text-[var(--text-primary)]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
         
