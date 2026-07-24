@@ -8,11 +8,15 @@ export default async function handler(req, res) {
   const rateLimitKey = `waitlist_rate_${ip}`;
 
   try {
-    const attempts = (await kv.get(rateLimitKey)) || 0;
-    if (attempts >= 5) {
+    const attempts = await kv.incr(rateLimitKey);
+    if (attempts === 1) {
+      // Only set the expiry on the FIRST request in a new window —
+      // do not call expire/ex on every subsequent increment.
+      await kv.expire(rateLimitKey, 3600);
+    }
+    if (attempts > 5) {
       return res.status(429).json({ error: 'Too many submissions. Please try again later.' });
     }
-    await kv.set(rateLimitKey, attempts + 1, { ex: 3600 });
   } catch (err) {
     console.error('Rate limit error:', err);
   }
